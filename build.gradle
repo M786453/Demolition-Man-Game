@@ -1,0 +1,17 @@
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'application'
+
+
+mainClassName = 'gradleproject1.Main'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation     'junit:junit:4.13'
+  // This dependency is used by the application.
+    implementation 'com.google.guava:guava:28.0-jre'
+    implementation 'org.processing:core:3.3.7'
+}
