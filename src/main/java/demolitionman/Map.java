@@ -10,9 +10,9 @@ package demolitionman;
  */
 public class Map {
     
-    private int rows;
-    private int columns;
-    private int offset;
+    public int rows;
+    public int columns;
+    public int offset;
     
     public Map(){
         

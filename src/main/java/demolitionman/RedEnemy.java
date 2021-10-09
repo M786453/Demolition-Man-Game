@@ -11,7 +11,7 @@ package demolitionman;
 public class RedEnemy extends Enemy{
     
     
-    private void moveRandom(){
+    public void moveRandom(){
         
         
         

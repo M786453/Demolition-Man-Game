@@ -10,8 +10,8 @@ package demolitionman;
  */
 public class BombGuy {
     
-    private int lifes;
-    private float animTimePerSprite;
+    public int lifes;
+    public float animTimePerSprite;
     
     public BombGuy(){
         
@@ -20,43 +20,43 @@ public class BombGuy {
         
     }
     
-    private void moveUp(){
+    public void moveUp(){
         
         
         
     }
     
-    private void moveDown(){
+    public void moveDown(){
         
         
         
     }
     
-    private void moveLeft(){
+    public void moveLeft(){
         
         
         
     }
     
-    private void moveRight(){
-        
-        
-        
-    }
-    
-    
-    private void placeBomb(){
+    public void moveRight(){
         
         
         
     }
     
     
-    private void die(){
+    public void placeBomb(){
+        
+        
         
     }
     
-    private void respawn(){
+    
+    public void die(){
+        
+    }
+    
+    public void respawn(){
         
     }
         

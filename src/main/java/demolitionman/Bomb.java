@@ -10,11 +10,11 @@ package demolitionman;
  */
 public class Bomb {
     
-    private float bombTime;
-    private int bombRange;
-    private int bombRangeWithWall;
-    private float animPerFrame;
-    private float explosionTime;
+    public float bombTime;
+    public int bombRange;
+    public int bombRangeWithWall;
+    public float animPerFrame;
+    public float explosionTime;
     
     
     public Bomb(){
@@ -28,7 +28,7 @@ public class Bomb {
     }
     
     
-    private void explode(){
+    public void explode(){
         
         
         

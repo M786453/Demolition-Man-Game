@@ -10,8 +10,8 @@ package demolitionman;
  */
 public class Level {
     
-    private String path;
-    private int time;
+    public String path;
+    public int time;
     
     
     public Level(String path,int time){
@@ -22,14 +22,14 @@ public class Level {
     }
     
     
-    private void start(){
+    public void start(){
         
         
         
     }
     
     
-    private void finish(){
+    public void finish(){
         
         
         

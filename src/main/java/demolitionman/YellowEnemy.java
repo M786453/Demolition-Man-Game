@@ -11,7 +11,7 @@ package demolitionman;
 public class YellowEnemy extends Enemy {
     
     
-    private void moveClockwise(){
+    public void moveClockwise(){
         
         
         

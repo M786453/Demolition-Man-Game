@@ -10,13 +10,13 @@ package demolitionman;
  */
 public class Tile {
     
-    private int gridHeight;
-    private int gridWidth;
-    private int gridSpace;
-    private boolean canPass;
-    private boolean canBreak;
-    private boolean isStartupTile;
-    private boolean isGoalTile;
+    public int gridHeight;
+    public int gridWidth;
+    public int gridSpace;
+    public boolean canPass;
+    public boolean canBreak;
+    public boolean isStartupTile;
+    public boolean isGoalTile;
     
     
     public Tile(boolean canPass,

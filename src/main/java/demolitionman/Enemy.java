@@ -11,8 +11,8 @@ package demolitionman;
 public class Enemy {
     
     
-    private float movTime;
-    private float frameTime;
+    public float movTime;
+    public float frameTime;
     
     
     public Enemy(){
@@ -23,7 +23,7 @@ public class Enemy {
     }
     
     
-    private void die(){
+    public void die(){
         
         
     }
