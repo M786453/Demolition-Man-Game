@@ -23,6 +23,8 @@ public class Main extends PApplet{
     
     BombGuy bombGuy;
     RedEnemy redEnemy;
+    YellowEnemy yellEnemy;
+    boolean isGameOver;
     
     static long startTime;
     
@@ -39,6 +41,7 @@ public class Main extends PApplet{
     
     
     int redFrameCounter2 = 1;
+    int yellowFrameCounter = 1;
     
     int[] x_direction = {0,0,1,-1};
     int[] y_direction = {1,-1,0,0};
@@ -98,13 +101,18 @@ public class Main extends PApplet{
         
         //here we need to instantiate every object which we draw on the window
         
+        //gameOver
+        isGameOver = false;
+        
+        
         //bombguy
         bombGuy = new BombGuy();
         
         //redEnemy
         redEnemy = new RedEnemy();
         
-        
+        //yellEnemy
+        yellEnemy = new YellowEnemy();
 
         
         //walls
@@ -179,6 +187,8 @@ public class Main extends PApplet{
         
         background(255,140,0);
         
+        if(!isGameOver){
+        
         fill(0);
         textSize(20);
         text(lives,190,40);
@@ -186,15 +196,23 @@ public class Main extends PApplet{
         
         long elapsedTime = System.currentTimeMillis() - startTime;
         
+        
+        
         if(elapsedTime/1000!=0){
           
           textSize(20);
+          if((180 - (int)(elapsedTime/1000)) > 0)
           text((180 - (int)(elapsedTime/1000)),305,40); 
-          
+          else
+              isGameOver = true;
+              
         }else{
           textSize(20);
           text((180),305,40); 
         }
+        
+        
+        
           image(clock,270,16);
 
           //testing level1
@@ -269,6 +287,7 @@ public class Main extends PApplet{
                           image(emptyw,j*32,(i*32)+64);
                           
                           break;
+                          
                       case 'R':
                           
                           
@@ -282,13 +301,21 @@ public class Main extends PApplet{
                               
                               //down or up
                               
-                                int yDirec = y_direction[redEnemy.redEnDirection];
-                                map = redEnemy.moveRandomFromXAxis(i, j, yDirec, map);
+                                
+                              
+                              int yDirec = y_direction[redEnemy.redEnDirection];
+                                
+                              map = redEnemy.moveRandomFromYAxis(i, j, yDirec, map);
            
                           }else if(redEnemy.redEnDirection == 2 || redEnemy.redEnDirection == 3){
                               //right or left
                               
+                              
+                              
+                              
+                              
                               int xDirec = x_direction[redEnemy.redEnDirection]; 
+                              
                               
                               
                               map = redEnemy.moveRandomFromXAxis(i, j, xDirec, map);
@@ -314,6 +341,9 @@ public class Main extends PApplet{
                           
                           int yRedPos = (abs(i-1)*32) + start_y_pos_red_en;                                                                                             
                       
+                          
+                          
+                          
                       positionGif(redEnemy.redAnimDirection,j*32,yRedPos,redUpGif,redDownGif,redLeftGif,redRightGif);
                                
                         
@@ -321,15 +351,54 @@ public class Main extends PApplet{
                           break;
                       case 'Y':
                           
+                          
+                          
+                          if(yellowFrameCounter == 60){
+                          
+                          if(yellEnemy.yellowEnDirection == 0 || yellEnemy.yellowEnDirection == 1){
+                              
+                              //down or up
+                              
+                                
+                              
+                              int yDirec = y_direction[yellEnemy.yellowEnDirection];
+                                
+                              map = yellEnemy.moveClockwiseFromYAxis(i, j, yDirec, map);
+           
+                          }else if(yellEnemy.yellowEnDirection == 2 || yellEnemy.yellowEnDirection == 3){
+                              
+                              
+                              
+                              //right or left
+                              
+                              int xDirec = x_direction[yellEnemy.yellowEnDirection]; 
+                              
+                              map = yellEnemy.moveClockwiseFromXAxis(i, j, xDirec, map);
+                              
+                              
+                          }
+      
+                          
+                          yellowFrameCounter = 1;
+                          
+                          }else{
+                              
+                              yellowFrameCounter++;
+                              
+                          }
+                          
+                          
+                          
+                          
                           image(emptyw,j*32,(i*32)+64);                                                                                                  
                           
                           //animated yellow in left direction
                           
                           
-                          int yYellowPos = ((i-1)*32)+start_y_pos_yell_en;                                             
+                            int yYellowPos = ((i-1)*32)+start_y_pos_yell_en;                                             
                                            
                               //here only for direction left (test) -> not completed
-                             positionGif(3,j*32,yYellowPos,yellowUpGif,yellowDownGif,yellowLeftGif,yellowRightGif);
+                             positionGif(yellEnemy.yellowAnimDirection,j*32,yYellowPos,yellowUpGif,yellowDownGif,yellowLeftGif,yellowRightGif);
                                   
                                
                                               
@@ -359,6 +428,17 @@ public class Main extends PApplet{
           
           
     }
+          
+    }else{
+            
+            //game Over
+        fill(0);
+        textSize(20);
+        textAlign(CENTER);
+        text("GAME OVER",240,240);
+            
+            
+        }
             
         
     }
@@ -507,6 +587,9 @@ public class Main extends PApplet{
         
         
     }
+    
+    
+    
     
     
 }
