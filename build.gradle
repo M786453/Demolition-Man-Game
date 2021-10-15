@@ -14,4 +14,10 @@ dependencies {
   // This dependency is used by the application.
     implementation 'com.google.guava:guava:28.0-jre'
     implementation 'org.processing:core:3.3.7'
+    // https://mvnrepository.com/artifact/org.json/json
+    implementation 'org.json:json:20210307'
+
+     implementation fileTree(dir: 'lib', include: 'gifAnimation.jar')
+    
+
 }
