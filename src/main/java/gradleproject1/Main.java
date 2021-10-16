@@ -116,25 +116,37 @@ public class Main extends PApplet{
 
         
         //walls
-        solidw = loadImage(System.getProperty("user.dir")+"\\src\\main\\resources\\wall\\solid.png");
-        brokenw = loadImage(System.getProperty("user.dir")+"\\src\\main\\resources\\broken\\broken.png");
-        emptyw = loadImage(System.getProperty("user.dir")+"\\src\\main\\resources\\empty\\empty.png");
-        goalw = loadImage(System.getProperty("user.dir")+"\\src\\main\\resources\\goal\\goal.png");
+        solidw = loadImage(System.getProperty("user.dir")+ File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "wall" + File.separator + "solid.png");
+        brokenw = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "broken" + File.separator + "broken.png");
+        emptyw = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "empty" + File.separator + "empty.png");
+        goalw = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "goal" + File.separator + "goal.png");
+        
         
         //icons
+        life = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "icons" + File.separator + "player.png");
+        clock = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "icons" + File.separator + "clock.png");
         
-        life = loadImage(System.getProperty("user.dir")+"\\src\\main\\resources\\icons\\player.png");
-        clock = loadImage(System.getProperty("user.dir")+"\\src\\main\\resources\\icons\\clock.png");
                     
         
         /*
         PLAYER GIFS FOR EACH CARDINAL DIRECTION
          */
 
-        playerLeftGif = new Gif(this,System.getProperty("user.dir")+"\\src\\main\\resources\\player\\player_left.gif" );
-        playerDownGif = new Gif(this,System.getProperty("user.dir")+"\\src\\main\\resources\\player\\player.gif" );
-        playerUpGif = new Gif(this,System.getProperty("user.dir")+"\\src\\main\\resources\\player\\player_up.gif" );
-        playerRightGif = new Gif(this,System.getProperty("user.dir")+"\\src\\main\\resources\\player\\player_right.gif" );
+        playerLeftGif = new Gif(this,System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "player" + File.separator + "player_left.gif");
+        playerDownGif = new Gif(this,System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "player" + File.separator + "player.gif");
+        playerUpGif = new Gif(this,System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "player" + File.separator + "player_up.gif");
+        playerRightGif = new Gif(this,System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "player" + File.separator + "player_right.gif");
+        
  
         
               
@@ -147,11 +159,19 @@ public class Main extends PApplet{
         RED ENEMY GIFS FOR ANIMATION FOR EACH CARDINAL DIRECTION
         */
         
-       
-        redUpGif = new Gif(this,System.getProperty("user.dir")+"\\src\\main\\resources\\red_enemy\\red_up.gif" );
-        redDownGif = new Gif(this,System.getProperty("user.dir")+"\\src\\main\\resources\\red_enemy\\red_down.gif" );
-        redLeftGif = new Gif(this,System.getProperty("user.dir")+"\\src\\main\\resources\\red_enemy\\red_left.gif" );
-        redRightGif = new Gif(this,System.getProperty("user.dir")+"\\src\\main\\resources\\red_enemy\\red_right.gif" );
+        
+        
+        
+        redUpGif = new Gif(this,System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_up.gif");
+        redDownGif = new Gif(this,System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_down.gif");
+        
+        redLeftGif = new Gif(this,System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_left.gif");
+        redRightGif = new Gif(this,System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_right.gif");
+        
         
        
         redUpGif.play();
@@ -163,10 +183,18 @@ public class Main extends PApplet{
         YELLOW ENEMY GIFS FOR ANIMATION FOR EACH CARDINAL DIRECTION
         */
         
-        yellowUpGif = new Gif(this,System.getProperty("user.dir")+"\\src\\main\\resources\\yellow_enemy\\yellow_up.gif");
-        yellowDownGif = new Gif(this,System.getProperty("user.dir")+"\\src\\main\\resources\\yellow_enemy\\yellow_down.gif");
-        yellowLeftGif = new Gif(this,System.getProperty("user.dir")+"\\src\\main\\resources\\yellow_enemy\\yellow_left.gif");
-        yellowRightGif = new Gif(this,System.getProperty("user.dir")+"\\src\\main\\resources\\yellow_enemy\\yellow_right.gif");
+        yellowUpGif = new Gif(this,System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_up.gif");
+        
+        yellowDownGif = new Gif(this,System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_down.gif");
+        
+        yellowLeftGif = new Gif(this,System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_left.gif");
+        
+        yellowRightGif = new Gif(this,System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_right.gif");
+        
             
         
         yellowUpGif.play();
@@ -448,7 +476,7 @@ public class Main extends PApplet{
         String data = "";
         try{
             
-            File config = new File(System.getProperty("user.dir") + "\\config.json");
+            File config = new File(System.getProperty("user.dir") + File.separator +"config.json");
             Scanner scanner = new Scanner(config);
             
             while(scanner.hasNextLine())
@@ -485,7 +513,7 @@ public class Main extends PApplet{
             
             JSONObject levelObj = levels.getJSONObject(i);
             Level level = new Level(levelObj.getString("path"),levelObj.getInt("time"));
-            
+            System.out.println(level.path);
             level.setMap(readMapFromFile(level.path));
             
             levelArray[i] = level;
