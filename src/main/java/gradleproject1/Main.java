@@ -570,7 +570,14 @@ public class Main extends PApplet{
         return map;
     }
     
-    public void keyPressed(){
+    
+    
+    
+   
+    
+    
+    @Override
+    public void keyReleased(){
         
         int newdire = -1;
         if(keyCode == DOWN)
@@ -581,6 +588,7 @@ public class Main extends PApplet{
             newdire = 2;
         else if(keyCode == LEFT)
             newdire = 3;
+        
         
         if(newdire != -1)
             bombGuy.direction = bombGuy.anim_direction = newdire;
