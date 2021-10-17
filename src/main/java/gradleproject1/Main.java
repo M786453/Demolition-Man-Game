@@ -24,14 +24,16 @@ public class Main extends PApplet{
     BombGuy bombGuy;
     RedEnemy redEnemy;
     YellowEnemy yellEnemy;
+    Bomb bomb;
     boolean isGameOver;
+    static boolean canResetLevel;
     
     static long startTime;
     
-    PImage solidw,brokenw,emptyw,goalw,life,clock;
+    PImage solidw,brokenw,emptyw,goalw,life,clock,explosionC,explosionEndL,explosionEndR,explosionEndT,explosionEndB,explosionH,explosionV;
 
     Gif playerUpGif,playerDownGif,playerLeftGif,playerRightGif,redUpGif,redDownGif,redLeftGif,redRightGif,
-            yellowUpGif,yellowDownGif,yellowLeftGif,yellowRightGif;
+            yellowUpGif,yellowDownGif,yellowLeftGif,yellowRightGif,bombGif;
     
     
     static int lives;
@@ -101,8 +103,19 @@ public class Main extends PApplet{
         
         //here we need to instantiate every object which we draw on the window
         
+        //initialy canResetLevel is false
+        //it will be true when player loses a life
+        //when it is true the level will be reset
+        
+        canResetLevel = false;
+        
+        
+        
         //gameOver
         isGameOver = false;
+        
+        //bomb
+        bomb = new Bomb();
         
         
         //bombguy
@@ -201,10 +214,35 @@ public class Main extends PApplet{
         yellowDownGif.play();
         yellowLeftGif.play();
         yellowRightGif.play();
-            
-            
-            
         
+        
+        //bomb gif
+        
+        bombGif = new Gif(this,System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "bomb" + File.separator + "bomb.gif");
+            
+            
+        bombGif.play();
+            
+        //EXPLOSION SPRITES
+        
+        explosionC = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "explosion" + File.separator + "centre.png");
+        
+        explosionEndT = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "explosion" + File.separator + "end_top.png");
+        explosionEndB = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "explosion" + File.separator + "end_bottom.png");
+        explosionEndR = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "explosion" + File.separator + "end_right.png");
+        explosionEndL = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "explosion" + File.separator + "end_left.png");
+        
+        
+        explosionH = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "explosion" + File.separator + "horizontal.png");
+        explosionV = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
+                File.separator + "resources" + File.separator + "explosion" + File.separator + "vertical.png");
     }
     
     public void draw(){
@@ -216,6 +254,11 @@ public class Main extends PApplet{
         background(255,140,0);
         
         if(!isGameOver){
+            
+            if(lives == 0 ){
+                isGameOver = true;            
+                return;
+            }
         
         fill(0);
         textSize(20);
@@ -243,10 +286,20 @@ public class Main extends PApplet{
         
           image(clock,270,16);
 
-          //testing level1
+          //loadLevel
+          
           Level level = gameLevels[levelIndex];
           char[][] map = level.mapArray;
           
+          
+          //reset bombguy position when he dies
+          if(canResetLevel){
+              
+                bombGuy = new BombGuy();
+                
+                canResetLevel = false;            
+                
+          }
           
           
           for(int i=0;i<13;i++){
@@ -298,9 +351,24 @@ public class Main extends PApplet{
                             
                               
                           }
+                          
+                          
+                          
                               
                                                                                                                                                                                                                                                         
                           //this will animate the player
+                          
+                          
+                          if(bomb.isPlaced)     {
+                              
+                              bomb.bombX = i;
+                              bomb.bombY = j;
+                              bomb.isPlaced = false;
+                              
+                          }
+                              
+                         
+                              
                           
                           image(emptyw,j*32,(i*32)+64);
                                                                 
@@ -451,6 +519,10 @@ public class Main extends PApplet{
                       
                   }
                   
+                  
+                  if(i == bomb.bombX && j == bomb.bombY)
+                      image(bombGif,j*32,(i*32)+64);
+                  
               }
               
           
@@ -588,7 +660,10 @@ public class Main extends PApplet{
             newdire = 2;
         else if(keyCode == LEFT)
             newdire = 3;
-        
+        else if(keyCode == 32){ //keyCode 32 is for spacebar
+            bomb.isPlaced = true;
+            bomb.placeTime = System.currentTimeMillis();
+        }
         
         if(newdire != -1)
             bombGuy.direction = bombGuy.anim_direction = newdire;

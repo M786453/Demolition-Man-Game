@@ -43,9 +43,17 @@ public class RedEnemy{
                 map[i][j] = ' ';
 
 
-            } else if (map[i][moveIndex] == 'B' || map[i][moveIndex] == 'W') {
+            }else if(map[i][moveIndex] == 'P'){
+                
+                map[1][1] = 'P';
+                Main.lives--;
+                Main.canResetLevel = true;
+                
+                map[i][moveIndex] = 'R';
+                map[i][j] = ' ';
                 
                 
+            }else if (map[i][moveIndex] == 'B' || map[i][moveIndex] == 'W') {
                 
                 
                 map = moveRandom(i,j,map);
@@ -76,7 +84,16 @@ public class RedEnemy{
                 map[i][j] = ' ';
 
 
-            } else if (map[moveIndex][j] == 'B' || map[moveIndex][j] == 'W') {
+            }else if(map[moveIndex][j] == 'P'){
+            
+                map[1][1] = 'P';
+                Main.lives--;
+                Main.canResetLevel = true;
+                
+                map[moveIndex][j] = 'R';
+                map[i][j] = ' ';
+            
+            }else if (map[moveIndex][j] == 'B' || map[moveIndex][j] == 'W') {
 
                 
                 map = moveRandom(i,j,map);
@@ -95,102 +112,116 @@ public class RedEnemy{
     private char[][] moveRandom(int i,int j,char[][] map){
         
         
-         ArrayList<Integer> cardinalPos = new ArrayList<Integer>();
-
-                cardinalPos.add(i + 1);
-                cardinalPos.add(i - 1);
-                cardinalPos.add(j + 1);
-                cardinalPos.add(j - 1);
-
-
-                int nextMove = -1;
-                while (nextMove < 0) {
-
-                    Random rand = new Random();
-
-
-                    if (cardinalPos.size() > 0) {
-
-                        int randIndex = rand.nextInt(cardinalPos.size());
-
-                     
-                        
-                        if (cardinalPos.get(randIndex) == -1) {
-                            break;
-                        }
-
-
-                        if (randIndex == 0 || randIndex == 1) {
-                            //down or up
-
-                            if (cardinalPos.get(randIndex) < 13) {
-
-
-                                if (map[cardinalPos.get(randIndex)][j] == ' ') {
-
-                                    nextMove = cardinalPos.get(randIndex);
-
-                                    //replaace enemy index in map array   
-                                    
-                                    map[nextMove][j] = 'R';
-                                    map[i][j] = ' ';
-
-                                    redEnDirection = randIndex;
-                                    redAnimDirection = redEnDirection;
-
-
-                                    break;
-
-                                } else {
-                                    cardinalPos.set(randIndex, -1);
-                                }
-
-                            } else {
-
-                                cardinalPos.set(randIndex, -1);
-
-                            }
-
-                        } else if (randIndex == 2 || randIndex == 3) {
-                            //right or left
-                            if (cardinalPos.get(randIndex) < 14) {
-
-
-                                if (map[i][cardinalPos.get(randIndex)] == ' ') {
-
-
-                                    nextMove = cardinalPos.get(randIndex);
-
-                                    //replaace enemy index in map array   
-                                    
-                                    map[i][nextMove] = 'R';
-                                    map[i][j] = ' ';
-
-                                    redEnDirection = randIndex;
-                                    redAnimDirection = redEnDirection;
-
-
-                                    break;
-
-                                } else {
-
-                                    cardinalPos.set(randIndex, -1);
-
-                                }
-
-                            } else {
-
-                                cardinalPos.set(randIndex, -1);
-
-                            }
-
-                        }
-
-                    }
-
-                }
+        
+        int pX = -1;
+        int pY = -1;
+        
+        ArrayList<Integer[]> openWays = new ArrayList<Integer[]>(); //this list will contain positions of empty tiles around redEnemy
+        
+        if(map[i+1][j] == ' '){
+            Integer[] x_y = new Integer[2];
+            x_y[0] = i+1;
+            x_y[1] = j;
+            openWays.add(x_y);
+            
+        }else if(map[i+1][j] == 'P'){
+            pX = i+1;
+            pY = j;
+        }
+        
+        
+        
+        if(map[i-1][j] == ' '){
+            Integer[] x_y = new Integer[2];
+            x_y[0] = i-1;
+            x_y[1] = j;
+            openWays.add(x_y);
+            
+        }else if(map[i-1][j] == 'P'){
+            pX = i-1;
+            pY = j;
+        }
+        
+        
+        if(map[i][j+1] == ' '){
+            Integer[] x_y = new Integer[2];
+            x_y[0] = i;
+            x_y[1] = j+1;
+            openWays.add(x_y);
+            
+        }else if(map[i][j+1] == 'P'){
+            pX = i;
+            pY = j+1;
+        }
+        
+        if(map[i][j-1] == ' '){
+            Integer[] x_y = new Integer[2];
+            x_y[0] = i;
+            x_y[1] = j-1;
+            openWays.add(x_y);
+            
+        }else if(map[i][j-1] == 'P'){
+            pX = i;
+            pY = j-1;
+        }
+        
+        
+        if(openWays.size() > 0){
+            
+            Random random = new Random();
+            int randIndex = random.nextInt(openWays.size());
+            
+            Integer[] randOpenWay = openWays.get(randIndex);
+            
+            int newX = randOpenWay[0];
+            int newY = randOpenWay[1];
+            
+            map[newX][newY] = 'R';
+            map[i][j] = ' ';
+            
+            //will set the direction and anim direction of red enemy according to new positions
+            setRedDirection(newX,newY,i,j);
+            
+           
+            
+        }else{
+            
+            
+            if(pX != -1 && pY != -1){
+                
+                map[1][1] = 'P';
+                Main.lives--;
+                Main.canResetLevel = true;
+                
+                map[pX][pY] = 'R';
+                map[i][j] = ' ';
+                
+                setRedDirection(pX,pY,i,j);
+                
+                
+            }else
+                System.out.println("No path found for redEnemy");
+                          
+        }
+        
+      
+                  
 
         return map;
+    }
+    
+    
+    private void setRedDirection(int newX,int newY,int oldX,int oldY){
+        
+         if(newX > oldX)
+                redEnDirection = redAnimDirection = 0;
+            else if(newX < oldX)
+                redEnDirection = redAnimDirection = 1;
+            else if(newY > oldY)
+                redEnDirection = redAnimDirection = 2;
+            else if(newY < oldY)
+                redEnDirection = redAnimDirection = 3;
+        
     }
     
     

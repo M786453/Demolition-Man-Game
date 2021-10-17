@@ -40,6 +40,16 @@ public class BombGuy extends PApplet {
                                map[i][j] = ' ';
                                direction = -1;
                                       
+                        }else if(map[i][moveIndex] == 'R' || map[i][moveIndex] == 'Y'){
+                            
+                            
+                           map[1][1] = 'P';
+                           Main.lives--;
+                           Main.canResetLevel = true;
+                           
+                           map[i][j] = ' ';
+                           direction = -1;
+                            
                         }
                                   
                 }
@@ -66,6 +76,16 @@ public class BombGuy extends PApplet {
                        map[i][j] = ' ';
                        direction = -1;
                                       
+                       }else if(map[moveIndex][j] == 'R' || map[moveIndex][j] == 'Y'){
+                           
+                           map[1][1] = 'P';
+                           Main.lives--;
+                           Main.canResetLevel = true;
+                           
+                           map[i][j] = ' ';
+                           direction = -1;
+                           
+                           
                        }
                                   
               }

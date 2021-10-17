@@ -14,11 +14,13 @@ public class Level {
     public int time;
     public char[][] mapArray;
     
+    
     public Level(String path,int time){
         
         this.path = path;
         this.time = time;
         mapArray = null;
+        
         
     }
     
@@ -26,6 +28,7 @@ public class Level {
     public void setMap(char[][] map){
         
         mapArray = map;
+        
         
     }
     

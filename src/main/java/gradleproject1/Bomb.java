@@ -13,8 +13,13 @@ public class Bomb {
     public float bombTime;
     public int bombRange;
     public int bombRangeWithWall;
-    public float animPerFrame;
     public float explosionTime;
+    
+    public int bombX;
+    public int bombY;
+    public boolean isPlaced;
+    public long placeTime;
+    
     
     
     public Bomb(){
@@ -22,8 +27,14 @@ public class Bomb {
         bombTime = 2.0f;
         bombRange = 2;
         bombRangeWithWall = 1;
-        animPerFrame = 0.25f;
+        
         explosionTime = 0.5f;
+        
+        bombX = -1;
+        bombY = -1;
+        isPlaced = false;
+        placeTime = 0;
+        
         
     }
     
