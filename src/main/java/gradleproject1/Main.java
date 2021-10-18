@@ -12,7 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import processing.core.*;
 import gifAnimation.*;
-//import gifAnimation.*;
+
 
 
 /**
@@ -27,6 +27,7 @@ public class Main extends PApplet{
     Bomb bomb;
     boolean isGameOver;
     static boolean canResetLevel;
+    boolean isWin;
     
     static long startTime;
     
@@ -109,6 +110,8 @@ public class Main extends PApplet{
         
         canResetLevel = false;
         
+        
+        isWin = false;
         
         
         //gameOver
@@ -253,6 +256,19 @@ public class Main extends PApplet{
         
         background(255,140,0);
         
+        
+        if(isWin){
+            
+            fill(0);
+            textSize(20);
+            textAlign(CENTER);
+            text("You Win",240,240);
+            
+            return;
+        }
+        
+        
+        
         if(!isGameOver){
             
             if(lives == 0 ){
@@ -323,7 +339,11 @@ public class Main extends PApplet{
                          
                           //this condition is for changing level
                           if(i == goalIndex[0] && j == goalIndex[1]){
-                              levelIndex = 1;
+                              
+                              if(levelIndex == gameLevels.length-1)
+                                  isWin = true;
+                              else
+                                  levelIndex++;
                               bombGuy.anim_direction = -1;
                           }
                           
@@ -428,6 +448,9 @@ public class Main extends PApplet{
                           goalIndex[1] = j;
                           image(goalw,j*32,(i*32)+64);
                         
+                          
+                          
+                          
                           break;
                    
                       

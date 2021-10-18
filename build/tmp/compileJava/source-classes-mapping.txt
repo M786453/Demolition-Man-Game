@@ -6,11 +6,11 @@ gradleproject1/Map.java
  gradleproject1.Map
 gradleproject1/Bomb.java
  gradleproject1.Bomb
-gradleproject1/BombGuy.java
- gradleproject1.BombGuy
 gradleproject1/Main.java
  gradleproject1.Main
 gradleproject1/RedEnemy.java
  gradleproject1.RedEnemy
 gradleproject1/YellowEnemy.java
  gradleproject1.YellowEnemy
+gradleproject1/BombGuy.java
+ gradleproject1.BombGuy
