@@ -37,12 +37,23 @@ public class RedEnemy{
             if (map[i][moveIndex] == ' ') {
 
 
+                
                 //replaace enemy index in map array   
                 
                 map[i][moveIndex] = 'R';
+                
                 map[i][j] = ' ';
 
 
+            }else if(map[i][moveIndex] == 'Y'){
+            
+                
+                map[i][moveIndex] = 'X';
+                
+                map[i][j] = ' ';
+
+            
+            
             }else if(map[i][moveIndex] == 'P'){
                 
                 map[1][1] = 'P';
@@ -84,6 +95,13 @@ public class RedEnemy{
                 map[i][j] = ' ';
 
 
+            }else if(map[moveIndex][j] == 'Y'){
+            
+            map[moveIndex][j] = 'X';
+                map[i][j] = ' ';
+
+            
+            
             }else if(map[moveIndex][j] == 'P'){
             
                 map[1][1] = 'P';
@@ -118,7 +136,7 @@ public class RedEnemy{
         
         ArrayList<Integer[]> openWays = new ArrayList<Integer[]>(); //this list will contain positions of empty tiles around redEnemy
         
-        if(map[i+1][j] == ' '){
+        if(map[i+1][j] == ' ' || map[i+1][j] == 'Y'){
             Integer[] x_y = new Integer[2];
             x_y[0] = i+1;
             x_y[1] = j;
@@ -131,7 +149,7 @@ public class RedEnemy{
         
         
         
-        if(map[i-1][j] == ' '){
+        if(map[i-1][j] == ' ' || map[i-1][j] == 'Y'){
             Integer[] x_y = new Integer[2];
             x_y[0] = i-1;
             x_y[1] = j;
@@ -143,7 +161,7 @@ public class RedEnemy{
         }
         
         
-        if(map[i][j+1] == ' '){
+        if(map[i][j+1] == ' ' || map[i][j+1] == 'Y'){
             Integer[] x_y = new Integer[2];
             x_y[0] = i;
             x_y[1] = j+1;
@@ -154,7 +172,7 @@ public class RedEnemy{
             pY = j+1;
         }
         
-        if(map[i][j-1] == ' '){
+        if(map[i][j-1] == ' ' || map[i][j-1] == 'Y'){
             Integer[] x_y = new Integer[2];
             x_y[0] = i;
             x_y[1] = j-1;
@@ -176,7 +194,10 @@ public class RedEnemy{
             int newX = randOpenWay[0];
             int newY = randOpenWay[1];
             
-            map[newX][newY] = 'R';
+            if(map[newX][newY] == 'Y')
+                map[newX][newY] = 'X';
+            else if(map[newX][newY] == ' ')
+                map[newX][newY] = 'R';
             map[i][j] = ' ';
             
             //will set the direction and anim direction of red enemy according to new positions

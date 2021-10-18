@@ -37,6 +37,7 @@ public class YellowEnemy {
 
             if (map[i][moveIndex] == ' ') {
 
+                
 
                 //replaace enemy index in map array   
                 
@@ -44,6 +45,13 @@ public class YellowEnemy {
                 map[i][j] = ' ';
 
 
+            }else if(map[i][moveIndex] == 'R'){
+            
+                //yellow and red enemies can pass through each other
+                
+                map[i][moveIndex] = 'X'; //here X symbol means that yellow and read enemy are at same position
+                map[i][j] = ' ';
+            
             }else if(map[i][moveIndex] == 'P'){
             
                 map[1][1] = 'P';
@@ -86,6 +94,14 @@ public class YellowEnemy {
                 map[i][j] = ' ';
 
 
+            }else if(map[moveIndex][j] == 'R'){
+            
+                
+                map[moveIndex][j] = 'X';
+                map[i][j] = ' ';
+
+                
+            
             }else if(map[moveIndex][j] == 'P'){
             
                 map[1][1] = 'P';
@@ -148,6 +164,14 @@ public class YellowEnemy {
                             yellowAnimDirection = yellowEnDirection = getDirection(k); //this will get the direction according to original directions pattern from clockwsie direction value
                             
                             break;
+                        }else if(map[cardinalPos.get(k)][j] == 'R'){
+                        
+                            map[cardinalPos.get(k)][j] = 'X';
+                            map[i][j] = ' ';
+                            yellowAnimDirection = yellowEnDirection = getDirection(k); //this will get the direction according to original directions pattern from clockwsie direction value
+                            
+                            break;
+                        
                         }else if(map[cardinalPos.get(k)][j] == 'P'){
                             
                              map[1][1] = 'P';
@@ -171,6 +195,14 @@ public class YellowEnemy {
                             map[i][j] = ' ';
                             yellowAnimDirection = yellowEnDirection = getDirection(k);
                             break;
+                        }else if(map[i][cardinalPos.get(k)] == 'R'){
+                        
+                            map[i][cardinalPos.get(k)] = 'X';
+                            map[i][j] = ' ';
+                            yellowAnimDirection = yellowEnDirection = getDirection(k);
+                            break;
+                        
+                        
                         }else if(map[i][cardinalPos.get(k)] == 'P'){
                             
                             map[1][1] = 'P';

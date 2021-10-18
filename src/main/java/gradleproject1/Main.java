@@ -387,117 +387,31 @@ public class Main extends PApplet{
                       case 'R':
                           
                           
-                          //changing the direction of red enemy
-                          
-                          
-                          
-                          if(redFrameCounter2 == 60){
-                          
-                          if(redEnemy.redEnDirection == 0 || redEnemy.redEnDirection == 1){
-                              
-                              //down or up
-                              
-                                
-                              
-                              int yDirec = y_direction[redEnemy.redEnDirection];
-                                
-                              map = redEnemy.moveRandomFromYAxis(i, j, yDirec, map);
-           
-                          }else if(redEnemy.redEnDirection == 2 || redEnemy.redEnDirection == 3){
-                              //right or left
-                              
-                              
-                              
-                              
-                              
-                              int xDirec = x_direction[redEnemy.redEnDirection]; 
-                              
-                              
-                              
-                              map = redEnemy.moveRandomFromXAxis(i, j, xDirec, map);
-                              
-                              
-                          }
-      
-                          
-                          redFrameCounter2 = 1;
-                          
-                          }else{
-                              
-                              redFrameCounter2++;
-                              
-                          }
-                          
-                          
-                          
-                          image(emptyw,j*32,(i*32)+64);
-                          
-
-                          //animating red enemy in right direction
-                          
-                          int yRedPos = (abs(i-1)*32) + start_y_pos_red_en;                                                                                             
-                      
-                          
-                          
-                          
-                      positionGif(redEnemy.redAnimDirection,j*32,yRedPos,redUpGif,redDownGif,redLeftGif,redRightGif);
-                               
+                         
+                               redEnemyAI(i,j,map);
                         
                           
                           break;
                       case 'Y':
                           
+                                       
                           
-                          
-                          if(yellowFrameCounter == 60){
-                          
-                          if(yellEnemy.yellowEnDirection == 0 || yellEnemy.yellowEnDirection == 1){
-                              
-                              //down or up
-                              
-                                
-                              
-                              int yDirec = y_direction[yellEnemy.yellowEnDirection];
-                                
-                              map = yellEnemy.moveClockwiseFromYAxis(i, j, yDirec, map);
-           
-                          }else if(yellEnemy.yellowEnDirection == 2 || yellEnemy.yellowEnDirection == 3){
-                              
-                              
-                              
-                              //right or left
-                              
-                              int xDirec = x_direction[yellEnemy.yellowEnDirection]; 
-                              
-                              map = yellEnemy.moveClockwiseFromXAxis(i, j, xDirec, map);
-                              
-                              
-                          }
-      
-                          
-                          yellowFrameCounter = 1;
-                          
-                          }else{
-                              
-                              yellowFrameCounter++;
-                              
-                          }
+                                yellowEnemyAI(i,j,map);
                           
                           
                           
+                          break;
                           
-                          image(emptyw,j*32,(i*32)+64);                                                                                                  
-                          
-                          //animated yellow in left direction
+                      case 'X':
                           
                           
-                            int yYellowPos = ((i-1)*32)+start_y_pos_yell_en;                                             
-                                           
-                              //here only for direction left (test) -> not completed
-                             positionGif(yellEnemy.yellowAnimDirection,j*32,yYellowPos,yellowUpGif,yellowDownGif,yellowLeftGif,yellowRightGif);
-                                  
-                               
-                                              
+                          yellowEnemyAI(i,j,map);
+                          
+                          map[i][j] = 'X';
+                          
+                          redEnemyAI(i,j,map);
+                          
+                          
                           
                           
                           
@@ -699,6 +613,126 @@ public class Main extends PApplet{
         
     }
     
+    
+    
+    private void redEnemyAI(int i,int j,char[][] map){
+        
+        
+         //changing the direction of red enemy
+                          
+                          
+                          
+                          if(redFrameCounter2 == 60){
+                          
+                          if(redEnemy.redEnDirection == 0 || redEnemy.redEnDirection == 1){
+                              
+                              //down or up
+                              
+                                
+                              
+                              int yDirec = y_direction[redEnemy.redEnDirection];
+                                
+                              map = redEnemy.moveRandomFromYAxis(i, j, yDirec, map);
+           
+                          }else if(redEnemy.redEnDirection == 2 || redEnemy.redEnDirection == 3){
+                              //right or left
+                              
+                              
+                              
+                              
+                              
+                              int xDirec = x_direction[redEnemy.redEnDirection]; 
+                              
+                              
+                              
+                              map = redEnemy.moveRandomFromXAxis(i, j, xDirec, map);
+                              
+                              
+                          }
+      
+                          
+                          redFrameCounter2 = 1;
+                          
+                          }else{
+                              
+                              redFrameCounter2++;
+                              
+                          }
+                          
+                          
+                          
+                          image(emptyw,j*32,(i*32)+64);
+                          
+
+                          //animating red enemy in right direction
+                          
+                          int yRedPos = (abs(i-1)*32) + start_y_pos_red_en;                                                                                             
+                      
+                          
+                          
+                          
+                      positionGif(redEnemy.redAnimDirection,j*32,yRedPos,redUpGif,redDownGif,redLeftGif,redRightGif);
+        
+        
+    }
+    
+    
+    private void yellowEnemyAI(int i,int j, char[][] map){
+        
+        
+        
+                          
+                          if(yellowFrameCounter == 60){
+                          
+                          if(yellEnemy.yellowEnDirection == 0 || yellEnemy.yellowEnDirection == 1){
+                              
+                              //down or up
+                              
+                                
+                              
+                              int yDirec = y_direction[yellEnemy.yellowEnDirection];
+                                
+                              map = yellEnemy.moveClockwiseFromYAxis(i, j, yDirec, map);
+           
+                          }else if(yellEnemy.yellowEnDirection == 2 || yellEnemy.yellowEnDirection == 3){
+                              
+                              
+                              
+                              //right or left
+                              
+                              int xDirec = x_direction[yellEnemy.yellowEnDirection]; 
+                              
+                              map = yellEnemy.moveClockwiseFromXAxis(i, j, xDirec, map);
+                              
+                              
+                          }
+      
+                          
+                          yellowFrameCounter = 1;
+                          
+                          }else{
+                              
+                              yellowFrameCounter++;
+                              
+                          }
+                          
+                          
+                          
+                          
+                          image(emptyw,j*32,(i*32)+64);                                                                                                  
+                          
+                          //animated yellow in left direction
+                          
+                          
+                            int yYellowPos = ((i-1)*32)+start_y_pos_yell_en;                                             
+                                           
+                              //here only for direction left (test) -> not completed
+                             positionGif(yellEnemy.yellowAnimDirection,j*32,yYellowPos,yellowUpGif,yellowDownGif,yellowLeftGif,yellowRightGif);
+                                  
+                               
+                                 
+        
+    }
     
     
     
