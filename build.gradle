@@ -3,7 +3,7 @@ apply plugin: 'jacoco'
 apply plugin: 'application'
 
 
-mainClassName = 'gradleproject1.Main'
+mainClassName = 'demolition.App'
 
 repositories {
     mavenCentral()

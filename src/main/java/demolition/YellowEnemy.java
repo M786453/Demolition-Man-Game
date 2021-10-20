@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package gradleproject1;
+package demolition;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -33,7 +33,7 @@ public class YellowEnemy {
         
          int moveIndex = j + xDirec;
 
-        if (moveIndex >= 0 && moveIndex < 14) {
+        if (moveIndex >= 0 && moveIndex < 15) {
 
             if (map[i][moveIndex] == ' ') {
 
@@ -55,13 +55,13 @@ public class YellowEnemy {
             }else if(map[i][moveIndex] == 'P'){
             
                 map[1][1] = 'P';
-                Main.lives--;
-                Main.canResetLevel = true;
+                App.lives--;
+                App.canResetLevel = true;
                 
                 map[i][moveIndex] = 'Y';
                 map[i][j] = ' ';
             
-            }else if (map[i][moveIndex] == 'B' || map[i][moveIndex] == 'W') {                                             
+            }else if (map[i][moveIndex] == 'B' || map[i][moveIndex] == 'W' || map[i][moveIndex] == 'G') {                                             
                 
                 map = moveClockwise(i,j,map);
                 
@@ -83,7 +83,7 @@ public class YellowEnemy {
         
          int moveIndex = i + yDirec;
 
-        if (moveIndex >= 0 && moveIndex < 13) {
+        if (moveIndex >= 0 && moveIndex < 14) {
 
             if (map[moveIndex][j] == ' ') {
 
@@ -105,13 +105,13 @@ public class YellowEnemy {
             }else if(map[moveIndex][j] == 'P'){
             
                 map[1][1] = 'P';
-                Main.lives--;
-                Main.canResetLevel = true;
+                App.lives--;
+                App.canResetLevel = true;
             
                 map[moveIndex][j] = 'Y';
                 map[i][j] = ' ';
                 
-            } else if (map[moveIndex][j] == 'B' || map[moveIndex][j] == 'W') {
+            } else if (map[moveIndex][j] == 'B' || map[moveIndex][j] == 'W' || map[moveIndex][j] == 'G') {
 
                 
                 map = moveClockwise(i,j,map);
@@ -175,8 +175,8 @@ public class YellowEnemy {
                         }else if(map[cardinalPos.get(k)][j] == 'P'){
                             
                              map[1][1] = 'P';
-                             Main.lives--;
-                             Main.canResetLevel = true;
+                             App.lives--;
+                             App.canResetLevel = true;
                             
                              map[cardinalPos.get(k)][j] = 'Y';
                              map[i][j] = ' ';
@@ -206,8 +206,8 @@ public class YellowEnemy {
                         }else if(map[i][cardinalPos.get(k)] == 'P'){
                             
                             map[1][1] = 'P';
-                            Main.lives--;
-                            Main.canResetLevel = true;
+                            App.lives--;
+                            App.canResetLevel = true;
                             
                             
                             map[i][cardinalPos.get(k)] = 'Y';

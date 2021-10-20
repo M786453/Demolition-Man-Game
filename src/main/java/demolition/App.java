@@ -2,7 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package gradleproject1;
+package demolition;
+
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,18 +13,25 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import processing.core.*;
 import gifAnimation.*;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 
 
 /**
  * @author Ahtesham Sarwar
  */
-public class Main extends PApplet{
+public class App extends PApplet{
 
+    
+    private final int HEIGHT = 480;
+    private final int WIDTH = 480;
+    private final int FPS = 60;
     
     BombGuy bombGuy;
     RedEnemy redEnemy;
-    YellowEnemy yellEnemy;
+    YellowEnemy yellEnemy;    
     Bomb bomb;
     boolean isGameOver;
     static boolean canResetLevel;
@@ -41,6 +49,7 @@ public class Main extends PApplet{
     static Level[] gameLevels;
     int levelIndex = 0;
    
+    char[][] map;
     
     
     int redFrameCounter2 = 1;
@@ -77,7 +86,7 @@ public class Main extends PApplet{
         
         startTime = System.currentTimeMillis();
         
-        PApplet.main(Main.class);
+        PApplet.main("demolition.App");
         
         
         
@@ -96,11 +105,15 @@ public class Main extends PApplet{
     
     public void settings(){
         //set the size of window here
-        this.size(480,480);
+        this.size(HEIGHT,WIDTH);
+        
         
     }
     
     public void setup(){
+        //represents the framerate
+        frameRate(FPS);
+        
         
         //here we need to instantiate every object which we draw on the window
         
@@ -305,7 +318,7 @@ public class Main extends PApplet{
           //loadLevel
           
           Level level = gameLevels[levelIndex];
-          char[][] map = level.mapArray;
+          map = level.mapArray;
           
           
           //reset bombguy position when he dies
@@ -323,7 +336,7 @@ public class Main extends PApplet{
               
               for(int j=0;j<15;j++){
                   
-                  
+                   
                   
                   switch(map[i][j]){
                       
@@ -331,11 +344,70 @@ public class Main extends PApplet{
                           
                           image(solidw,j*32,(i*32)+64);
                           
-                          break;
+                          break;                                              
+                      
+                          
                           
                       
+                      case 'H':
+                          //horizontal explosion image
+                          image(emptyw,j*32,(i*32)+64);
+                          image(explosionH,j*32,(i*32)+64);
+                          
+                          break;
+                          
+                      case 'V':
+                          //vertical explosion image
+                          image(emptyw,j*32,(i*32)+64);
+                          image(explosionV,j*32,(i*32)+64);
+                          
+                          
+                          break;
+                          
+                          
+                      case 'J':
+                          
+                          //end bottom explosion image
+                          image(emptyw,j*32,(i*32)+64);
+                          image(explosionEndB,j*32,(i*32)+64);
+                          
+                          break;
+                          
+                      case 'K':
+                          //end top explosion image
+                          image(emptyw,j*32,(i*32)+64);
+                          image(explosionEndT,j*32,(i*32)+64);
+                          
+                          break;
+                          
+                          case 'L':
+                              
+                              //end left explosion image
+                              image(emptyw,j*32,(i*32)+64);
+                              image(explosionEndL,j*32,(i*32)+64);
+                              
+                          break;
+                          
+                          case 'M':
+                              
+                              //end right explosion image
+                              image(emptyw,j*32,(i*32)+64);
+                              image(explosionEndR,j*32,(i*32)+64);
+                              
+                              break;
+                              
+                          case 'C':
+                              
+                              //center explosion image
+                              image(emptyw,j*32,(i*32)+64);
+                              image(explosionC,j*32,(i*32)+64);
+                              
+                              
+                              break;
+                          
                       case 'P':
 
+                          
                          
                           //this condition is for changing level
                           if(i == goalIndex[0] && j == goalIndex[1]){
@@ -344,6 +416,7 @@ public class Main extends PApplet{
                                   isWin = true;
                               else
                                   levelIndex++;
+                              
                               bombGuy.anim_direction = -1;
                           }
                           
@@ -379,19 +452,44 @@ public class Main extends PApplet{
                           //this will animate the player
                           
                           
-                          if(bomb.isPlaced)     {
-                              
-                              bomb.bombX = i;
-                              bomb.bombY = j;
-                              bomb.isPlaced = false;
-                              
-                          }
+                         
                               
                          
                               
                           
                           image(emptyw,j*32,(i*32)+64);
-                                                                
+                          
+                          
+                          //place bomb if space is pressed by the player
+                           if(bomb.isPlaced)     {
+                              
+                              bomb.bombX = j;
+                              bomb.bombY = i;
+                              image(bombGif,j*32,(i*32)+64);
+                              
+                         
+                              
+                              
+                              new Timer().schedule(new TimerTask(){
+                              
+                                  
+                                  @Override
+                                  public void run(){
+                                      
+                                     
+                                      bomb.canExplode = true;
+                                      
+                                      
+                                      
+                                  }
+                              
+                              }, 2000);
+                              bomb.isPlaced = false;
+                              
+                          }
+                                                                                             
+                           
+                           
                           int yPlayerPos = (abs(i-1) * 32)+ start_y_pos_player;
                                                                  
                           positionGif(bombGuy.anim_direction,j*32,yPlayerPos,playerUpGif,playerDownGif,playerLeftGif,playerRightGif);
@@ -401,6 +499,67 @@ public class Main extends PApplet{
                       case ' ':   
                           
                           image(emptyw,j*32,(i*32)+64);
+                          
+                          if(bomb.bombX == j && bomb.bombY == i){
+                              image(bombGif,j*32,(i*32)+64);
+                             if(bomb.canExplode){
+                                  bomb.explode(j, i, map);
+                                  bomb.canExplode = false;
+                                  bomb.isExploded = true;
+                                  
+                                  
+                                  
+                                  new Timer().schedule(new TimerTask(){
+                                      
+                                      @Override
+                                      public void run(){
+                                          
+                                          //this code will run after explosion
+                                          
+                                          if(bomb.explodeRange.size() > 0){
+                                              
+                                             
+                                              
+                                                  map[bomb.bombY][bomb.bombX] = ' ';
+                                                  
+                                              
+                                              
+                                              
+                                          }
+                                              
+                                          
+                                          for(int i=0;i<bomb.explodeRange.size();i++){
+                                              
+                                              int[][] rangeDirection = bomb.explodeRange.get(i);
+                                              
+                                              
+                                              if(rangeDirection[0][0] != -1 && rangeDirection[0][1] != -1)
+                                              map[rangeDirection[0][0]][rangeDirection[0][1]] = ' ';
+                                              
+                                              
+                                              if(rangeDirection[1][0] != -1 && rangeDirection[1][1] != -1)
+                                              map[rangeDirection[1][0]][rangeDirection[1][1]] = ' ';
+                                              
+                                              
+                                              
+                                          }
+                                          
+                                          //this will remove the bomb from map
+                                                bomb.bombX = -1;
+                                                bomb.bombY = -1;
+                                          
+                                      }
+                                      
+                                      
+                                  }, 500);
+                                  
+                                  
+                                  
+                                  
+                              }
+                              
+                              
+                          }
                           
                           break;
                           
@@ -457,8 +616,7 @@ public class Main extends PApplet{
                   }
                   
                   
-                  if(i == bomb.bombX && j == bomb.bombY)
-                      image(bombGif,j*32,(i*32)+64);
+                 
                   
               }
               
@@ -598,8 +756,13 @@ public class Main extends PApplet{
         else if(keyCode == LEFT)
             newdire = 3;
         else if(keyCode == 32){ //keyCode 32 is for spacebar
+            
+            if(bomb.isExploded){
             bomb.isPlaced = true;
+            bomb.isExploded = false;
             bomb.placeTime = System.currentTimeMillis();
+            }
+            
         }
         
         if(newdire != -1)

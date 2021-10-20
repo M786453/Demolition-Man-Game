@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package gradleproject1;
+package demolition;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -29,10 +29,14 @@ public class RedEnemy{
     public char[][] moveRandomFromXAxis(int i,int j,int xDirec,char[][] map){
         
         
+        System.out.println("Move From X Axis");
+        
 //        int moveIndex = j + x_direction[redEnDirection];
           int moveIndex = j + xDirec;
 
-        if (moveIndex >= 0 && moveIndex < 14) {
+          System.out.println("From X-Axis: " + moveIndex);
+          
+        if (moveIndex >= 0 && moveIndex < 15) {
 
             if (map[i][moveIndex] == ' ') {
 
@@ -57,14 +61,14 @@ public class RedEnemy{
             }else if(map[i][moveIndex] == 'P'){
                 
                 map[1][1] = 'P';
-                Main.lives--;
-                Main.canResetLevel = true;
+                App.lives--;
+                App.canResetLevel = true;
                 
                 map[i][moveIndex] = 'R';
                 map[i][j] = ' ';
                 
                 
-            }else if (map[i][moveIndex] == 'B' || map[i][moveIndex] == 'W') {
+            }else if (map[i][moveIndex] == 'B' || map[i][moveIndex] == 'W' || map[i][moveIndex] == 'G') {
                 
                 
                 map = moveRandom(i,j,map);
@@ -80,11 +84,12 @@ public class RedEnemy{
     public char[][] moveRandomFromYAxis(int i,int j,int yDirec,char[][] map){
         
         
+            System.out.println("Move From Y Axis");
         
         
           int moveIndex = i + yDirec;
 
-        if (moveIndex >= 0 && moveIndex < 13) {
+        if (moveIndex >= 0 && moveIndex < 14) {
 
             if (map[moveIndex][j] == ' ') {
 
@@ -105,13 +110,13 @@ public class RedEnemy{
             }else if(map[moveIndex][j] == 'P'){
             
                 map[1][1] = 'P';
-                Main.lives--;
-                Main.canResetLevel = true;
+                App.lives--;
+                App.canResetLevel = true;
                 
                 map[moveIndex][j] = 'R';
                 map[i][j] = ' ';
             
-            }else if (map[moveIndex][j] == 'B' || map[moveIndex][j] == 'W') {
+            }else if (map[moveIndex][j] == 'B' || map[moveIndex][j] == 'W' || map[moveIndex][j] == 'G') {
 
                 
                 map = moveRandom(i,j,map);
@@ -211,8 +216,8 @@ public class RedEnemy{
             if(pX != -1 && pY != -1){
                 
                 map[1][1] = 'P';
-                Main.lives--;
-                Main.canResetLevel = true;
+                App.lives--;
+                App.canResetLevel = true;
                 
                 map[pX][pY] = 'R';
                 map[i][j] = ' ';

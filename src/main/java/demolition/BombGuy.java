@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package gradleproject1;
+package demolition;
 
 import processing.core.PApplet;
 
@@ -16,6 +16,8 @@ public class BombGuy extends PApplet {
     public int direction;
     public int anim_direction;
     
+    public static int startY;
+    public static int startX;
     
     
     
@@ -44,8 +46,8 @@ public class BombGuy extends PApplet {
                             
                             
                            map[1][1] = 'P';
-                           Main.lives--;
-                           Main.canResetLevel = true;
+                           App.lives--;
+                           App.canResetLevel = true;
                            
                            map[i][j] = ' ';
                            direction = -1;
@@ -79,8 +81,8 @@ public class BombGuy extends PApplet {
                        }else if(map[moveIndex][j] == 'R' || map[moveIndex][j] == 'Y'){
                            
                            map[1][1] = 'P';
-                           Main.lives--;
-                           Main.canResetLevel = true;
+                           App.lives--;
+                           App.canResetLevel = true;
                            
                            map[i][j] = ' ';
                            direction = -1;
