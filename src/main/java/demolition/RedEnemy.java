@@ -29,16 +29,16 @@ public class RedEnemy{
     public char[][] moveRandomFromXAxis(int i,int j,int xDirec,char[][] map){
         
         
-        System.out.println("Move From X Axis");
+        System.out.println("i : " + i + "j: " + j );
         
 //        int moveIndex = j + x_direction[redEnDirection];
           int moveIndex = j + xDirec;
 
-          System.out.println("From X-Axis: " + moveIndex);
+          
           
         if (moveIndex >= 0 && moveIndex < 15) {
 
-            if (map[i][moveIndex] == ' ') {
+            if (map[i][moveIndex] == ' ' || map[i][moveIndex] == 'G') {
 
 
                 
@@ -46,7 +46,11 @@ public class RedEnemy{
                 
                 map[i][moveIndex] = 'R';
                 
-                map[i][j] = ' ';
+                
+                if(i == App.goalIndex[0] && j == App.goalIndex[1])
+                    map[i][j] = 'G';
+                else
+                    map[i][j] = ' ';
 
 
             }else if(map[i][moveIndex] == 'Y'){
@@ -68,7 +72,7 @@ public class RedEnemy{
                 map[i][j] = ' ';
                 
                 
-            }else if (map[i][moveIndex] == 'B' || map[i][moveIndex] == 'W' || map[i][moveIndex] == 'G') {
+            }else if (map[i][moveIndex] == 'B' || map[i][moveIndex] == 'W') {
                 
                 
                 map = moveRandom(i,j,map);
@@ -84,20 +88,27 @@ public class RedEnemy{
     public char[][] moveRandomFromYAxis(int i,int j,int yDirec,char[][] map){
         
         
-            System.out.println("Move From Y Axis");
+            System.out.println("i : " + i + "j: " + j );
         
         
           int moveIndex = i + yDirec;
 
         if (moveIndex >= 0 && moveIndex < 14) {
 
-            if (map[moveIndex][j] == ' ') {
+            if (map[moveIndex][j] == ' ' || map[moveIndex][j] == 'G') {
 
 
                 //replaace enemy index in map array   
                 
                 map[moveIndex][j] = 'R';
-                map[i][j] = ' ';
+                
+                
+                
+                
+                if(i == App.goalIndex[0] && j == App.goalIndex[1])
+                    map[i][j] = 'G';
+                else
+                    map[i][j] = ' ';
 
 
             }else if(map[moveIndex][j] == 'Y'){
@@ -116,7 +127,7 @@ public class RedEnemy{
                 map[moveIndex][j] = 'R';
                 map[i][j] = ' ';
             
-            }else if (map[moveIndex][j] == 'B' || map[moveIndex][j] == 'W' || map[moveIndex][j] == 'G') {
+            }else if (map[moveIndex][j] == 'B' || map[moveIndex][j] == 'W') {
 
                 
                 map = moveRandom(i,j,map);
@@ -203,7 +214,11 @@ public class RedEnemy{
                 map[newX][newY] = 'X';
             else if(map[newX][newY] == ' ')
                 map[newX][newY] = 'R';
-            map[i][j] = ' ';
+            
+            if(i == App.goalIndex[0] && j == App.goalIndex[1])
+                    map[i][j] = 'G';
+                else
+                    map[i][j] = ' ';
             
             //will set the direction and anim direction of red enemy according to new positions
             setRedDirection(newX,newY,i,j);

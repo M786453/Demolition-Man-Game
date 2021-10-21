@@ -35,7 +35,7 @@ public class YellowEnemy {
 
         if (moveIndex >= 0 && moveIndex < 15) {
 
-            if (map[i][moveIndex] == ' ') {
+            if (map[i][moveIndex] == ' ' || map[i][moveIndex] == 'G') {
 
                 
 
@@ -61,7 +61,7 @@ public class YellowEnemy {
                 map[i][moveIndex] = 'Y';
                 map[i][j] = ' ';
             
-            }else if (map[i][moveIndex] == 'B' || map[i][moveIndex] == 'W' || map[i][moveIndex] == 'G') {                                             
+            }else if (map[i][moveIndex] == 'B' || map[i][moveIndex] == 'W') {                                             
                 
                 map = moveClockwise(i,j,map);
                 
@@ -85,7 +85,7 @@ public class YellowEnemy {
 
         if (moveIndex >= 0 && moveIndex < 14) {
 
-            if (map[moveIndex][j] == ' ') {
+            if (map[moveIndex][j] == ' ' || map[moveIndex][j] == 'G') {
 
 
                 //replaace enemy index in map array   
@@ -111,7 +111,7 @@ public class YellowEnemy {
                 map[moveIndex][j] = 'Y';
                 map[i][j] = ' ';
                 
-            } else if (map[moveIndex][j] == 'B' || map[moveIndex][j] == 'W' || map[moveIndex][j] == 'G') {
+            } else if (map[moveIndex][j] == 'B' || map[moveIndex][j] == 'W') {
 
                 
                 map = moveClockwise(i,j,map);
