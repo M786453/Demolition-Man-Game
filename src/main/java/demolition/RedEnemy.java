@@ -29,7 +29,7 @@ public class RedEnemy{
     public char[][] moveRandomFromXAxis(int i,int j,int xDirec,char[][] map){
         
         
-        System.out.println("i : " + i + "j: " + j );
+        
         
 //        int moveIndex = j + x_direction[redEnDirection];
           int moveIndex = j + xDirec;
@@ -37,8 +37,14 @@ public class RedEnemy{
           
           
         if (moveIndex >= 0 && moveIndex < 15) {
+            
+         if(map[i][moveIndex] == 'B' || map[i][moveIndex] == 'W' || (i == App.bomb.bombY && moveIndex == App.bomb.bombX)) {
+                
+                
+                
+                map = moveRandom(i,j,map);
 
-            if (map[i][moveIndex] == ' ' || map[i][moveIndex] == 'G') {
+            } else if (map[i][moveIndex] == ' ' || map[i][moveIndex] == 'G') {
 
 
                 
@@ -64,7 +70,7 @@ public class RedEnemy{
             
             }else if(map[i][moveIndex] == 'P'){
                 
-                map[1][1] = 'P';
+//                map[1][1] = 'P';
                 App.lives--;
                 App.canResetLevel = true;
                 
@@ -72,11 +78,6 @@ public class RedEnemy{
                 map[i][j] = ' ';
                 
                 
-            }else if (map[i][moveIndex] == 'B' || map[i][moveIndex] == 'W') {
-                
-                
-                map = moveRandom(i,j,map);
-
             }
 
         }
@@ -88,14 +89,21 @@ public class RedEnemy{
     public char[][] moveRandomFromYAxis(int i,int j,int yDirec,char[][] map){
         
         
-            System.out.println("i : " + i + "j: " + j );
+            
         
         
           int moveIndex = i + yDirec;
 
         if (moveIndex >= 0 && moveIndex < 14) {
+            
+            
+            if(map[moveIndex][j] == 'B' || map[moveIndex][j] == 'W'  || (moveIndex == App.bomb.bombY && j == App.bomb.bombX)) {
+                
+               
+                
+                map = moveRandom(i,j,map);
 
-            if (map[moveIndex][j] == ' ' || map[moveIndex][j] == 'G') {
+            }else if (map[moveIndex][j] == ' ' || map[moveIndex][j] == 'G') {
 
 
                 //replaace enemy index in map array   
@@ -120,19 +128,13 @@ public class RedEnemy{
             
             }else if(map[moveIndex][j] == 'P'){
             
-                map[1][1] = 'P';
+//                map[1][1] = 'P';
                 App.lives--;
                 App.canResetLevel = true;
                 
                 map[moveIndex][j] = 'R';
                 map[i][j] = ' ';
             
-            }else if (map[moveIndex][j] == 'B' || map[moveIndex][j] == 'W') {
-
-                
-                map = moveRandom(i,j,map);
-                            
-
             }
 
         }
@@ -152,7 +154,9 @@ public class RedEnemy{
         
         ArrayList<Integer[]> openWays = new ArrayList<Integer[]>(); //this list will contain positions of empty tiles around redEnemy
         
-        if(map[i+1][j] == ' ' || map[i+1][j] == 'Y'){
+        
+        if(!(i+1 == App.bomb.bombY && j == App.bomb.bombX))
+        if((map[i+1][j] == ' ' || map[i+1][j] == 'Y')){
             Integer[] x_y = new Integer[2];
             x_y[0] = i+1;
             x_y[1] = j;
@@ -165,6 +169,7 @@ public class RedEnemy{
         
         
         
+        if(!(i-1 == App.bomb.bombY && j == App.bomb.bombX))
         if(map[i-1][j] == ' ' || map[i-1][j] == 'Y'){
             Integer[] x_y = new Integer[2];
             x_y[0] = i-1;
@@ -177,27 +182,30 @@ public class RedEnemy{
         }
         
         
-        if(map[i][j+1] == ' ' || map[i][j+1] == 'Y'){
-            Integer[] x_y = new Integer[2];
-            x_y[0] = i;
-            x_y[1] = j+1;
-            openWays.add(x_y);
+        if(!(i == App.bomb.bombY && j+1 == App.bomb.bombX))
+            if(map[i][j+1] == ' ' || map[i][j+1] == 'Y'){
+                Integer[] x_y = new Integer[2];
+                x_y[0] = i;
+                x_y[1] = j+1;
+                openWays.add(x_y);
             
-        }else if(map[i][j+1] == 'P'){
-            pX = i;
-            pY = j+1;
-        }
+            }else if(map[i][j+1] == 'P'){
+                pX = i;
+                pY = j+1;
+            }
         
-        if(map[i][j-1] == ' ' || map[i][j-1] == 'Y'){
-            Integer[] x_y = new Integer[2];
-            x_y[0] = i;
-            x_y[1] = j-1;
-            openWays.add(x_y);
+        
+        if(!(i == App.bomb.bombY && j-1 == App.bomb.bombX))
+            if(map[i][j-1] == ' ' || map[i][j-1] == 'Y'){
+                Integer[] x_y = new Integer[2];
+                x_y[0] = i;
+                x_y[1] = j-1;
+                openWays.add(x_y);
             
-        }else if(map[i][j-1] == 'P'){
-            pX = i;
-            pY = j-1;
-        }
+            }else if(map[i][j-1] == 'P'){
+                pX = i;
+                pY = j-1;
+            }
         
         
         if(openWays.size() > 0){
@@ -230,7 +238,7 @@ public class RedEnemy{
             
             if(pX != -1 && pY != -1){
                 
-                map[1][1] = 'P';
+//                map[1][1] = 'P';
                 App.lives--;
                 App.canResetLevel = true;
                 

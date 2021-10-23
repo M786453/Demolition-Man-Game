@@ -16,8 +16,7 @@ public class BombGuy extends PApplet {
     public int direction;
     public int anim_direction;
     
-    public static int startY;
-    public static int startX;
+    
     
     
     
@@ -45,7 +44,7 @@ public class BombGuy extends PApplet {
                         }else if(map[i][moveIndex] == 'R' || map[i][moveIndex] == 'Y'){
                             
                             
-                           map[1][1] = 'P';
+//                           map[1][1] = 'P';
                            App.lives--;
                            App.canResetLevel = true;
                            
@@ -80,7 +79,7 @@ public class BombGuy extends PApplet {
                                       
                        }else if(map[moveIndex][j] == 'R' || map[moveIndex][j] == 'Y'){
                            
-                           map[1][1] = 'P';
+//                           map[1][1] = 'P';
                            App.lives--;
                            App.canResetLevel = true;
                            

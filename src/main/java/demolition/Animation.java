@@ -51,7 +51,7 @@ public class Animation{
                     
                     
                     
-                    System.out.println("CurrentFrameNo: " + currentFrameNo);
+                    
         
                         new Timer().schedule(new TimerTask(){
                               

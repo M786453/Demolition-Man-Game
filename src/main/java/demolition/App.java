@@ -25,12 +25,13 @@ public class App extends PApplet{
     private final int HEIGHT = 480;
     private final int WIDTH = 480;
     private final int FPS = 60;
-    
+    private static boolean isPlayerInMap;
+    private static ArrayList<Integer[]> pStartPosLevelList;
     
     BombGuy bombGuy;
     RedEnemy redEnemy;
     YellowEnemy yellEnemy;    
-    Bomb bomb;
+    static Bomb bomb;
     boolean isGameOver;
     static boolean canResetLevel;
     boolean isWin;
@@ -100,6 +101,11 @@ public class App extends PApplet{
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        //initially value of this "isPlayerInMap" is set to false 
+        //because we want to check later whether the player is present in the map or not
+        
+        isPlayerInMap = false;
+        pStartPosLevelList = new ArrayList<>();
         
         startTime = System.currentTimeMillis();
         
@@ -138,6 +144,8 @@ public class App extends PApplet{
         //it will be true when player loses a life
         //when it is true the level will be reset
         
+        
+          
         
           playerDownFramesList = new ArrayList<>();
           playerUpFramesList = new ArrayList<>();
@@ -423,7 +431,7 @@ public class App extends PApplet{
         
         if(!isGameOver){
             
-            if(lives == 0 ){
+            if(lives <= 0 ){
                 isGameOver = true;            
                 return;
             }
@@ -546,7 +554,7 @@ public class App extends PApplet{
                           
                       case 'P':
 
-                          
+                          isPlayerInMap = true;
                          
                           //this condition is for changing level
                           if(i == goalIndex[0] && j == goalIndex[1]){
@@ -772,8 +780,26 @@ public class App extends PApplet{
               }
               
           
+              
           
     }
+          
+          if(isPlayerInMap){
+                  //we will reset the value of isPlayerInMap to check every time the existence of player in map
+                  isPlayerInMap = false;
+              
+              }else{
+                  
+                  //if player is not present in map (because of explosion it maynot shown in map)
+                  //then we add the player respawn position in level according to its level
+                  
+                  Integer[] playerLevelStartPos = pStartPosLevelList.get(levelIndex);
+                  
+                  map[playerLevelStartPos[0]][playerLevelStartPos[1]] = 'P';
+                  
+                  isPlayerInMap = true;
+                  
+              }
           
     }else{
             
@@ -800,7 +826,7 @@ public class App extends PApplet{
             while(scanner.hasNextLine())
                 data += scanner.nextLine();
             
-//            System.out.println(data);
+
             
            
             scanner.close();
@@ -824,18 +850,18 @@ public class App extends PApplet{
         JSONArray levels = obj.getJSONArray("levels");
         lives = obj.getInt("lives");
         
-        System.out.println("Lives: " + lives);
+        
         
         levelArray = new Level[levels.size()];
         for(int i=0;i<levels.size();i++){
             
             JSONObject levelObj = levels.getJSONObject(i);
             Level level = new Level(levelObj.getString("path"),levelObj.getInt("time"));
-            System.out.println(level.path);
+            
             level.setMap(readMapFromFile(level.path));
             
             levelArray[i] = level;
-            System.out.println("path: " + level.path + " time: " + level.time);
+            
             
         }
         
@@ -865,9 +891,22 @@ public class App extends PApplet{
                     String row = scanner.nextLine();
                     
                     for(int j=0;j<row.length();j++){
+                      
                         
                       map[i][j] = row.charAt(j);  
-                        
+                      
+                      if(row.charAt(j) == 'P'){
+                          
+                          Integer[] playerStartPos = new Integer[2];
+                          
+                          playerStartPos[0] = i;
+                          playerStartPos[1] = j;
+                          
+                          
+                          pStartPosLevelList.add(playerStartPos);
+                          
+                      }
+                      
                     }
                 
                     i++;

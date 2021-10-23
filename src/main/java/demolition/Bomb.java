@@ -124,22 +124,22 @@ public class Bomb {
             
         }
         
-        String mapStr = "Map:\n";
-        
-        for(int i=0;i<13;i++){
-            
-            for(int j=0;j<15;j++){
-                
-                mapStr += map[i][j];
-                
-            }
-                mapStr +="\n";
-            
-        }
-        
-        System.out.println("Explode Range: " + log);
-        System.out.println(mapStr);
-        
+//        String mapStr = "Map:\n";
+//        
+//        for(int i=0;i<13;i++){
+//            
+//            for(int j=0;j<15;j++){
+//                
+//                mapStr += map[i][j];
+//                
+//            }
+//                mapStr +="\n";
+//            
+//        }
+//        
+//        System.out.println("Explode Range: " + log);
+//        System.out.println(mapStr);
+//        
         
         return map;
     }
@@ -188,7 +188,7 @@ public class Bomb {
                                         
                                         if(map[y1][x1] == 'P'){
                                             
-                                            map[1][1] = 'P';
+//                                            map[1][1] = 'P';
                                             App.lives--;
                                             App.canResetLevel = true;
                                   
@@ -198,7 +198,7 @@ public class Bomb {
                                         
                                         if(map[y1][x1] == 'P' || map[y2][x2] == 'P'){
                                             
-                                            map[1][1] = 'P';
+//                                            map[1][1] = 'P';
                                             App.lives--;
                                             App.canResetLevel = true;
                                   

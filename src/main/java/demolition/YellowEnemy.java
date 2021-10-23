@@ -35,7 +35,13 @@ public class YellowEnemy {
 
         if (moveIndex >= 0 && moveIndex < 15) {
 
-            if (map[i][moveIndex] == ' ' || map[i][moveIndex] == 'G') {
+            
+            if (map[i][moveIndex] == 'B' || map[i][moveIndex] == 'W' || (i == App.bomb.bombY && moveIndex == App.bomb.bombX)) {                                             
+                
+                map = moveClockwise(i,j,map);
+                
+
+            }else if (map[i][moveIndex] == ' ' || map[i][moveIndex] == 'G') {
 
                 
 
@@ -54,18 +60,13 @@ public class YellowEnemy {
             
             }else if(map[i][moveIndex] == 'P'){
             
-                map[1][1] = 'P';
+//                map[1][1] = 'P';
                 App.lives--;
                 App.canResetLevel = true;
                 
                 map[i][moveIndex] = 'Y';
                 map[i][j] = ' ';
             
-            }else if (map[i][moveIndex] == 'B' || map[i][moveIndex] == 'W') {                                             
-                
-                map = moveClockwise(i,j,map);
-                
-
             }
 
         }
@@ -85,7 +86,13 @@ public class YellowEnemy {
 
         if (moveIndex >= 0 && moveIndex < 14) {
 
-            if (map[moveIndex][j] == ' ' || map[moveIndex][j] == 'G') {
+            if (map[moveIndex][j] == 'B' || map[moveIndex][j] == 'W' || (moveIndex == App.bomb.bombY && j == App.bomb.bombX)) {
+
+                
+                map = moveClockwise(i,j,map);
+                            
+
+            }else if (map[moveIndex][j] == ' ' || map[moveIndex][j] == 'G') {
 
 
                 //replaace enemy index in map array   
@@ -104,19 +111,13 @@ public class YellowEnemy {
             
             }else if(map[moveIndex][j] == 'P'){
             
-                map[1][1] = 'P';
+//                map[1][1] = 'P';
                 App.lives--;
                 App.canResetLevel = true;
             
                 map[moveIndex][j] = 'Y';
                 map[i][j] = ' ';
                 
-            } else if (map[moveIndex][j] == 'B' || map[moveIndex][j] == 'W') {
-
-                
-                map = moveClockwise(i,j,map);
-                            
-
             }
 
         }
@@ -157,6 +158,10 @@ public class YellowEnemy {
                     
                     if(k == 0 || k == 2){
                         
+                        System.out.println("BOMB POSITION: " + "Y: " + App.bomb.bombY + "X: " + App.bomb.bombX );
+                        System.out.println("Down/up: " + "Y: " + cardinalPos.get(k) + "X: " + j );
+                        
+                        if(!(cardinalPos.get(k) == App.bomb.bombY && j == App.bomb.bombX))
                         if(map[cardinalPos.get(k)][j] == ' '){
                             
                             map[cardinalPos.get(k)][j] = 'Y';
@@ -174,7 +179,7 @@ public class YellowEnemy {
                         
                         }else if(map[cardinalPos.get(k)][j] == 'P'){
                             
-                             map[1][1] = 'P';
+//                             map[1][1] = 'P';
                              App.lives--;
                              App.canResetLevel = true;
                             
@@ -189,6 +194,10 @@ public class YellowEnemy {
                   }else{
                         
                         
+                        System.out.println("BOMB POSITION: " + "Y: " + App.bomb.bombY + "X: " + App.bomb.bombX );
+                        System.out.println("Down/up: " + "Y: " + i + "X: " + cardinalPos.get(k) );
+                        
+                        if(!(i == App.bomb.bombY && cardinalPos.get(k) == App.bomb.bombX))
                         if(map[i][cardinalPos.get(k)] == ' '){
                             
                             map[i][cardinalPos.get(k)] = 'Y';
@@ -205,7 +214,7 @@ public class YellowEnemy {
                         
                         }else if(map[i][cardinalPos.get(k)] == 'P'){
                             
-                            map[1][1] = 'P';
+//                            map[1][1] = 'P';
                             App.lives--;
                             App.canResetLevel = true;
                             
