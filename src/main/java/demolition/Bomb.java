@@ -189,7 +189,7 @@ public class Bomb {
                                         if(map[y1][x1] == 'P'){
                                             
 //                                            map[1][1] = 'P';
-                                            App.lives--;
+//                                            App.lives--;
                                             App.canResetLevel = true;
                                   
                                         }
@@ -199,7 +199,7 @@ public class Bomb {
                                         if(map[y1][x1] == 'P' || map[y2][x2] == 'P'){
                                             
 //                                            map[1][1] = 'P';
-                                            App.lives--;
+//                                            App.lives--;
                                             App.canResetLevel = true;
                                   
                                         }

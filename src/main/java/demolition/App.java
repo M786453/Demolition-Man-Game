@@ -478,12 +478,14 @@ public class App extends PApplet{
           }
           
           
+          
           for(int i=0;i<13;i++){
               
               
               for(int j=0;j<15;j++){
                   
                    
+                  
                   
                   switch(map[i][j]){
                       
@@ -610,6 +612,7 @@ public class App extends PApplet{
                           //place bomb if space is pressed by the player
                            if(bomb.isPlaced)     {
                               
+                              bomb.isExploded = false;
                               bomb.bombX = j;
                               bomb.bombY = i;
 //                              image(bombGif,j*32,(i*32)+64);
@@ -634,7 +637,7 @@ public class App extends PApplet{
                               bomb.isPlaced = false;
                               
                           }
-                                                                                             
+                                                    
                            
                            
                           int yPlayerPos = (abs(i-1) * 32)+ start_y_pos_player;
@@ -647,27 +650,25 @@ public class App extends PApplet{
                           break;
                       case ' ':   
                           
-                          image(emptyw,j*32,(i*32)+64);
-                          
-                          if(bomb.bombX == j && bomb.bombY == i){
+                          image(emptyw,j*32,(i*32)+64);   
+
+                           //explosion code here
+                           
+                            if(bomb.bombX == j && bomb.bombY == i)
+                                    image(bombAnimation.play(bombFramesList),bomb.bombX*32,(bomb.bombY*32)+64);
                               
-                              image(bombAnimation.play(bombFramesList),j*32,(i*32)+64);
-                              
-                             if(bomb.canExplode){
-                                  bomb.explode(j, i, map);
-                                  bomb.canExplode = false;
-                                  bomb.isExploded = true;
+                                    if(bomb.canExplode){
+                                        bomb.explode(bomb.bombX, bomb.bombY, map);
+                                        bomb.canExplode = false;
                                   
-                                  
-                                  
-                                  new Timer().schedule(new TimerTask(){
+                                    new Timer().schedule(new TimerTask(){
                                       
-                                      @Override
-                                      public void run(){
+                                          @Override
+                                          public void run(){
                                           
-                                          //this code will run after explosion
-                                          
-                                          if(bomb.explodeRange.size() > 0){
+                                            //this code will run after explosion
+                                            bomb.isExploded = true;
+                                            if(bomb.explodeRange.size() > 0){
                                               
                                              
                                               
@@ -679,9 +680,9 @@ public class App extends PApplet{
                                           }
                                               
                                           
-                                          for(int i=0;i<bomb.explodeRange.size();i++){
+                                          for(int l=0;l<bomb.explodeRange.size();l++){
                                               
-                                              int[][] rangeDirection = bomb.explodeRange.get(i);
+                                              int[][] rangeDirection = bomb.explodeRange.get(l);
                                               
                                               
                                               if(rangeDirection[0][0] != -1 && rangeDirection[0][1] != -1)
@@ -711,12 +712,8 @@ public class App extends PApplet{
                                   }, 500);
                                   
                                   
-                                  
-                                  
                               }
-                              
-                              
-                          }
+          
                           
                           break;
                           
@@ -793,12 +790,22 @@ public class App extends PApplet{
                   //if player is not present in map (because of explosion it maynot shown in map)
                   //then we add the player respawn position in level according to its level
                   
+                  if(bomb.isExploded){
+                      
+                      //here checking if any bomb is placed and exploded then show the player in the map
+                      //this variable will be if the bomb is not placed
+                      // in this way this piece of will be called in other cases Like when player
+                      //comes in contact with any enemy
+                  lives--;
+                      
                   Integer[] playerLevelStartPos = pStartPosLevelList.get(levelIndex);
                   
                   map[playerLevelStartPos[0]][playerLevelStartPos[1]] = 'P';
                   
-                  isPlayerInMap = true;
                   
+                  
+                  isPlayerInMap = true;
+                  }
               }
           
     }else{

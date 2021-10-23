@@ -71,7 +71,7 @@ public class RedEnemy{
             }else if(map[i][moveIndex] == 'P'){
                 
 //                map[1][1] = 'P';
-                App.lives--;
+//                App.lives--;
                 App.canResetLevel = true;
                 
                 map[i][moveIndex] = 'R';
@@ -129,7 +129,7 @@ public class RedEnemy{
             }else if(map[moveIndex][j] == 'P'){
             
 //                map[1][1] = 'P';
-                App.lives--;
+//                App.lives--;
                 App.canResetLevel = true;
                 
                 map[moveIndex][j] = 'R';
@@ -239,7 +239,7 @@ public class RedEnemy{
             if(pX != -1 && pY != -1){
                 
 //                map[1][1] = 'P';
-                App.lives--;
+//                App.lives--;
                 App.canResetLevel = true;
                 
                 map[pX][pY] = 'R';

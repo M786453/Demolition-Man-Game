@@ -66,7 +66,7 @@ public class YellowEnemy {
             }else if(map[i][moveIndex] == 'P'){
             
 //                map[1][1] = 'P';
-                App.lives--;
+//                App.lives--;
                 App.canResetLevel = true;
                 
                 map[i][moveIndex] = 'Y';
@@ -122,7 +122,7 @@ public class YellowEnemy {
             }else if(map[moveIndex][j] == 'P'){
             
 //                map[1][1] = 'P';
-                App.lives--;
+//                App.lives--;
                 App.canResetLevel = true;
             
                 map[moveIndex][j] = 'Y';
@@ -195,7 +195,7 @@ public class YellowEnemy {
                         }else if(map[cardinalPos.get(k)][j] == 'P'){
                             
 //                             map[1][1] = 'P';
-                             App.lives--;
+//                             App.lives--;
                              App.canResetLevel = true;
                             
                              map[cardinalPos.get(k)][j] = 'Y';
@@ -235,7 +235,7 @@ public class YellowEnemy {
                         }else if(map[i][cardinalPos.get(k)] == 'P'){
                             
 //                            map[1][1] = 'P';
-                            App.lives--;
+//                            App.lives--;
                             App.canResetLevel = true;
                             
                             
