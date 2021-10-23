@@ -7,15 +7,15 @@ demolition/Level.java
 demolition/Animation.java
  demolition.Animation
  demolition.Animation$1
+demolition/BombGuy.java
+ demolition.BombGuy
+demolition/RedEnemy.java
+ demolition.RedEnemy
+demolition/Bomb.java
+ demolition.Bomb
 demolition/App.java
  demolition.App
  demolition.App$1
  demolition.App$2
 demolition/YellowEnemy.java
  demolition.YellowEnemy
-demolition/Bomb.java
- demolition.Bomb
-demolition/RedEnemy.java
- demolition.RedEnemy
-demolition/BombGuy.java
- demolition.BombGuy

@@ -48,7 +48,12 @@ public class YellowEnemy {
                 //replaace enemy index in map array   
                 
                 map[i][moveIndex] = 'Y';
-                map[i][j] = ' ';
+                
+                
+                if(i == App.goalIndex[0] && j == App.goalIndex[1])
+                    map[i][j] = 'G';
+                else
+                    map[i][j] = ' ';
 
 
             }else if(map[i][moveIndex] == 'R'){
@@ -98,7 +103,12 @@ public class YellowEnemy {
                 //replaace enemy index in map array   
                 
                 map[moveIndex][j] = 'Y';
-                map[i][j] = ' ';
+                
+                
+                if(i == App.goalIndex[0] && j == App.goalIndex[1])
+                    map[i][j] = 'G';
+                else
+                    map[i][j] = ' ';
 
 
             }else if(map[moveIndex][j] == 'R'){
@@ -158,14 +168,19 @@ public class YellowEnemy {
                     
                     if(k == 0 || k == 2){
                         
-                        System.out.println("BOMB POSITION: " + "Y: " + App.bomb.bombY + "X: " + App.bomb.bombX );
-                        System.out.println("Down/up: " + "Y: " + cardinalPos.get(k) + "X: " + j );
+//                        System.out.println("BOMB POSITION: " + "Y: " + App.bomb.bombY + "X: " + App.bomb.bombX );
+//                        System.out.println("Down/up: " + "Y: " + cardinalPos.get(k) + "X: " + j );
                         
                         if(!(cardinalPos.get(k) == App.bomb.bombY && j == App.bomb.bombX))
                         if(map[cardinalPos.get(k)][j] == ' '){
                             
                             map[cardinalPos.get(k)][j] = 'Y';
-                            map[i][j] = ' ';
+                            
+                            if(i == App.goalIndex[0] && j == App.goalIndex[1])
+                                map[i][j] = 'G';
+                            else
+                                map[i][j] = ' ';
+                            
                             yellowAnimDirection = yellowEnDirection = getDirection(k); //this will get the direction according to original directions pattern from clockwsie direction value
                             
                             break;
@@ -194,14 +209,19 @@ public class YellowEnemy {
                   }else{
                         
                         
-                        System.out.println("BOMB POSITION: " + "Y: " + App.bomb.bombY + "X: " + App.bomb.bombX );
-                        System.out.println("Down/up: " + "Y: " + i + "X: " + cardinalPos.get(k) );
+//                        System.out.println("BOMB POSITION: " + "Y: " + App.bomb.bombY + "X: " + App.bomb.bombX );
+//                        System.out.println("Down/up: " + "Y: " + i + "X: " + cardinalPos.get(k) );
                         
                         if(!(i == App.bomb.bombY && cardinalPos.get(k) == App.bomb.bombX))
                         if(map[i][cardinalPos.get(k)] == ' '){
                             
                             map[i][cardinalPos.get(k)] = 'Y';
-                            map[i][j] = ' ';
+                            
+                            if(i == App.goalIndex[0] && j == App.goalIndex[1])
+                                    map[i][j] = 'G';
+                            else
+                                    map[i][j] = ' ';
+                            
                             yellowAnimDirection = yellowEnDirection = getDirection(k);
                             break;
                         }else if(map[i][cardinalPos.get(k)] == 'R'){
