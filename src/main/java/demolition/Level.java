@@ -13,6 +13,7 @@ public class Level {
     public String path;
     public int time;
     public char[][] mapArray;
+    public char[][] originalMap;
     
     
     public Level(String path,int time){
@@ -30,6 +31,22 @@ public class Level {
         mapArray = map;
         
         
+        originalMap = new char[13][15];
+        
+        for(int i=0;i<13;i++){
+            
+            for(int j=0;j<15;j++){
+                
+            
+                originalMap[i][j] =  mapArray[i][j];
+                       
+                
+            }
+            
+        }
+        
+        
+        
     }
     
     public void start(){
@@ -42,6 +59,26 @@ public class Level {
     public void finish(){
         
         
+        
+    }
+    
+    public void resetLevel(){
+        
+        char[][] resetedMap = new char[13][15];
+        
+        for(int i=0;i<13;i++){
+            
+            for(int j=0;j<15;j++){
+                
+            
+                resetedMap[i][j] =  originalMap[i][j];
+                       
+                
+            }
+            
+        }
+        
+        mapArray = resetedMap;
         
     }
     

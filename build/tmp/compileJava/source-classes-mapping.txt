@@ -1,12 +1,12 @@
-demolition/Map.java
- demolition.Map
+demolition/Animation.java
+ demolition.Animation
+ demolition.Animation$1
 demolition/Tile.java
  demolition.Tile
 demolition/Level.java
  demolition.Level
-demolition/Animation.java
- demolition.Animation
- demolition.Animation$1
+demolition/Map.java
+ demolition.Map
 demolition/App.java
  demolition.App
  demolition.App$1

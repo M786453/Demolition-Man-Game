@@ -60,8 +60,8 @@ public class App extends PApplet{
     ArrayList<PImage> bombFramesList;
 
     
-    static int lives;
-    static Level[] gameLevels;
+    int lives;
+    Level[] gameLevels;
     int levelIndex = 0;
    
     char[][] map;
@@ -113,10 +113,7 @@ public class App extends PApplet{
         
         
         
-        //read config file
-        String configData = readConfig();
         
-        gameLevels = configureLevels(configData);
         
         
         
@@ -145,6 +142,10 @@ public class App extends PApplet{
         //when it is true the level will be reset
         
         
+          //read config file
+          String configData = readConfig();
+        
+          gameLevels = configureLevels(configData);
           
         
           playerDownFramesList = new ArrayList<>();
@@ -504,40 +505,8 @@ public class App extends PApplet{
                           image(explosionV,j*32,(i*32)+64);
                           
                           
-                          break;
+                          break;                          
                           
-                          
-                      case 'J':
-                          
-                          //end bottom explosion image
-                          image(emptyw,j*32,(i*32)+64);
-                          image(explosionEndB,j*32,(i*32)+64);
-                          
-                          break;
-                          
-                      case 'K':
-                          //end top explosion image
-                          image(emptyw,j*32,(i*32)+64);
-                          image(explosionEndT,j*32,(i*32)+64);
-                          
-                          break;
-                          
-                          case 'L':
-                              
-                              //end left explosion image
-                              image(emptyw,j*32,(i*32)+64);
-                              image(explosionEndL,j*32,(i*32)+64);
-                              
-                          break;
-                          
-                          case 'M':
-                              
-                              //end right explosion image
-                              image(emptyw,j*32,(i*32)+64);
-                              image(explosionEndR,j*32,(i*32)+64);
-                              
-                              break;
-                              
                           case 'C':
                               
                               //center explosion image
@@ -790,11 +759,18 @@ public class App extends PApplet{
                       // in this way this piece of will be called in other cases Like when player
                       //comes in contact with any enemy
                   lives--;
+                  
+                  
+                  
+                  gameLevels[levelIndex].resetLevel();
                       
                   Integer[] playerLevelStartPos = pStartPosLevelList.get(levelIndex);
                   
                   map[playerLevelStartPos[0]][playerLevelStartPos[1]] = 'P';
                   
+                  bombGuy = new BombGuy();
+                  redEnemy = new RedEnemy();
+                  yellEnemy = new YellowEnemy();
                   
                   
                   isPlayerInMap = true;
@@ -816,7 +792,7 @@ public class App extends PApplet{
     }
     
     
-    private static String readConfig(){
+    private String readConfig(){
         String data = "";
         try{
             
@@ -840,7 +816,7 @@ public class App extends PApplet{
         return data;
     }
     
-    private static Level[] configureLevels(String jsonData){
+    private Level[] configureLevels(String jsonData){
         
         Level[] levelArray = null;
         
@@ -874,7 +850,7 @@ public class App extends PApplet{
         return levelArray;
     }
     
-    private static char[][] readMapFromFile(String path){
+    private char[][] readMapFromFile(String path){
         
         char[][] map = new char[13][15];
         
