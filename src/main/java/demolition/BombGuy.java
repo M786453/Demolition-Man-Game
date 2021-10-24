@@ -10,7 +10,7 @@ import processing.core.PApplet;
  *
  * @author Ahtesham Sarwar
  */
-public class BombGuy extends PApplet {
+public class BombGuy{
     
     public int lives;
     public int direction;
@@ -22,7 +22,7 @@ public class BombGuy extends PApplet {
     
     public BombGuy(){
         
-        lives = 3;
+//        lives = 3;
         direction = -1;
         anim_direction = -1;
       

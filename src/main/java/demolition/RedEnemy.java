@@ -68,7 +68,7 @@ public class RedEnemy{
 
             
             
-            }else if(map[i][moveIndex] == 'P'){
+            }else if(map[i][moveIndex] == 'P' ){
                 
 //                map[1][1] = 'P';
 //                App.lives--;
@@ -77,6 +77,12 @@ public class RedEnemy{
                 map[i][moveIndex] = 'R';
                 map[i][j] = ' ';
                 
+                
+            }else if(map[i][moveIndex] == 'H'
+                                || map[i][moveIndex] == 'V' || map[i][moveIndex] == 'J' || map[i][moveIndex] == 'K'
+                                || map[i][moveIndex] == 'L' || map[i][moveIndex] == 'M' || map[i][moveIndex] == 'C'){
+                //when red in contact with explosion it will die
+                map[i][j] = ' ';
                 
             }
 
@@ -135,6 +141,12 @@ public class RedEnemy{
                 map[moveIndex][j] = 'R';
                 map[i][j] = ' ';
             
+            }else if(map[moveIndex][j] == 'H'
+                                || map[moveIndex][j] == 'V' || map[moveIndex][j] == 'J' || map[moveIndex][j] == 'K'
+                                || map[moveIndex][j] == 'L' || map[moveIndex][j] == 'M' || map[moveIndex][j] == 'C'){
+                //when red in contact with explosion it will die
+                map[i][j] = ' ';
+                
             }
 
         }

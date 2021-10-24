@@ -29,7 +29,8 @@ public class YellowEnemy {
     }
     
     
-    public char[][] moveClockwiseFromXAxis(int i,int j,int xDirec,char[][] map){                
+    public char[][] moveClockwiseFromXAxis(int i,int j,int xDirec,char[][] map){       
+        
         
          int moveIndex = j + xDirec;
 
@@ -69,9 +70,17 @@ public class YellowEnemy {
 //                App.lives--;
                 App.canResetLevel = true;
                 
+                
                 map[i][moveIndex] = 'Y';
                 map[i][j] = ' ';
             
+            }else if(map[i][moveIndex] == 'H'
+                                || map[i][moveIndex] == 'V' || map[i][moveIndex] == 'J' || map[i][moveIndex] == 'K'
+                                || map[i][moveIndex] == 'L' || map[i][moveIndex] == 'M' || map[i][moveIndex] == 'C'){
+                
+                map[i][j] = ' ';
+                
+                
             }
 
         }
@@ -124,8 +133,14 @@ public class YellowEnemy {
 //                map[1][1] = 'P';
 //                App.lives--;
                 App.canResetLevel = true;
-            
+                
                 map[moveIndex][j] = 'Y';
+                map[i][j] = ' ';
+                
+            }else if(map[moveIndex][j] == 'H'
+                                || map[moveIndex][j] == 'V' || map[moveIndex][j] == 'J' || map[moveIndex][j] == 'K'
+                                || map[moveIndex][j] == 'L' || map[moveIndex][j] == 'M' || map[moveIndex][j] == 'C'){
+                
                 map[i][j] = ' ';
                 
             }
@@ -197,12 +212,21 @@ public class YellowEnemy {
 //                             map[1][1] = 'P';
 //                             App.lives--;
                              App.canResetLevel = true;
-                            
+                             
                              map[cardinalPos.get(k)][j] = 'Y';
                              map[i][j] = ' ';
                              yellowAnimDirection = yellowEnDirection = getDirection(k); //this will get the direction according to original directions pattern from clockwsie direction value
                             
                              break;
+                            
+                        }else if(map[cardinalPos.get(k)][j] == 'H'
+                                || map[cardinalPos.get(k)][j] == 'V' || map[cardinalPos.get(k)][j] == 'J' || map[cardinalPos.get(k)][j] == 'K'
+                                || map[cardinalPos.get(k)][j] == 'L' || map[cardinalPos.get(k)][j] == 'M' || map[cardinalPos.get(k)][j] == 'C'){
+                            
+                            
+                            map[i][j] = ' ';
+                            
+                            break;
                             
                         }
                                 
@@ -244,6 +268,14 @@ public class YellowEnemy {
                             yellowAnimDirection = yellowEnDirection = getDirection(k);
                             break;
                            
+                        }else if(map[i][cardinalPos.get(k)] == 'H'
+                                || map[i][cardinalPos.get(k)] == 'V' || map[i][cardinalPos.get(k)] == 'J' || map[i][cardinalPos.get(k)] == 'K'
+                                || map[i][cardinalPos.get(k)] == 'L' || map[i][cardinalPos.get(k)] == 'M' || map[i][cardinalPos.get(k)] == 'C'){
+                            
+                            
+                            map[i][j] = ' ';
+                            break;
+                            
                         }
                         
                     }

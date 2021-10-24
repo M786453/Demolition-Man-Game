@@ -64,10 +64,9 @@ public class Bomb {
                         //down
                         
                         
-                        explosionRange(x,x,y+1,y+2,map,'J','V');
+                        explosionRange(x,x,y+1,y+2,map,'V');
                         
-                        // J -> end bottom explosion char
-                        // V -> before end vertical explosion end char
+                        
                         
                         
                         break;
@@ -75,9 +74,8 @@ public class Bomb {
                         //up
                         
                         
-                        explosionRange(x,x,y-1,y-2,map,'K','V');
+                        explosionRange(x,x,y-1,y-2,map,'V');
                         
-                        // K -> end top explosion char
                         
                         break;
                     case 2:
@@ -85,21 +83,19 @@ public class Bomb {
                         
                         
                         
-                        explosionRange(x+1,x+2,y,y,map,'M','H');
+                        explosionRange(x+1,x+2,y,y,map,'H');
                         
-                        // M -> end right explosion char
-                        // H -> before end horizontal explosion char                       
+                                            
                         
                         break;
                     case 3:
                         //left
                         
                         
+                        // pattern eg: L,H
+                        explosionRange(x-1,x-2,y,y,map,'H');
                         
-                        explosionRange(x-1,x-2,y,y,map,'L','H');
-                        
-                        // L -> end left explosion char
-                        
+
                         break;
                     
                 }
@@ -114,15 +110,15 @@ public class Bomb {
         }
         
         
-        String log = "";
-        
-        for(int it=0;it<explodeRange.size();it++){
-            
-            log += "["+explodeRange.get(it)[0][0] + "," + explodeRange.get(it)[0][1] + "]" +
-                    "["+explodeRange.get(it)[1][0] + "," + explodeRange.get(it)[1][1] + "]" + "\n";
-            
-            
-        }
+//        String log = "";
+//        
+//        for(int it=0;it<explodeRange.size();it++){
+//            
+//            log += "["+explodeRange.get(it)[0][0] + "," + explodeRange.get(it)[0][1] + "]" +
+//                    "["+explodeRange.get(it)[1][0] + "," + explodeRange.get(it)[1][1] + "]" + "\n";
+//            
+//            
+//        }
         
 //        String mapStr = "Map:\n";
 //        
@@ -145,7 +141,7 @@ public class Bomb {
     }
     
     
-    private void explosionRange(int x1,int x2,int y1,int y2,char[][] map,char endChar,char beforeEndChar){
+    private void explosionRange(int x1,int x2,int y1,int y2,char[][] map,char explosionChar){
         
                 int[][] rangeForDirection = new int[2][2];
         
@@ -184,7 +180,7 @@ public class Bomb {
                                     
                                     if((y2 == -1 && x2 == -1) || map[y2][x2] == 'W'){
                                         
-                                        map[y1][x1] = endChar;
+                                        map[y1][x1] = explosionChar;
                                         
                                         if(map[y1][x1] == 'P'){
                                             
@@ -204,8 +200,8 @@ public class Bomb {
                                   
                                         }
                                         
-                                        map[y1][x1] = beforeEndChar;
-                                        map[y2][x2] = endChar;
+                                        map[y1][x1] = explosionChar;
+                                        map[y2][x2] = explosionChar;
                                         
                                     }
                                     
@@ -216,7 +212,7 @@ public class Bomb {
                                     
                                 }else{
                                     
-                                    map[y1][x1] = endChar;
+                                    map[y1][x1] = explosionChar;
                                     
                                     rangeForDirection[1][0] = -1;
                                     rangeForDirection[1][1] = -1;

@@ -448,9 +448,12 @@ public class App extends PApplet{
         if(elapsedTime/1000!=0){
           
           textSize(20);
-          if((180 - (int)(elapsedTime/1000)) > 0)
+          
+          if((180 - (int)(elapsedTime/1000)) > 0){
+          
           text((180 - (int)(elapsedTime/1000)),305,40); 
-          else
+          
+          }else
               isGameOver = true;
               
         }else{
