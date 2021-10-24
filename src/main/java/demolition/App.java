@@ -441,6 +441,12 @@ public class App extends PApplet{
         text(lives,190,40);
         image(life,150,16);
         
+        //loadLevel
+          
+        Level level = gameLevels[levelIndex];
+        map = level.mapArray;
+        
+        
         long elapsedTime = System.currentTimeMillis() - startTime;
         
         
@@ -449,38 +455,22 @@ public class App extends PApplet{
           
           textSize(20);
           
-          if((180 - (int)(elapsedTime/1000)) > 0){
+          if((level.time - (int)(elapsedTime/1000)) > 0){
           
-          text((180 - (int)(elapsedTime/1000)),305,40); 
+          text((level.time - (int)(elapsedTime/1000)),305,40); 
           
           }else
               isGameOver = true;
               
         }else{
           textSize(20);
-          text((180),305,40); 
+          text((level.time),305,40); 
         }
         
         
         
           image(clock,270,16);
 
-          //loadLevel
-          
-          Level level = gameLevels[levelIndex];
-          map = level.mapArray;
-          
-          
-          //reset bombguy position when he dies
-          if(canResetLevel){
-              
-                bombGuy = new BombGuy();
-                
-                canResetLevel = false;            
-                
-          }
-          
-          
           
           for(int i=0;i<13;i++){
               
@@ -568,7 +558,7 @@ public class App extends PApplet{
                                   isWin = true;
                               else
                                   levelIndex++;
-                              
+                                  startTime = System.currentTimeMillis();
                               bombGuy.anim_direction = -1;
                           }
                           
