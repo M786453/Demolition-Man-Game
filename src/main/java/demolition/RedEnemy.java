@@ -72,7 +72,7 @@ public class RedEnemy{
                 
 //                map[1][1] = 'P';
 //                App.lives--;
-                App.canResetLevel = true;
+//                App.canResetLevel = true;
                 
                 map[i][moveIndex] = 'R';
                 map[i][j] = ' ';
@@ -136,7 +136,7 @@ public class RedEnemy{
             
 //                map[1][1] = 'P';
 //                App.lives--;
-                App.canResetLevel = true;
+//                App.canResetLevel = true;
                 
                 map[moveIndex][j] = 'R';
                 map[i][j] = ' ';
@@ -252,7 +252,7 @@ public class RedEnemy{
                 
 //                map[1][1] = 'P';
 //                App.lives--;
-                App.canResetLevel = true;
+//                App.canResetLevel = true;
                 
                 map[pX][pY] = 'R';
                 map[i][j] = ' ';

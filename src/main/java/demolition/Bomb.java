@@ -186,7 +186,7 @@ public class Bomb {
                                             
 //                                            map[1][1] = 'P';
 //                                            App.lives--;
-                                            App.canResetLevel = true;
+//                                            App.canResetLevel = true;
                                   
                                         }
                                         
@@ -196,7 +196,7 @@ public class Bomb {
                                             
 //                                            map[1][1] = 'P';
 //                                            App.lives--;
-                                            App.canResetLevel = true;
+//                                            App.canResetLevel = true;
                                   
                                         }
                                         
@@ -247,6 +247,10 @@ public class Bomb {
                 explodeRange.add(rangeForDirection);
         
             }
+    
+    
+    
+    
     
     
 }

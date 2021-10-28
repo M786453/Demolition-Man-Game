@@ -4,13 +4,16 @@
  */
 package demolition;
 
+import java.io.File;
+import java.util.ArrayList;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 /**
  *
  * @author Ahtesham Sarwar
  */
-public class BombGuy{
+public class BombGuy extends PApplet{
     
     public int lives;
     public int direction;
@@ -50,7 +53,7 @@ public class BombGuy{
                             
 //                           map[1][1] = 'P';
 //                           App.lives--;
-                           App.canResetLevel = true;
+//                           App.canResetLevel = true;
                            
                            map[i][j] = ' ';
                            direction = -1;
@@ -91,7 +94,7 @@ public class BombGuy{
                            
 //                           map[1][1] = 'P';
 //                           App.lives--;
-                           App.canResetLevel = true;
+//                           App.canResetLevel = true;
                            
                            map[i][j] = ' ';
                            direction = -1;
@@ -103,7 +106,6 @@ public class BombGuy{
           
        return map; 
     }
-    
     
     
     

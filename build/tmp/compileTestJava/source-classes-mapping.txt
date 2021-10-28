@@ -1,0 +1,3 @@
+demolition/AppTest.java
+ demolition.AppTest
+ demolition.AppTest$MyClass

@@ -21,75 +21,61 @@ import java.util.TimerTask;
  */
 public class App extends PApplet{
 
-    
-    private final int HEIGHT = 480;
-    private final int WIDTH = 480;
+    public static final int HEIGHT = 480;
+    public static final int WIDTH = 480;
     private final int FPS = 60;
     private static boolean isPlayerInMap;
     private static ArrayList<Integer[]> pStartPosLevelList;
     
-    BombGuy bombGuy;
-    RedEnemy redEnemy;
-    YellowEnemy yellEnemy;    
-    static Bomb bomb;
-    boolean isGameOver;
-    static boolean canResetLevel;
-    boolean isWin;
+    private BombGuy bombGuy;
+    private RedEnemy redEnemy;
+    private YellowEnemy yellEnemy;    
+    public static Bomb bomb;
+    private boolean isGameOver;
+    private boolean isWin;
     
-    static long startTime;
+    public static long startTime;
     
-    PImage solidw,brokenw,emptyw,goalw,life,clock,explosionC,explosionEndL,explosionEndR,explosionEndT,explosionEndB,explosionH,explosionV;            ;
+    private PImage solidw,brokenw,emptyw,goalw,life,clock,explosionC,explosionH,explosionV;            ;
     
-    ArrayList<PImage> playerDownFramesList;
-    ArrayList<PImage> playerUpFramesList;
-    ArrayList<PImage> playerLeftFramesList;
-    ArrayList<PImage> playerRightFramesList;
-    
-    
-    ArrayList<PImage> redEnDownFramesList;
-    ArrayList<PImage> redEnUpFramesList;
-    ArrayList<PImage> redEnLeftFramesList;
-    ArrayList<PImage> redEnRightFramesList;
+    private ArrayList<PImage> playerDownFramesList;
+    private ArrayList<PImage> playerUpFramesList;
+    private ArrayList<PImage> playerLeftFramesList;
+    private ArrayList<PImage> playerRightFramesList;
     
     
-    ArrayList<PImage> yellowEnDownFramesList;
-    ArrayList<PImage> yellowEnUpFramesList;
-    ArrayList<PImage> yellowEnLeftFramesList;
-    ArrayList<PImage> yellowEnRightFramesList;
+    private ArrayList<PImage> redEnDownFramesList;
+    private ArrayList<PImage> redEnUpFramesList;
+    private ArrayList<PImage> redEnLeftFramesList;
+    private ArrayList<PImage> redEnRightFramesList;
     
-    ArrayList<PImage> bombFramesList;
+    
+    private ArrayList<PImage> yellowEnDownFramesList;
+    private ArrayList<PImage> yellowEnUpFramesList;
+    private ArrayList<PImage> yellowEnLeftFramesList;
+    private ArrayList<PImage> yellowEnRightFramesList;
+    
+    private ArrayList<PImage> bombFramesList;
 
-    
-    int lives;
-    Level[] gameLevels;
-    int levelIndex = 0;
+    private int lives;
+    private Level[] gameLevels;
+    private int levelIndex = 0;
    
-    char[][] map;
+    private char[][] map;
     
+    private int redFrameCounter2 = 1;
+    private int yellowFrameCounter = 1;
     
-    int redFrameCounter2 = 1;
-    int yellowFrameCounter = 1;
+    private final int[] x_direction = {0,0,1,-1};
+    private final int[] y_direction = {1,-1,0,0};
     
-    int[] x_direction = {0,0,1,-1};
-    int[] y_direction = {1,-1,0,0};
+    public final static int[] goalIndex = new int[2];
     
-    static int[] goalIndex = new int[2];
-    
-    int start_y_pos_player = 80;
-    int start_y_pos_red_en = 80;
-    int start_y_pos_yell_en = 80;
-    
-    
-    
-    
-    int yellEnDirection = 3;
-    
-    
-    int yellAnim_direction = 3;
-    
+    private final int start_y_pos_player = 80;
+    private final int start_y_pos_red_en = 80;
+    private final int start_y_pos_yell_en = 80;
     
     private Animation characterAnimation;
-    
     private Animation bombAnimation;
     
     
@@ -100,325 +86,118 @@ public class App extends PApplet{
      * library
      */
     public static void main(String[] args) {
+        
+        
+        
         // TODO code application logic here
         //initially value of this "isPlayerInMap" is set to false 
         //because we want to check later whether the player is present in the map or not
         
-        isPlayerInMap = false;
-        pStartPosLevelList = new ArrayList<>();
-        
-        startTime = System.currentTimeMillis();
-        
+             
         PApplet.main("demolition.App");
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
     }
     
     
+    
+    @Override
     public void settings(){
+        
         //set the size of window here
         this.size(HEIGHT,WIDTH);
         
-        
     }
     
+    
+    
+    @Override
     public void setup(){
-        //represents the framerate
+        
+        /*
+        Here we need to instantiate every object which we draw on the window
+        */
+        
         frameRate(FPS);
         
+        isPlayerInMap = false;
+        pStartPosLevelList = new ArrayList<>();        
+        startTime = System.currentTimeMillis();   
         
-        //here we need to instantiate every object which we draw on the window
+        String configData = readConfig();
+        gameLevels = configureLevels(configData);
+        bombFramesList = new ArrayList<>();
+        characterAnimation = new Animation(0.2f);
+        bombAnimation = new Animation(0.25f);
         
-        //initialy canResetLevel is false
-        //it will be true when player loses a life
-        //when it is true the level will be reset
-        
-        
-          //read config file
-          String configData = readConfig();
-        
-          gameLevels = configureLevels(configData);
-          
-        
-          playerDownFramesList = new ArrayList<>();
-          playerUpFramesList = new ArrayList<>();
-          playerLeftFramesList = new ArrayList<>();
-          playerRightFramesList = new ArrayList<>();
-        
-          
-          redEnDownFramesList = new ArrayList<>();
-          redEnUpFramesList = new ArrayList<>();
-          redEnLeftFramesList = new ArrayList<>();
-          redEnRightFramesList = new ArrayList<>();
-        
-          
-          yellowEnDownFramesList = new ArrayList<>();
-          yellowEnUpFramesList = new ArrayList<>();
-          yellowEnLeftFramesList = new ArrayList<>();
-          yellowEnRightFramesList = new ArrayList<>();
-        
-          
-          bombFramesList = new ArrayList<>();
-          
-          characterAnimation = new Animation(0.2f);
-          bombAnimation = new Animation(0.25f);
-          
-        canResetLevel = false;
-        
-        
-        isWin = false;
-        
-        
-        //gameOver
+        isWin = false;       
         isGameOver = false;
-        
-        //bomb
-        bomb = new Bomb();
-        
-        
-        //bombguy
-        bombGuy = new BombGuy();
-        
-        //redEnemy
-        redEnemy = new RedEnemy();
-        
-        //yellEnemy
+        bomb = new Bomb();        
+        bombGuy = new BombGuy();        
+        redEnemy = new RedEnemy();        
         yellEnemy = new YellowEnemy();
 
+        loadTiles();
         
-        //walls
-        solidw = loadImage(System.getProperty("user.dir")+ File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "wall" + File.separator + "solid.png");
-        brokenw = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "broken" + File.separator + "broken.png");
-        emptyw = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "empty" + File.separator + "empty.png");
-        goalw = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "goal" + File.separator + "goal.png");
-        
-        
-        //icons
-        life = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "icons" + File.separator + "player.png");
-        clock = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "icons" + File.separator + "clock.png");
-        
-                    
+        loadIcons();
+
         
         /*
-        PLAYER IMAGES FOR EACH CARDINAL DIRECTION
+        PLAYER FRAMES LISTS INITIALIZATION
+        */
+       
+        loadPlayerDownFramesList();
+        loadPlayerUpFramesList();
+        loadPlayerRightFramesList();
+        loadPlayerLeftFramesList();
+
+        /*
+        RED ENEMY FRAMES LISTS INITIALIZATION
+         */
+       
+        loadRedEnemyUpFrames();
+        loadRedEnemyDownFrames();
+        loadRedEnemyLeftFrames();
+        loadRedEnemyRightFrames();
+
+        /*
+        YELLOW ENEMY FRAMES LISTS INITIALIZATION
          */
         
-        
-        playerDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "player" + File.separator + "player1.png"));
-        
-        playerDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "player" + File.separator + "player2.png"));
-        
-        playerDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "player" + File.separator + "player3.png"));
-        
-        playerDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "player" + File.separator + "player4.png"));        
-        
-        playerUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "player" + File.separator + "player_up1.png"));
-        
-        playerUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "player" + File.separator + "player_up2.png"));
-        
-        playerUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "player" + File.separator + "player_up3.png"));
-        
-        playerUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "player" + File.separator + "player_up4.png"));
-        
-        
-        
-        playerLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "player" + File.separator + "player_left1.png"));        
-        
-        playerLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "player" + File.separator + "player_left2.png"));        
-        
-        playerLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "player" + File.separator + "player_left3.png"));
-        
-        playerLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "player" + File.separator + "player_left4.png"));
-        
-        
-        
-        
-        
-        
-        playerRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "player" + File.separator + "player_right1.png"));
-        
-        playerRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "player" + File.separator + "player_right2.png"));
-        
-        playerRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "player" + File.separator + "player_right3.png"));
-        
-        playerRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "player" + File.separator + "player_right4.png"));
+        loadYellowEnemyDownFrames();
+        loadYellowEnemyUpFrames();
+        loadYellowEnemyLeftFrames();
+        loadYellowEnemyRightFrames();
         
         
         /*
-        RED ENEMY IMAGES FOR ANIMATION FOR EACH CARDINAL DIRECTION
-        */
+         BOMB FRAMES LISTS INITIALIZATION
+         */
         
-        
-        redEnDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_down1.png"));
-        redEnDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_down2.png"));
-        redEnDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_down3.png"));
-        redEnDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_down4.png"));
-        
-        
-        
-        redEnUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_up1.png"));
-        redEnUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_up2.png"));
-        redEnUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_up3.png"));
-        redEnUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_up4.png"));
-        
-        
-        
-        redEnRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_right1.png"));
-        redEnRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_right2.png"));
-        redEnRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_right3.png"));
-        redEnRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_right4.png"));
-        
-        
-        
-        redEnLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_left1.png"));
-        redEnLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_left2.png"));
-        redEnLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_left3.png"));
-        redEnLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_left4.png"));
-        
-              
+        loadBombFrames();
+       
         /*
-        YELLOW ENEMY IMAGES FOR ANIMATION FOR EACH CARDINAL DIRECTION
-        */
+         EXPLOSION FRAMES LISTS INITIALIZATION
+         */
+
+        loadExplosionFrames();
         
         
-        
-        yellowEnDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_down1.png"));
-        yellowEnDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_down2.png"));
-        yellowEnDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_down3.png"));
-        yellowEnDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_down4.png"));
-        
-        
-        yellowEnUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_up1.png"));
-        yellowEnUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_up2.png"));
-        yellowEnUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_up3.png"));
-        yellowEnUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_up4.png"));
-        
-        
-        yellowEnRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_right1.png"));
-        yellowEnRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_right2.png"));
-        yellowEnRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_right3.png"));
-        yellowEnRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_right4.png"));
-        
-        
-        
-        yellowEnLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_left1.png"));
-        yellowEnLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_left2.png"));
-        yellowEnLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_left3.png"));
-        yellowEnLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_left4.png"));
-        
-        
-        //bomb gif
-        
-        bombFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "bomb" + File.separator + "bomb1.png"));
-        bombFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "bomb" + File.separator + "bomb2.png"));
-        bombFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "bomb" + File.separator + "bomb3.png"));
-        bombFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "bomb" + File.separator + "bomb4.png"));
-        
-        bombFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "bomb" + File.separator + "bomb5.png"));
-        bombFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "bomb" + File.separator + "bomb6.png"));
-        bombFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "bomb" + File.separator + "bomb7.png"));
-        bombFramesList.add(loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "bomb" + File.separator + "bomb8.png"));
-        //EXPLOSION SPRITES
-        
-        explosionC = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "explosion" + File.separator + "centre.png");
-        
-        explosionEndT = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "explosion" + File.separator + "end_top.png");
-        explosionEndB = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "explosion" + File.separator + "end_bottom.png");
-        explosionEndR = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "explosion" + File.separator + "end_right.png");
-        explosionEndL = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "explosion" + File.separator + "end_left.png");
-        
-        
-        explosionH = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "explosion" + File.separator + "horizontal.png");
-        explosionV = loadImage(System.getProperty("user.dir") + File.separator +"src" + File.separator + "main" + 
-                File.separator + "resources" + File.separator + "explosion" + File.separator + "vertical.png");
     }
     
+    
+    @Override
     public void draw(){
-        
         
         //this method is used to draw content on the window
         //this method is called 60 times per second
         
         background(255,140,0);
         
-        
         if(isWin){
+            
+            /*
+            SHOW WIN SCREEN
+            */
             
             fill(0);
             textSize(20);
@@ -449,9 +228,7 @@ public class App extends PApplet{
         
         
         long elapsedTime = System.currentTimeMillis() - startTime;
-        
-        
-        
+      
         if(elapsedTime/1000!=0){
           
           textSize(20);
@@ -467,8 +244,6 @@ public class App extends PApplet{
           textSize(20);
           text((level.time),305,40); 
         }
-        
-        
         
           image(clock,270,16);
 
@@ -681,34 +456,22 @@ public class App extends PApplet{
                           
                       case 'R':
                           
-                          
-                         
                                redEnemyAI(i,j,map);
                         
-                          
                           break;
                       case 'Y':
-                          
-                                       
-                          
+                         
                                 yellowEnemyAI(i,j,map);
-                          
-                          
                           
                           break;
                           
                       case 'X':
-                          
                           
                           yellowEnemyAI(i,j,map);
                           
                           map[i][j] = 'X';
                           
                           redEnemyAI(i,j,map);
-                          
-                          
-                          
-                          
                           
                           
                           break;
@@ -758,9 +521,8 @@ public class App extends PApplet{
                       //this variable will be if the bomb is not placed
                       // in this way this piece of will be called in other cases Like when player
                       //comes in contact with any enemy
+                      
                   lives--;
-                  
-                  
                   
                   gameLevels[levelIndex].resetLevel();
                       
@@ -772,14 +534,16 @@ public class App extends PApplet{
                   redEnemy = new RedEnemy();
                   yellEnemy = new YellowEnemy();
                   
-                  
                   isPlayerInMap = true;
+                  
                   }
               }
           
     }else{
             
-            //game Over
+        /*
+            GAME OVER SCREEN
+            */
         fill(0);
         textSize(20);
         textAlign(CENTER);
@@ -793,6 +557,7 @@ public class App extends PApplet{
     
     
     private String readConfig(){
+        
         String data = "";
         try{
             
@@ -803,8 +568,6 @@ public class App extends PApplet{
                 data += scanner.nextLine();
             
 
-            
-           
             scanner.close();
             
         }catch(Exception e){
@@ -814,7 +577,10 @@ public class App extends PApplet{
         }
         
         return data;
+        
     }
+    
+    
     
     private Level[] configureLevels(String jsonData){
         
@@ -825,9 +591,7 @@ public class App extends PApplet{
         JSONObject obj = JSONObject.parse(jsonData);      
         JSONArray levels = obj.getJSONArray("levels");
         lives = obj.getInt("lives");
-        
-        
-        
+       
         levelArray = new Level[levels.size()];
         for(int i=0;i<levels.size();i++){
             
@@ -848,6 +612,7 @@ public class App extends PApplet{
         }
         
         return levelArray;
+        
     }
     
     private char[][] readMapFromFile(String path){
@@ -979,122 +744,384 @@ public class App extends PApplet{
         
         
          //changing the direction of red enemy
-                          
-                          
-                          
-                          if(redFrameCounter2 == 60){
-                          
-                          if(redEnemy.redEnDirection == 0 || redEnemy.redEnDirection == 1){
-                              
-                              //down or up
-                              
-                                
-                              
-                              int yDirec = y_direction[redEnemy.redEnDirection];
-                                
-                              map = redEnemy.moveRandomFromYAxis(i, j, yDirec, map);
-           
-                          }else if(redEnemy.redEnDirection == 2 || redEnemy.redEnDirection == 3){
-                              //right or left
-                              
-                              
-                              
-                              
-                              
-                              int xDirec = x_direction[redEnemy.redEnDirection]; 
-                              
-                              
-                              
-                              map = redEnemy.moveRandomFromXAxis(i, j, xDirec, map);
-                              
-                              
-                          }
-      
-                          
-                          redFrameCounter2 = 1;
-                          
-                          }else{
-                              
-                              redFrameCounter2++;
-                              
-                          }
-                          
-                          
-                          
-                          image(emptyw,j*32,(i*32)+64);
-                          
+            if (redFrameCounter2 == 60) {
 
-                          //animating red enemy in right direction
-                          
-                          int yRedPos = (abs(i-1)*32) + start_y_pos_red_en;                                                                                             
-                      
-                          
-                          
-                          
-                      positionAnimation(redEnemy.redAnimDirection,j*32,yRedPos,redEnDownFramesList,redEnUpFramesList,redEnRightFramesList,redEnLeftFramesList);
-        
+            if (redEnemy.redEnDirection == 0 || redEnemy.redEnDirection == 1) {
+
+                //down or up
+                int yDirec = y_direction[redEnemy.redEnDirection];
+
+                map = redEnemy.moveRandomFromYAxis(i, j, yDirec, map);
+
+            } else if (redEnemy.redEnDirection == 2 || redEnemy.redEnDirection == 3) {
+                //right or left
+
+                int xDirec = x_direction[redEnemy.redEnDirection];
+
+                map = redEnemy.moveRandomFromXAxis(i, j, xDirec, map);
+
+            }
+
+            redFrameCounter2 = 1;
+
+        } else {
+
+            redFrameCounter2++;
+
+        }
+
+        image(emptyw, j * 32, (i * 32) + 64);
+
+        //animating red enemy in right direction
+        int yRedPos = (abs(i - 1) * 32) + start_y_pos_red_en;
+
+        positionAnimation(redEnemy.redAnimDirection, j * 32, yRedPos, redEnDownFramesList, redEnUpFramesList, redEnRightFramesList, redEnLeftFramesList);
+
         
     }
     
     
     private void yellowEnemyAI(int i,int j, char[][] map){
         
+            if (yellowFrameCounter == 60) {
+
+            if (yellEnemy.yellowEnDirection == 0 || yellEnemy.yellowEnDirection == 1) {
+
+                //down or up
+                int yDirec = y_direction[yellEnemy.yellowEnDirection];
+
+                map = yellEnemy.moveClockwiseFromYAxis(i, j, yDirec, map);
+
+            } else if (yellEnemy.yellowEnDirection == 2 || yellEnemy.yellowEnDirection == 3) {
+
+                //right or left
+                int xDirec = x_direction[yellEnemy.yellowEnDirection];
+
+                map = yellEnemy.moveClockwiseFromXAxis(i, j, xDirec, map);
+
+            }
+
+            yellowFrameCounter = 1;
+
+        } else {
+
+            yellowFrameCounter++;
+
+        }
+
+        image(emptyw, j * 32, (i * 32) + 64);
+
+        //animated yellow in left direction
+        int yYellowPos = ((i - 1) * 32) + start_y_pos_yell_en;
+
+        //here only for direction left (test) -> not completed
+        positionAnimation(yellEnemy.yellowAnimDirection, j * 32, yYellowPos, yellowEnDownFramesList, yellowEnUpFramesList, yellowEnRightFramesList, yellowEnLeftFramesList);
+
+
+    }
+    
+    
+    
+    
+    public void loadPlayerDownFramesList(){
+        
+        playerDownFramesList = new ArrayList<>();
         
         
-                          
-                          if(yellowFrameCounter == 60){
-                          
-                          if(yellEnemy.yellowEnDirection == 0 || yellEnemy.yellowEnDirection == 1){
-                              
-                              //down or up
-                              
-                                
-                              
-                              int yDirec = y_direction[yellEnemy.yellowEnDirection];
-                                
-                              map = yellEnemy.moveClockwiseFromYAxis(i, j, yDirec, map);
-           
-                          }else if(yellEnemy.yellowEnDirection == 2 || yellEnemy.yellowEnDirection == 3){
-                              
-                              
-                              
-                              //right or left
-                              
-                              int xDirec = x_direction[yellEnemy.yellowEnDirection]; 
-                              
-                              map = yellEnemy.moveClockwiseFromXAxis(i, j, xDirec, map);
-                              
-                              
-                          }
-      
-                          
-                          yellowFrameCounter = 1;
-                          
-                          }else{
-                              
-                              yellowFrameCounter++;
-                              
-                          }
-                          
-                          
-                          
-                          
-                          image(emptyw,j*32,(i*32)+64);                                                                                                  
-                          
-                          //animated yellow in left direction
-                          
-                          
-                            int yYellowPos = ((i-1)*32)+start_y_pos_yell_en;                                             
-                                           
-                              //here only for direction left (test) -> not completed
-                             positionAnimation(yellEnemy.yellowAnimDirection,j*32,yYellowPos,yellowEnDownFramesList,yellowEnUpFramesList,yellowEnRightFramesList,yellowEnLeftFramesList);
-                                  
-                               
-                                 
+        playerDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player1.png"));
+
+        playerDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player2.png"));
+
+        playerDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player3.png"));
+
+        playerDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player4.png"));
+
+        
+        
+        
+    }
+    
+    
+    public void loadPlayerRightFramesList(){
+        
+        playerRightFramesList = new ArrayList<>();
+        
+        playerRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_right1.png"));
+
+        playerRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_right2.png"));
+
+        playerRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_right3.png"));
+
+        playerRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_right4.png"));
+        
+        
+        
+    }
+    
+    
+    public void loadPlayerLeftFramesList(){
+        
+        playerLeftFramesList = new ArrayList<>();        
+        
+        playerLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_left1.png"));
+
+        playerLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_left2.png"));
+
+        playerLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_left3.png"));
+
+        playerLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_left4.png"));
+
+        
         
     }
     
     
     
+    public void loadPlayerUpFramesList(){
+        
+        
+        playerUpFramesList = new ArrayList<>();
+        
+        playerUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_up1.png"));
+
+        playerUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_up2.png"));
+
+        playerUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_up3.png"));
+
+        playerUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_up4.png"));
+
+        
+        
+        
+    }
+    
+    
+    public void loadRedEnemyDownFrames(){
+        
+        
+        redEnDownFramesList = new ArrayList<>();
+        
+        
+         redEnDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_down1.png"));
+        redEnDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_down2.png"));
+        redEnDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_down3.png"));
+        redEnDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_down4.png"));
+
+        
+    }
+    
+    
+    public void loadRedEnemyUpFrames(){
+        
+        
+        redEnUpFramesList = new ArrayList<>();
+        
+        
+        redEnUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_up1.png"));
+        redEnUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_up2.png"));
+        redEnUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_up3.png"));
+        redEnUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_up4.png"));
+        
+    }
+    
+    public void loadRedEnemyRightFrames(){
+        
+        
+        redEnRightFramesList = new ArrayList<>();
+        
+        redEnRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_right1.png"));
+        redEnRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_right2.png"));
+        redEnRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_right3.png"));
+        redEnRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_right4.png"));
+        
+        
+    }
+    
+    public void loadRedEnemyLeftFrames(){
+        
+        redEnLeftFramesList = new ArrayList<>();
+        
+        redEnLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_left1.png"));
+        redEnLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_left2.png"));
+        redEnLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_left3.png"));
+        redEnLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "red_enemy" + File.separator + "red_left4.png"));
+        
+    }
+    
+    
+    public void loadYellowEnemyDownFrames(){
+        
+        
+        yellowEnDownFramesList = new ArrayList<>();
+        
+        
+        yellowEnDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_down1.png"));
+        yellowEnDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_down2.png"));
+        yellowEnDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_down3.png"));
+        yellowEnDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_down4.png"));
+
+      
+    }
+    
+    
+    public void loadYellowEnemyUpFrames(){
+        
+        yellowEnUpFramesList = new ArrayList<>();
+        
+        
+        
+         yellowEnUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_up1.png"));
+        yellowEnUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_up2.png"));
+        yellowEnUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_up3.png"));
+        yellowEnUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_up4.png"));
+        
+        
+    }
+    
+    
+    public void loadYellowEnemyRightFrames(){
+        
+        
+        yellowEnRightFramesList = new ArrayList<>();
+        
+         yellowEnRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_right1.png"));
+        yellowEnRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_right2.png"));
+        yellowEnRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_right3.png"));
+        yellowEnRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_right4.png"));
+        
+        
+    }
+    
+    
+    public void loadYellowEnemyLeftFrames(){
+        
+        yellowEnLeftFramesList = new ArrayList<>();
+        
+        yellowEnLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_left1.png"));
+        yellowEnLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_left2.png"));
+        yellowEnLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_left3.png"));
+        yellowEnLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "yellow_enemy" + File.separator + "yellow_left4.png"));
+        
+    }
+    
+    
+    
+    public void loadBombFrames(){
+        
+        
+        bombFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "bomb" + File.separator + "bomb1.png"));
+        bombFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "bomb" + File.separator + "bomb2.png"));
+        bombFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "bomb" + File.separator + "bomb3.png"));
+        bombFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "bomb" + File.separator + "bomb4.png"));
+
+        bombFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "bomb" + File.separator + "bomb5.png"));
+        bombFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "bomb" + File.separator + "bomb6.png"));
+        bombFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "bomb" + File.separator + "bomb7.png"));
+        bombFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "bomb" + File.separator + "bomb8.png"));
+        
+        
+    }
+    
+    
+    public void loadExplosionFrames(){
+        
+        
+        explosionC = loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "explosion" + File.separator + "centre.png");
+
+        explosionH = loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "explosion" + File.separator + "horizontal.png");
+        explosionV = loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "explosion" + File.separator + "vertical.png");
+        
+        
+    }
+    
+    
+    public void loadTiles(){
+        
+        
+        //walls
+        solidw = loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "wall" + File.separator + "solid.png");
+        brokenw = loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "broken" + File.separator + "broken.png");
+        emptyw = loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "empty" + File.separator + "empty.png");
+        goalw = loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "goal" + File.separator + "goal.png");
+
+      
+    }
+    
+    
+    public void loadIcons(){
+        
+        
+         //icons
+        life = loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "icons" + File.separator + "player.png");
+        clock = loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "icons" + File.separator + "clock.png");
+        
+        
+        
+    }
     
 }
