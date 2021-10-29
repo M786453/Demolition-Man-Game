@@ -31,11 +31,11 @@ public class Level {
         mapArray = map;
         
         
-        originalMap = new char[13][15];
+        originalMap = new char[Map.ROWS][Map.COLUMNS];
         
-        for(int i=0;i<13;i++){
+        for(int i=0;i<Map.ROWS;i++){
             
-            for(int j=0;j<15;j++){
+            for(int j=0;j<Map.COLUMNS;j++){
                 
             
                 originalMap[i][j] =  mapArray[i][j];
@@ -53,11 +53,11 @@ public class Level {
     
     public void resetLevel(){
         
-        char[][] resetedMap = new char[13][15];
+        char[][] resetedMap = new char[Map.ROWS][Map.COLUMNS];
         
-        for(int i=0;i<13;i++){
+        for(int i=0;i<Map.ROWS;i++){
             
-            for(int j=0;j<15;j++){
+            for(int j=0;j<Map.COLUMNS;j++){
                 
             
                 resetedMap[i][j] =  originalMap[i][j];

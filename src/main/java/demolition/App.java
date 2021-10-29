@@ -241,10 +241,10 @@ public class App extends PApplet{
           image(clock,270,16);
 
           
-          for(int i=0;i<13;i++){
+          for(int i=0;i<Map.ROWS;i++){
               
               
-              for(int j=0;j<15;j++){
+              for(int j=0;j<Map.COLUMNS;j++){
                   
                    
                   
@@ -253,7 +253,7 @@ public class App extends PApplet{
                       
                       case 'W':
                           
-                          image(solidw,j*32,(i*32)+64);
+                          image(solidw,j*32,(i*32)+ Map.OFFSET);
                           
                           break;                                              
                       
@@ -262,15 +262,15 @@ public class App extends PApplet{
                       
                       case 'H':
                           //horizontal explosion image
-                          image(emptyw,j*32,(i*32)+64);
-                          image(explosionH,j*32,(i*32)+64);
+                          image(emptyw,j*32,(i*32)+ Map.OFFSET);
+                          image(explosionH,j*32,(i*32)+ Map.OFFSET);
                           
                           break;
                           
                       case 'V':
                           //vertical explosion image
-                          image(emptyw,j*32,(i*32)+64);
-                          image(explosionV,j*32,(i*32)+64);
+                          image(emptyw,j*32,(i*32)+ Map.OFFSET);
+                          image(explosionV,j*32,(i*32)+ Map.OFFSET);
                           
                           
                           break;                          
@@ -278,8 +278,8 @@ public class App extends PApplet{
                           case 'C':
                               
                               //center explosion image
-                              image(emptyw,j*32,(i*32)+64);
-                              image(explosionC,j*32,(i*32)+64);
+                              image(emptyw,j*32,(i*32)+ Map.OFFSET);
+                              image(explosionC,j*32,(i*32)+ Map.OFFSET);
                               
                               
                               break;
@@ -336,7 +336,7 @@ public class App extends PApplet{
                          
                               
                           
-                          image(emptyw,j*32,(i*32)+64);
+                          image(emptyw,j*32,(i*32)+ Map.OFFSET);
                           
                           
                           //place bomb if space is pressed by the player
@@ -345,8 +345,8 @@ public class App extends PApplet{
                               bomb.isExploded = false;
                               bomb.bombX = j;
                               bomb.bombY = i;
-//                              image(bombGif,j*32,(i*32)+64);
-                              bombAnimation = new Animation(0.25f);
+
+                              bombAnimation = new Animation(bomb.PerFrameTime);
                          
                               
                               
@@ -363,7 +363,7 @@ public class App extends PApplet{
                                       
                                   }
                               
-                              }, 2000);
+                              }, bomb.BombTime);
                               bomb.isPlaced = false;
                               
                           }
@@ -380,12 +380,12 @@ public class App extends PApplet{
                           break;
                       case ' ':   
                           
-                          image(emptyw,j*32,(i*32)+64);   
+                          image(emptyw,j*32,(i*32)+ Map.OFFSET);   
 
                            //explosion code here
                            
                             if(bomb.bombX == j && bomb.bombY == i)
-                                    image(bombAnimation.play(bombFramesList),bomb.bombX*32,(bomb.bombY*32)+64);
+                                    image(bombAnimation.play(bombFramesList),bomb.bombX*32,(bomb.bombY*32) + Map.OFFSET);
                               
                                     if(bomb.canExplode){
                                         bomb.explode(bomb.bombX, bomb.bombY, map);
@@ -439,7 +439,7 @@ public class App extends PApplet{
                                       }
                                       
                                       
-                                  }, 500);
+                                  }, bomb.ExplosionTime);
                                   
                                   
                               }
@@ -470,7 +470,7 @@ public class App extends PApplet{
                           break;
                       case 'B':
                           
-                          image(brokenw,j*32,(i*32)+64);
+                          image(brokenw,j*32,(i*32)+ Map.OFFSET);
                           
                           break;
                       case 'G':
@@ -479,7 +479,7 @@ public class App extends PApplet{
                           
                           goalIndex[0] = i;
                           goalIndex[1] = j;
-                          image(goalw,j*32,(i*32)+64);
+                          image(goalw,j*32,(i*32)+ Map.OFFSET);
                         
                           
                           
@@ -615,7 +615,7 @@ public class App extends PApplet{
     
     private char[][] readMapFromFile(String path){
         
-        char[][] map = new char[13][15];
+        char[][] map = new char[Map.ROWS][Map.COLUMNS];
         
         try{
             
@@ -768,7 +768,7 @@ public class App extends PApplet{
 
         }
 
-        image(emptyw, j * 32, (i * 32) + 64);
+        image(emptyw, j * 32, (i * 32) + Map.OFFSET);
 
         //animating red enemy in right direction
         int yRedPos = (abs(i - 1) * 32) + start_y_pos_red_en;
@@ -807,7 +807,7 @@ public class App extends PApplet{
 
         }
 
-        image(emptyw, j * 32, (i * 32) + 64);
+        image(emptyw, j * 32, (i * 32) + Map.OFFSET);
 
         //animated yellow in left direction
         int yYellowPos = ((i - 1) * 32) + start_y_pos_yell_en;

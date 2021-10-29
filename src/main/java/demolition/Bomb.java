@@ -12,10 +12,9 @@ import java.util.ArrayList;
  */
 public class Bomb {
     
-    public float bombTime;
-    public int bombRange;
-    public int bombRangeWithWall;
-    public float explosionTime;
+    public final int BombTime = 2000; // it is in milliseconds
+    public final float PerFrameTime = 0.25f;
+    public final int ExplosionTime = 500; // it is in milliseconds
     
     public int bombX;
     public int bombY;
@@ -27,13 +26,7 @@ public class Bomb {
     
     
     
-    public Bomb(){
-             
-        bombTime = 2.0f;
-        bombRange = 2;
-        bombRangeWithWall = 1;
-        
-        explosionTime = 0.5f;
+    public Bomb(){                     
         
         bombX = -1;
         bombY = -1;
@@ -144,24 +137,9 @@ public class Bomb {
                                     if((y2 == -1 && x2 == -1) || map[y2][x2] == 'W'){
                                         
                                         map[y1][x1] = explosionChar;
-                                        
-                                        if(map[y1][x1] == 'P'){
-                                            
-//                                            map[1][1] = 'P';
-//                                            App.lives--;
-//                                            App.canResetLevel = true;
-                                  
-                                        }
+                                                                               
                                         
                                     }else{
-                                        
-                                        if(map[y1][x1] == 'P' || map[y2][x2] == 'P'){
-                                            
-//                                            map[1][1] = 'P';
-//                                            App.lives--;
-//                                            App.canResetLevel = true;
-                                  
-                                        }
                                         
                                         map[y1][x1] = explosionChar;
                                         map[y2][x2] = explosionChar;

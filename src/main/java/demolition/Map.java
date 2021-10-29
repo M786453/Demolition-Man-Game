@@ -10,18 +10,9 @@ package demolition;
  */
 public class Map {
     
-    public int rows;
-    public int columns;
-    public int offset;
+    public static final int ROWS = 13;
+    public static final int COLUMNS = 15;
+    public static final int OFFSET = 64;
     
-    public Map(){
-        
-        rows = 13;
-        columns = 15;
-        offset = 64;
-       
-    }
-    
-    
-    
+ 
 }
