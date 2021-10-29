@@ -86,14 +86,7 @@ public class App extends PApplet{
      * library
      */
     public static void main(String[] args) {
-        
-        
-        
-        // TODO code application logic here
-        //initially value of this "isPlayerInMap" is set to false 
-        //because we want to check later whether the player is present in the map or not
-        
-             
+      
         PApplet.main("demolition.App");
 
     }
@@ -790,14 +783,14 @@ public class App extends PApplet{
                 //down or up
                 int yDirec = y_direction[yellEnemy.yellowEnDirection];
 
-                map = yellEnemy.moveClockwiseFromYAxis(i, j, yDirec, map);
+                map = yellEnemy.movement(i, j, yDirec, map);
 
             } else if (yellEnemy.yellowEnDirection == 2 || yellEnemy.yellowEnDirection == 3) {
 
                 //right or left
                 int xDirec = x_direction[yellEnemy.yellowEnDirection];
 
-                map = yellEnemy.moveClockwiseFromXAxis(i, j, xDirec, map);
+                map = yellEnemy.movement(i, j, xDirec, map);
 
             }
 

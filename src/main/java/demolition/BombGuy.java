@@ -4,18 +4,14 @@
  */
 package demolition;
 
-import java.io.File;
-import java.util.ArrayList;
-import processing.core.PApplet;
-import processing.core.PImage;
 
 /**
  *
  * @author Ahtesham Sarwar
  */
-public class BombGuy extends PApplet{
+public class BombGuy{
     
-    public int lives;
+    private int lives;
     public int direction;
     public int anim_direction;
     
@@ -25,7 +21,6 @@ public class BombGuy extends PApplet{
     
     public BombGuy(){
         
-//        lives = 3;
         direction = -1;
         anim_direction = -1;
       
@@ -106,22 +101,13 @@ public class BombGuy extends PApplet{
           
        return map; 
     }
-    
-    
-    
-    public void placeBomb(){
-        
-        
-        
+
+    public int getLives() {
+        return lives;
     }
-    
-    
-    public void die(){
-        
+
+    public void setLives(int lives) {
+        this.lives = lives;
     }
-    
-    public void respawn(){
-        
-    }
-        
+       
 }

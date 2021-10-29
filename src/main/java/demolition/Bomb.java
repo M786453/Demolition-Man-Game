@@ -43,8 +43,6 @@ public class Bomb {
         canExplode = false;
         explodeRange = new ArrayList<>();
         
-        
-        
     }
     
     
@@ -100,42 +98,7 @@ public class Bomb {
                     
                 }
                 
-                
-                
-                
-            
-            
-            
-            
         }
-        
-        
-//        String log = "";
-//        
-//        for(int it=0;it<explodeRange.size();it++){
-//            
-//            log += "["+explodeRange.get(it)[0][0] + "," + explodeRange.get(it)[0][1] + "]" +
-//                    "["+explodeRange.get(it)[1][0] + "," + explodeRange.get(it)[1][1] + "]" + "\n";
-//            
-//            
-//        }
-        
-//        String mapStr = "Map:\n";
-//        
-//        for(int i=0;i<13;i++){
-//            
-//            for(int j=0;j<15;j++){
-//                
-//                mapStr += map[i][j];
-//                
-//            }
-//                mapStr +="\n";
-//            
-//        }
-//        
-//        System.out.println("Explode Range: " + log);
-//        System.out.println(mapStr);
-//        
         
         return map;
     }

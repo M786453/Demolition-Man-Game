@@ -49,18 +49,7 @@ public class Level {
         
     }
     
-    public void start(){
-        
-        
-        
-    }
-    
-    
-    public void finish(){
-        
-        
-        
-    }
+   
     
     public void resetLevel(){
         

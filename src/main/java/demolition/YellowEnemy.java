@@ -5,7 +5,6 @@
 package demolition;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  *
@@ -29,26 +28,47 @@ public class YellowEnemy {
     }
     
     
-    public char[][] moveClockwiseFromXAxis(int i,int j,int xDirec,char[][] map){       
+    public char[][] movement(int i,int j,int direc,char[][] map){       
         
         
-         int moveIndex = j + xDirec;
+        if(yellowEnDirection != -1){
+        
+        char nextChar; // Represents the item at the next movement position
+        int xPos;
+        int yPos;
+        
+        if(yellowEnDirection == 0 || yellowEnDirection == 1){
+            //down or up
+            
+            xPos = j;
+            yPos = i + direc;
+            nextChar = map[yPos][xPos];
+            
+        }else{
+            //right or left
+           
+            xPos = j + direc;
+            yPos = i;
+            nextChar = map[yPos][xPos];
+            
+        }
+        
+        
+         
 
-        if (moveIndex >= 0 && moveIndex < 15) {
+        if ((xPos >= 0 && xPos < 15) && (yPos >= 0 && yPos < 14)) {
 
             
-            if (map[i][moveIndex] == 'B' || map[i][moveIndex] == 'W' || (i == App.bomb.bombY && moveIndex == App.bomb.bombX)) {                                             
+            if (nextChar == 'B' || nextChar == 'W' || (yPos == App.bomb.bombY && xPos == App.bomb.bombX)) {                                             
                 
                 map = moveClockwise(i,j,map);
                 
 
-            }else if (map[i][moveIndex] == ' ' || map[i][moveIndex] == 'G') {
-
-                
+            }else if (nextChar == ' ' || nextChar == 'G') {
 
                 //replaace enemy index in map array   
                 
-                map[i][moveIndex] = 'Y';
+                map[yPos][xPos] = 'Y';
                 
                 
                 if(i == App.goalIndex[0] && j == App.goalIndex[1])
@@ -57,26 +77,22 @@ public class YellowEnemy {
                     map[i][j] = ' ';
 
 
-            }else if(map[i][moveIndex] == 'R'){
+            }else if(map[yPos][xPos] == 'R'){
             
                 //yellow and red enemies can pass through each other
                 
-                map[i][moveIndex] = 'X'; //here X symbol means that yellow and read enemy are at same position
+                map[yPos][xPos] = 'X'; //here X symbol means that yellow and read enemy are at same position
                 map[i][j] = ' ';
             
-            }else if(map[i][moveIndex] == 'P'){
-            
-//                map[1][1] = 'P';
-//                App.lives--;
-//                App.canResetLevel = true;
-                
-                
-                map[i][moveIndex] = 'Y';
+            }else if(nextChar == 'P'){
+
+                map[yPos][xPos] = 'Y';
                 map[i][j] = ' ';
             
-            }else if(map[i][moveIndex] == 'H'
-                                || map[i][moveIndex] == 'V' || map[i][moveIndex] == 'J' || map[i][moveIndex] == 'K'
-                                || map[i][moveIndex] == 'L' || map[i][moveIndex] == 'M' || map[i][moveIndex] == 'C'){
+            }else if(nextChar == 'H'
+                                || nextChar == 'V' ||  nextChar == 'C'){
+                
+                //die if caught in explosion
                 
                 map[i][j] = ' ';
                 
@@ -86,77 +102,20 @@ public class YellowEnemy {
         }
         
         
+    }
+        
         
         return map;
         
     }
 
-    
-    public char[][] moveClockwiseFromYAxis(int i,int j,int yDirec,char[][] map){
-        
-        
-        
-         int moveIndex = i + yDirec;
-
-        if (moveIndex >= 0 && moveIndex < 14) {
-
-            if (map[moveIndex][j] == 'B' || map[moveIndex][j] == 'W' || (moveIndex == App.bomb.bombY && j == App.bomb.bombX)) {
-
-                
-                map = moveClockwise(i,j,map);
-                            
-
-            }else if (map[moveIndex][j] == ' ' || map[moveIndex][j] == 'G') {
-
-
-                //replaace enemy index in map array   
-                
-                map[moveIndex][j] = 'Y';
-                
-                
-                if(i == App.goalIndex[0] && j == App.goalIndex[1])
-                    map[i][j] = 'G';
-                else
-                    map[i][j] = ' ';
-
-
-            }else if(map[moveIndex][j] == 'R'){
-            
-                
-                map[moveIndex][j] = 'X';
-                map[i][j] = ' ';
-
-                
-            
-            }else if(map[moveIndex][j] == 'P'){
-            
-//                map[1][1] = 'P';
-//                App.lives--;
-//                App.canResetLevel = true;
-                
-                map[moveIndex][j] = 'Y';
-                map[i][j] = ' ';
-                
-            }else if(map[moveIndex][j] == 'H'
-                                || map[moveIndex][j] == 'V' || map[moveIndex][j] == 'J' || map[moveIndex][j] == 'K'
-                                || map[moveIndex][j] == 'L' || map[moveIndex][j] == 'M' || map[moveIndex][j] == 'C'){
-                
-                map[i][j] = ' ';
-                
-            }
-
-        }
-        
-        
-        return map;
-    }
     
     private char[][] moveClockwise(int i,int j,char[][] map){
         
         
-                ArrayList<Integer> cardinalPos = new ArrayList<Integer>();
+                ArrayList<Integer> cardinalPos = new ArrayList<>();
 
-                    //these cardinal positions are arranged in clockwise pattern
+                //these cardinal positions are arranged in clockwise pattern of positions
                     
                 cardinalPos.add(i + 1); // down 
                 
@@ -166,11 +125,9 @@ public class YellowEnemy {
                 
                 cardinalPos.add(j + 1); //right
      
-               
-                
                 
                 int lDirection = getClockwiseDirection();
-                int lDirection2 = lDirection;
+                int lDirection2 = lDirection; //duplicating the lDirection variable for later use
                 
                 if(lDirection != -1){
 
@@ -181,15 +138,25 @@ public class YellowEnemy {
                 
                 for(int k=lDirection;k < 4;k++){
                     
+                    char nextChar; // Represent the item present in map for the current clockwise position
+                    int xPos;
+                    int yPos;
+                    
                     if(k == 0 || k == 2){
+                        nextChar = map[cardinalPos.get(k)][j];
+                        xPos = j;
+                        yPos = cardinalPos.get(k);
+                    }else{                        
+                        nextChar = map[i][cardinalPos.get(k)];
+                        xPos =  cardinalPos.get(k);
+                        yPos =  i;
+                    }
                         
-//                        System.out.println("BOMB POSITION: " + "Y: " + App.bomb.bombY + "X: " + App.bomb.bombX );
-//                        System.out.println("Down/up: " + "Y: " + cardinalPos.get(k) + "X: " + j );
                         
                         if(!(cardinalPos.get(k) == App.bomb.bombY && j == App.bomb.bombX))
-                        if(map[cardinalPos.get(k)][j] == ' '){
+                        if(nextChar == ' '){
                             
-                            map[cardinalPos.get(k)][j] = 'Y';
+                            map[yPos][xPos] = 'Y';
                             
                             if(i == App.goalIndex[0] && j == App.goalIndex[1])
                                 map[i][j] = 'G';
@@ -199,29 +166,24 @@ public class YellowEnemy {
                             yellowAnimDirection = yellowEnDirection = getDirection(k); //this will get the direction according to original directions pattern from clockwsie direction value
                             
                             break;
-                        }else if(map[cardinalPos.get(k)][j] == 'R'){
+                        }else if(nextChar == 'R'){
                         
-                            map[cardinalPos.get(k)][j] = 'X';
+                            map[yPos][xPos] = 'X';
                             map[i][j] = ' ';
                             yellowAnimDirection = yellowEnDirection = getDirection(k); //this will get the direction according to original directions pattern from clockwsie direction value
                             
                             break;
                         
-                        }else if(map[cardinalPos.get(k)][j] == 'P'){
-                            
-//                             map[1][1] = 'P';
-//                             App.lives--;
-//                             App.canResetLevel = true;
-                             
-                             map[cardinalPos.get(k)][j] = 'Y';
+                        }else if(nextChar == 'P'){
+                       
+                             map[yPos][xPos] = 'Y';
                              map[i][j] = ' ';
                              yellowAnimDirection = yellowEnDirection = getDirection(k); //this will get the direction according to original directions pattern from clockwsie direction value
                             
                              break;
                             
-                        }else if(map[cardinalPos.get(k)][j] == 'H'
-                                || map[cardinalPos.get(k)][j] == 'V' || map[cardinalPos.get(k)][j] == 'J' || map[cardinalPos.get(k)][j] == 'K'
-                                || map[cardinalPos.get(k)][j] == 'L' || map[cardinalPos.get(k)][j] == 'M' || map[cardinalPos.get(k)][j] == 'C'){
+                        }else if(nextChar == 'H'
+                                || nextChar == 'V' || nextChar == 'C'){
                             
                             
                             map[i][j] = ' ';
@@ -230,66 +192,15 @@ public class YellowEnemy {
                             
                         }
                                 
-                  }else{
-                        
-                        
-//                        System.out.println("BOMB POSITION: " + "Y: " + App.bomb.bombY + "X: " + App.bomb.bombX );
-//                        System.out.println("Down/up: " + "Y: " + i + "X: " + cardinalPos.get(k) );
-                        
-                        if(!(i == App.bomb.bombY && cardinalPos.get(k) == App.bomb.bombX))
-                        if(map[i][cardinalPos.get(k)] == ' '){
-                            
-                            map[i][cardinalPos.get(k)] = 'Y';
-                            
-                            if(i == App.goalIndex[0] && j == App.goalIndex[1])
-                                    map[i][j] = 'G';
-                            else
-                                    map[i][j] = ' ';
-                            
-                            yellowAnimDirection = yellowEnDirection = getDirection(k);
-                            break;
-                        }else if(map[i][cardinalPos.get(k)] == 'R'){
-                        
-                            map[i][cardinalPos.get(k)] = 'X';
-                            map[i][j] = ' ';
-                            yellowAnimDirection = yellowEnDirection = getDirection(k);
-                            break;
-                        
-                        
-                        }else if(map[i][cardinalPos.get(k)] == 'P'){
-                            
-//                            map[1][1] = 'P';
-//                            App.lives--;
-//                            App.canResetLevel = true;
-                            
-                            
-                            map[i][cardinalPos.get(k)] = 'Y';
-                            map[i][j] = ' ';
-                            yellowAnimDirection = yellowEnDirection = getDirection(k);
-                            break;
-                           
-                        }else if(map[i][cardinalPos.get(k)] == 'H'
-                                || map[i][cardinalPos.get(k)] == 'V' || map[i][cardinalPos.get(k)] == 'J' || map[i][cardinalPos.get(k)] == 'K'
-                                || map[i][cardinalPos.get(k)] == 'L' || map[i][cardinalPos.get(k)] == 'M' || map[i][cardinalPos.get(k)] == 'C'){
-                            
-                            
-                            map[i][j] = ' ';
-                            break;
-                            
-                        }
-                        
-                    }
-                    
-                    
+                  
                     if(lDirection+1 == lDirection2)
                         break;
                         
-                        
-                    
-                    
+                 
                 }                               
                           
     }
+                
         return map;
     }
     
@@ -299,20 +210,28 @@ public class YellowEnemy {
         
          int lDirection = -1;
                 
+                /*
+                        Here lDirection will act as index of above cardinalPos list which actually
+                        contains the surrounding possible movement positions of yellow enemy in circular pattern: 
+                            Down -> Left -> Up -> Right 
+                indexes:     0   ->  1   -> 2  ->   3
+                        Where as yellowEnDirection Variable contains the current direction of yellow Enemy.
+                        Here one thing to note is lDirection is the index for cardinalPos list not the actual direction.
+                        On the other hand, yellowEnDirection is the actual direction not an index.
+                        */
                 
                 switch(yellowEnDirection){
                     
-                    case 0:
-                        
+                    case 0: //Represents Down Direction
                        lDirection = 0;
                        break;
-                    case 1:
+                    case 1: //Represents Up Direction
                         lDirection = 2;
                         break;
-                    case 2:
+                    case 2: //Represents Right Direction
                         lDirection = 3;
                         break;
-                    case 3:
+                    case 3: //Represents Left Direction
                         lDirection = 1;
                         break;
                     
@@ -326,11 +245,16 @@ public class YellowEnemy {
         
         int lDirection = -1;
                 
+                /*
+                
+                This method will retrieve the actual direction from the variable used as index of 
+                cardinalPos list ( list in circular pattern of positions)
+        
+                */
                 
                 switch(index){
                     
                     case 0:
-                        
                        lDirection = 0;
                        break;
                     case 1:
