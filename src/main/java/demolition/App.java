@@ -744,14 +744,14 @@ public class App extends PApplet{
                 //down or up
                 int yDirec = y_direction[redEnemy.redEnDirection];
 
-                map = redEnemy.moveRandomFromYAxis(i, j, yDirec, map);
+                map = redEnemy.movement(i, j, yDirec, map);
 
             } else if (redEnemy.redEnDirection == 2 || redEnemy.redEnDirection == 3) {
                 //right or left
 
                 int xDirec = x_direction[redEnemy.redEnDirection];
 
-                map = redEnemy.moveRandomFromXAxis(i, j, xDirec, map);
+                map = redEnemy.movement(i, j, xDirec, map);
 
             }
 

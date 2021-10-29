@@ -26,31 +26,47 @@ public class RedEnemy{
     
     
     
-    public char[][] moveRandomFromXAxis(int i,int j,int xDirec,char[][] map){
+     public char[][] movement(int i,int j,int direc,char[][] map){       
         
         
+        if(redEnDirection != -1){
         
+        char nextChar; // Represents the item at the next movement position
+        int xPos;
+        int yPos;
         
-//        int moveIndex = j + x_direction[redEnDirection];
-          int moveIndex = j + xDirec;
-
-          
-          
-        if (moveIndex >= 0 && moveIndex < 15) {
+        if(redEnDirection == 0 || redEnDirection == 1){
+            //down or up
             
-         if(map[i][moveIndex] == 'B' || map[i][moveIndex] == 'W' || (i == App.bomb.bombY && moveIndex == App.bomb.bombX)) {
-                
-                
+            xPos = j;
+            yPos = i + direc;
+            nextChar = map[yPos][xPos];
+            
+        }else{
+            //right or left
+           
+            xPos = j + direc;
+            yPos = i;
+            nextChar = map[yPos][xPos];
+            
+        }
+        
+        
+         
+
+        if ((xPos >= 0 && xPos < 15) && (yPos >= 0 && yPos < 14)) {
+
+            
+            if (nextChar == 'B' || nextChar == 'W' || (yPos == App.bomb.bombY && xPos == App.bomb.bombX)) {                                             
                 
                 map = moveRandom(i,j,map);
-
-            } else if (map[i][moveIndex] == ' ' || map[i][moveIndex] == 'G') {
-
-
                 
+
+            }else if (nextChar == ' ' || nextChar == 'G') {
+
                 //replaace enemy index in map array   
                 
-                map[i][moveIndex] = 'R';
+                map[yPos][xPos] = 'R';
                 
                 
                 if(i == App.goalIndex[0] && j == App.goalIndex[1])
@@ -59,102 +75,37 @@ public class RedEnemy{
                     map[i][j] = ' ';
 
 
-            }else if(map[i][moveIndex] == 'Y'){
+            }else if(map[yPos][xPos] == 'Y'){
             
+                //yellow and red enemies can pass through each other
                 
-                map[i][moveIndex] = 'X';
-                
-                map[i][j] = ' ';
-
-            
-            
-            }else if(map[i][moveIndex] == 'P' ){
-                
-//                map[1][1] = 'P';
-//                App.lives--;
-//                App.canResetLevel = true;
-                
-                map[i][moveIndex] = 'R';
-                map[i][j] = ' ';
-                
-                
-            }else if(map[i][moveIndex] == 'H'
-                                || map[i][moveIndex] == 'V' || map[i][moveIndex] == 'J' || map[i][moveIndex] == 'K'
-                                || map[i][moveIndex] == 'L' || map[i][moveIndex] == 'M' || map[i][moveIndex] == 'C'){
-                //when red in contact with explosion it will die
-                map[i][j] = ' ';
-                
-            }
-
-        }
-        
-        return map;
-    }
-    
-    
-    public char[][] moveRandomFromYAxis(int i,int j,int yDirec,char[][] map){
-        
-        
-            
-        
-        
-          int moveIndex = i + yDirec;
-
-        if (moveIndex >= 0 && moveIndex < 14) {
-            
-            
-            if(map[moveIndex][j] == 'B' || map[moveIndex][j] == 'W'  || (moveIndex == App.bomb.bombY && j == App.bomb.bombX)) {
-                
-               
-                
-                map = moveRandom(i,j,map);
-
-            }else if (map[moveIndex][j] == ' ' || map[moveIndex][j] == 'G') {
-
-
-                //replaace enemy index in map array   
-                
-                map[moveIndex][j] = 'R';
-                
-                
-                
-                
-                if(i == App.goalIndex[0] && j == App.goalIndex[1])
-                    map[i][j] = 'G';
-                else
-                    map[i][j] = ' ';
-
-
-            }else if(map[moveIndex][j] == 'Y'){
-            
-            map[moveIndex][j] = 'X';
-                map[i][j] = ' ';
-
-            
-            
-            }else if(map[moveIndex][j] == 'P'){
-            
-//                map[1][1] = 'P';
-//                App.lives--;
-//                App.canResetLevel = true;
-                
-                map[moveIndex][j] = 'R';
+                map[yPos][xPos] = 'X'; //here X symbol means that yellow and read enemy are at same position
                 map[i][j] = ' ';
             
-            }else if(map[moveIndex][j] == 'H'
-                                || map[moveIndex][j] == 'V' || map[moveIndex][j] == 'J' || map[moveIndex][j] == 'K'
-                                || map[moveIndex][j] == 'L' || map[moveIndex][j] == 'M' || map[moveIndex][j] == 'C'){
-                //when red in contact with explosion it will die
+            }else if(nextChar == 'P'){
+
+                map[yPos][xPos] = 'R';
                 map[i][j] = ' ';
+            
+            }else if(nextChar == 'H'
+                                || nextChar == 'V' ||  nextChar == 'C'){
+                
+                //die if caught in explosion
+                
+                map[i][j] = ' ';
+                
                 
             }
 
         }
         
         
-        return map;
     }
-    
+        
+        
+        return map;
+        
+    }
     
     
     private char[][] moveRandom(int i,int j,char[][] map){
@@ -164,7 +115,7 @@ public class RedEnemy{
         int pX = -1;
         int pY = -1;
         
-        ArrayList<Integer[]> openWays = new ArrayList<Integer[]>(); //this list will contain positions of empty tiles around redEnemy
+        ArrayList<Integer[]> openWays = new ArrayList<>(); //this list will contain positions of empty tiles around redEnemy
         
         
         if(!(i+1 == App.bomb.bombY && j == App.bomb.bombX))
@@ -249,11 +200,7 @@ public class RedEnemy{
             
             
             if(pX != -1 && pY != -1){
-                
-//                map[1][1] = 'P';
-//                App.lives--;
-//                App.canResetLevel = true;
-                
+  
                 map[pX][pY] = 'R';
                 map[i][j] = ' ';
                 
