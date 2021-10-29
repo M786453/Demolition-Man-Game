@@ -57,7 +57,7 @@ public class App extends PApplet{
     
     private ArrayList<PImage> bombFramesList;
 
-    private int lives;
+    
     private Level[] gameLevels;
     private int levelIndex = 0;
    
@@ -116,6 +116,7 @@ public class App extends PApplet{
         pStartPosLevelList = new ArrayList<>();        
         startTime = System.currentTimeMillis();   
         
+        bombGuy = new BombGuy(); 
         String configData = readConfig();
         gameLevels = configureLevels(configData);
         bombFramesList = new ArrayList<>();
@@ -124,8 +125,7 @@ public class App extends PApplet{
         
         isWin = false;       
         isGameOver = false;
-        bomb = new Bomb();        
-        bombGuy = new BombGuy();        
+        bomb = new Bomb();                       
         redEnemy = new RedEnemy();        
         yellEnemy = new YellowEnemy();
 
@@ -204,14 +204,14 @@ public class App extends PApplet{
         
         if(!isGameOver){
             
-            if(lives <= 0 ){
+            if(bombGuy.getLives() <= 0 ){
                 isGameOver = true;            
                 return;
             }
         
         fill(0);
         textSize(20);
-        text(lives,190,40);
+        text(bombGuy.getLives(),190,40);
         image(life,150,16);
         
         //loadLevel
@@ -308,7 +308,7 @@ public class App extends PApplet{
                               
                               int yDirec = y_direction[bombGuy.direction]; 
                               
-                              map = bombGuy.moveAlongYAxis(i, j, yDirec , map);
+                              map = bombGuy.movement(i, j, yDirec , map);
                               
                               
                               
@@ -318,7 +318,7 @@ public class App extends PApplet{
                               
                               int xDirec = x_direction[bombGuy.direction]; 
                               
-                              map = bombGuy.moveAlongXAxis(i, j, xDirec, map);
+                              map = bombGuy.movement(i, j, xDirec, map);
                               
                             
                               
@@ -515,15 +515,20 @@ public class App extends PApplet{
                       // in this way this piece of will be called in other cases Like when player
                       //comes in contact with any enemy
                       
-                  lives--;
+                      
                   
+                      
                   gameLevels[levelIndex].resetLevel();
                       
                   Integer[] playerLevelStartPos = pStartPosLevelList.get(levelIndex);
                   
                   map[playerLevelStartPos[0]][playerLevelStartPos[1]] = 'P';
                   
+                  int totalLivesBeforeLost = bombGuy.getLives();
+                  
                   bombGuy = new BombGuy();
+                  bombGuy.setLives(totalLivesBeforeLost - 1);
+                  
                   redEnemy = new RedEnemy();
                   yellEnemy = new YellowEnemy();
                   
@@ -583,7 +588,7 @@ public class App extends PApplet{
             
         JSONObject obj = JSONObject.parse(jsonData);      
         JSONArray levels = obj.getJSONArray("levels");
-        lives = obj.getInt("lives");
+        bombGuy.setLives(obj.getInt("lives")); 
        
         levelArray = new Level[levels.size()];
         for(int i=0;i<levels.size();i++){
