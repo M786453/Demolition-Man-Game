@@ -25,7 +25,7 @@ public class App extends PApplet{
     public static final int WIDTH = 480;
     private final int FPS = 60;
     private static boolean isPlayerInMap;
-    private static ArrayList<Integer[]> pStartPosLevelList;
+    private static ArrayList<Integer[]> pStartPlayerPosLevelList;
     
     private BombGuy bombGuy;
     private RedEnemy redEnemy;
@@ -113,24 +113,30 @@ public class App extends PApplet{
         frameRate(FPS);
         
         isPlayerInMap = false;
-        pStartPosLevelList = new ArrayList<>();        
+        pStartPlayerPosLevelList = new ArrayList<>();        
         startTime = System.currentTimeMillis();   
         
         bombGuy = new BombGuy(); 
-        String configData = readConfig();
-        gameLevels = configureLevels(configData);
-        bombFramesList = new ArrayList<>();
-        characterAnimation = new Animation(0.2f);
-        bombAnimation = new Animation(0.25f);
-        
-        isWin = false;       
-        isGameOver = false;
         bomb = new Bomb();                       
         redEnemy = new RedEnemy();        
         yellEnemy = new YellowEnemy();
-
-        loadTiles();
         
+        String configData = readConfig();
+        gameLevels = configureLevels(configData);
+        
+        bombFramesList = new ArrayList<>();
+        characterAnimation = new Animation(0.2f);
+        bombAnimation = new Animation(bomb.PerFrameTime);
+
+        isWin = false;       
+        isGameOver = false;
+        
+        /*
+        TILES AND ICONS INITIALIZATION
+        */
+        
+        
+        loadTiles();        
         loadIcons();
 
         
@@ -138,28 +144,22 @@ public class App extends PApplet{
         PLAYER FRAMES LISTS INITIALIZATION
         */
        
-        loadPlayerDownFramesList();
-        loadPlayerUpFramesList();
-        loadPlayerRightFramesList();
-        loadPlayerLeftFramesList();
+        loadPlayerFramesInLists();
 
         /*
         RED ENEMY FRAMES LISTS INITIALIZATION
          */
-       
-        loadRedEnemyUpFrames();
-        loadRedEnemyDownFrames();
-        loadRedEnemyLeftFrames();
-        loadRedEnemyRightFrames();
+        
+        loadRedEnemyFramesInLists();
+        
 
         /*
         YELLOW ENEMY FRAMES LISTS INITIALIZATION
          */
         
-        loadYellowEnemyDownFrames();
-        loadYellowEnemyUpFrames();
-        loadYellowEnemyLeftFrames();
-        loadYellowEnemyRightFrames();
+        
+        loadYellowEnemyFramesInLists();
+        
         
         
         /*
@@ -181,21 +181,15 @@ public class App extends PApplet{
     @Override
     public void draw(){
         
-        //this method is used to draw content on the window
-        //this method is called 60 times per second
-        
+        /*
+        This method is used to draw content on the window.
+        This method is called 60 times per second
+        */
         background(255,140,0);
         
         if(isWin){
             
-            /*
-            SHOW WIN SCREEN
-            */
-            
-            fill(0);
-            textSize(20);
-            textAlign(CENTER);
-            text("You Win",240,240);
+            showWinScreen();
             
             return;
         }
@@ -204,15 +198,17 @@ public class App extends PApplet{
         
         if(!isGameOver){
             
+            /*
+                IF BOMB GUY LIVES ARE LESS THAN EQUAL TO 0, GAME WILL BE OVER
+            */
+            
             if(bombGuy.getLives() <= 0 ){
                 isGameOver = true;            
                 return;
+                
             }
         
-        fill(0);
-        textSize(20);
-        text(bombGuy.getLives(),190,40);
-        image(life,150,16);
+        
         
         //loadLevel
           
@@ -220,25 +216,11 @@ public class App extends PApplet{
         map = level.mapArray;
         
         
-        long elapsedTime = System.currentTimeMillis() - startTime;
-      
-        if(elapsedTime/1000!=0){
-          
-          textSize(20);
-          
-          if((level.time - (int)(elapsedTime/1000)) > 0){
-          
-          text((level.time - (int)(elapsedTime/1000)),305,40); 
-          
-          }else
-              isGameOver = true;
-              
-        }else{
-          textSize(20);
-          text((level.time),305,40); 
-        }
+        showLives();
         
-          image(clock,270,16);
+        
+        showClockWithTime(level);
+        
 
           
           for(int i=0;i<Map.ROWS;i++){
@@ -288,53 +270,12 @@ public class App extends PApplet{
 
                           isPlayerInMap = true;
                          
-                          //this condition is for changing level
-                          if(i == goalIndex[0] && j == goalIndex[1]){
-                              
-                              if(levelIndex == gameLevels.length-1)
-                                  isWin = true;
-                              else
-                                  levelIndex++;
-                                  startTime = System.currentTimeMillis();
-                              bombGuy.anim_direction = -1;
-                          }
                           
                           
-                          //this will change the position of player if there is empty or goal tile towards the position
-                          //requested by user
-                          if(bombGuy.direction == 0 || bombGuy.direction == 1){
-                              //move down or up
-                              
-                              
-                              int yDirec = y_direction[bombGuy.direction]; 
-                              
-                              map = bombGuy.movement(i, j, yDirec , map);
-                              
-                              
-                              
-                              
-                          }else if(bombGuy.direction == 2 || bombGuy.direction == 3){
-                              //move right or left
-                              
-                              int xDirec = x_direction[bombGuy.direction]; 
-                              
-                              map = bombGuy.movement(i, j, xDirec, map);
-                              
-                            
-                              
-                          }
+                          changeLevelIfPlayerAtGoal(i,j);
                           
                           
-                          
-                              
-                                                                                                                                                                                                                                                        
-                          //this will animate the player
-                          
-                          
-                         
-                              
-                         
-                              
+                          controlPlayer(i,j);                          
                           
                           image(emptyw,j*32,(i*32)+ Map.OFFSET);
                           
@@ -342,36 +283,12 @@ public class App extends PApplet{
                           //place bomb if space is pressed by the player
                            if(bomb.isPlaced)     {
                               
-                              bomb.isExploded = false;
-                              bomb.bombX = j;
-                              bomb.bombY = i;
-
-                              bombAnimation = new Animation(bomb.PerFrameTime);
-                         
-                              
-                              
-                              new Timer().schedule(new TimerTask(){
-                              
-                                  
-                                  @Override
-                                  public void run(){
-                                      
-                                     
-                                      bomb.canExplode = true;
-                                      
-                                      
-                                      
-                                  }
-                              
-                              }, bomb.BombTime);
-                              bomb.isPlaced = false;
+                              placeBomb(i,j);
                               
                           }
                                                     
                            
-                           
                           int yPlayerPos = (abs(i-1) * 32)+ start_y_pos_player;
-                                                                 
                           
                           positionAnimation(bombGuy.anim_direction,j*32,yPlayerPos,playerDownFramesList,playerUpFramesList,playerRightFramesList,
                                   playerLeftFramesList);
@@ -382,67 +299,17 @@ public class App extends PApplet{
                           
                           image(emptyw,j*32,(i*32)+ Map.OFFSET);   
 
-                           //explosion code here
                            
-                            if(bomb.bombX == j && bomb.bombY == i)
-                                    image(bombAnimation.play(bombFramesList),bomb.bombX*32,(bomb.bombY*32) + Map.OFFSET);
+                            /*
+        
+                                If bomb is present at i,j position then show the bomb Animation
+        
+                            */
+                           
+                            positionBombAnimation(i,j);
                               
-                                    if(bomb.canExplode){
-                                        bomb.explode(bomb.bombX, bomb.bombY, map);
-                                        bomb.canExplode = false;
-                                  
-                                    new Timer().schedule(new TimerTask(){
-                                      
-                                          @Override
-                                          public void run(){
-                                          
-                                            //this code will run after explosion
-                                            bomb.isExploded = true;
-                                            if(bomb.explodeRange.size() > 0){
-                                              
-                                             
-                                              
-                                                  map[bomb.bombY][bomb.bombX] = ' ';
-                                                  
-                                              
-                                              
-                                              
-                                          }
-                                              
-                                          
-                                          for(int l=0;l<bomb.explodeRange.size();l++){
-                                              
-                                              int[][] rangeDirection = bomb.explodeRange.get(l);
-                                              
-                                              
-                                              if(rangeDirection[0][0] != -1 && rangeDirection[0][1] != -1)
-                                                  if(rangeDirection[0][0] == goalIndex[0] && rangeDirection[0][1] == goalIndex[1])
-                                                      map[rangeDirection[0][0]][rangeDirection[0][1]] = 'G';
-                                                  else                                                      
-                                                      map[rangeDirection[0][0]][rangeDirection[0][1]] = ' ';
-                                              
-                                              
-                                              if(rangeDirection[1][0] != -1 && rangeDirection[1][1] != -1)
-                                                  if(rangeDirection[1][0] == goalIndex[0]  && rangeDirection[1][1] == goalIndex[1])
-                                                      map[rangeDirection[1][0]][rangeDirection[1][1]] = 'G';
-                                                  else
-                                                      map[rangeDirection[1][0]][rangeDirection[1][1]] = ' ';
-                                              
-                                              
-                                              
-                                          }
-                                          
-                                          //this will remove the bomb from map
-                                                bomb.bombX = -1;
-                                                bomb.bombY = -1;
-                                          
-                                      }
-                                      
-                                      
-                                  }, bomb.ExplosionTime);
-                                  
-                                  
-                              }
+                               
+                            removeExplosionEffectAfterExplosion();
           
                           
                           break;
@@ -481,74 +348,38 @@ public class App extends PApplet{
                           goalIndex[1] = j;
                           image(goalw,j*32,(i*32)+ Map.OFFSET);
                         
-                          
-                          
-                          
                           break;
                    
                       
                   }
                   
-                  
-                 
-                  
               }
-              
-          
-              
           
     }
           
           if(isPlayerInMap){
+                  
                   //we will reset the value of isPlayerInMap to check every time the existence of player in map
+                  
                   isPlayerInMap = false;
               
               }else{
                   
-                  //if player is not present in map (because of explosion it maynot shown in map)
-                  //then we add the player respawn position in level according to its level
+                  /*
+                  if player is not present in map (mean player is died)
+                  then we add the player respawn position in level according to its level
+                  */
                   
-                  if(bomb.isExploded){
-                      
-                      //here checking if any bomb is placed and exploded then show the player in the map
-                      //this variable will be if the bomb is not placed
-                      // in this way this piece of will be called in other cases Like when player
-                      //comes in contact with any enemy
-                      
-                      
+                  playerDieAndResetLevel();
                   
-                      
-                  gameLevels[levelIndex].resetLevel();
-                      
-                  Integer[] playerLevelStartPos = pStartPosLevelList.get(levelIndex);
                   
-                  map[playerLevelStartPos[0]][playerLevelStartPos[1]] = 'P';
-                  
-                  int totalLivesBeforeLost = bombGuy.getLives();
-                  
-                  bombGuy = new BombGuy();
-                  bombGuy.setLives(totalLivesBeforeLost - 1);
-                  
-                  redEnemy = new RedEnemy();
-                  yellEnemy = new YellowEnemy();
-                  
-                  isPlayerInMap = true;
-                  
-                  }
               }
           
     }else{
+       
+        showGameOverScreen();
             
-        /*
-            GAME OVER SCREEN
-            */
-        fill(0);
-        textSize(20);
-        textAlign(CENTER);
-        text("GAME OVER",240,240);
-            
-            
-        }
+    }
             
         
     }
@@ -642,7 +473,7 @@ public class App extends PApplet{
                           playerStartPos[1] = j;
                           
                           
-                          pStartPosLevelList.add(playerStartPos);
+                          pStartPlayerPosLevelList.add(playerStartPos);
                           
                       }
                       
@@ -821,7 +652,7 @@ public class App extends PApplet{
     
     
     
-    public void loadPlayerDownFramesList(){
+    private void loadPlayerDownFramesList(){
         
         playerDownFramesList = new ArrayList<>();
         
@@ -844,7 +675,7 @@ public class App extends PApplet{
     }
     
     
-    public void loadPlayerRightFramesList(){
+    private void loadPlayerRightFramesList(){
         
         playerRightFramesList = new ArrayList<>();
         
@@ -865,7 +696,7 @@ public class App extends PApplet{
     }
     
     
-    public void loadPlayerLeftFramesList(){
+    private void loadPlayerLeftFramesList(){
         
         playerLeftFramesList = new ArrayList<>();        
         
@@ -887,7 +718,7 @@ public class App extends PApplet{
     
     
     
-    public void loadPlayerUpFramesList(){
+    private void loadPlayerUpFramesList(){
         
         
         playerUpFramesList = new ArrayList<>();
@@ -910,7 +741,7 @@ public class App extends PApplet{
     }
     
     
-    public void loadRedEnemyDownFrames(){
+    private void loadRedEnemyDownFrames(){
         
         
         redEnDownFramesList = new ArrayList<>();
@@ -929,7 +760,7 @@ public class App extends PApplet{
     }
     
     
-    public void loadRedEnemyUpFrames(){
+    private void loadRedEnemyUpFrames(){
         
         
         redEnUpFramesList = new ArrayList<>();
@@ -946,7 +777,7 @@ public class App extends PApplet{
         
     }
     
-    public void loadRedEnemyRightFrames(){
+    private void loadRedEnemyRightFrames(){
         
         
         redEnRightFramesList = new ArrayList<>();
@@ -963,7 +794,7 @@ public class App extends PApplet{
         
     }
     
-    public void loadRedEnemyLeftFrames(){
+    private void loadRedEnemyLeftFrames(){
         
         redEnLeftFramesList = new ArrayList<>();
         
@@ -979,7 +810,7 @@ public class App extends PApplet{
     }
     
     
-    public void loadYellowEnemyDownFrames(){
+    private void loadYellowEnemyDownFrames(){
         
         
         yellowEnDownFramesList = new ArrayList<>();
@@ -998,7 +829,7 @@ public class App extends PApplet{
     }
     
     
-    public void loadYellowEnemyUpFrames(){
+    private void loadYellowEnemyUpFrames(){
         
         yellowEnUpFramesList = new ArrayList<>();
         
@@ -1017,7 +848,7 @@ public class App extends PApplet{
     }
     
     
-    public void loadYellowEnemyRightFrames(){
+    private void loadYellowEnemyRightFrames(){
         
         
         yellowEnRightFramesList = new ArrayList<>();
@@ -1035,7 +866,7 @@ public class App extends PApplet{
     }
     
     
-    public void loadYellowEnemyLeftFrames(){
+    private void loadYellowEnemyLeftFrames(){
         
         yellowEnLeftFramesList = new ArrayList<>();
         
@@ -1052,7 +883,7 @@ public class App extends PApplet{
     
     
     
-    public void loadBombFrames(){
+    private void loadBombFrames(){
         
         
         bombFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
@@ -1077,7 +908,7 @@ public class App extends PApplet{
     }
     
     
-    public void loadExplosionFrames(){
+    private void loadExplosionFrames(){
         
         
         explosionC = loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
@@ -1092,7 +923,7 @@ public class App extends PApplet{
     }
     
     
-    public void loadTiles(){
+    private void loadTiles(){
         
         
         //walls
@@ -1109,7 +940,7 @@ public class App extends PApplet{
     }
     
     
-    public void loadIcons(){
+    private void loadIcons(){
         
         
          //icons
@@ -1121,5 +952,311 @@ public class App extends PApplet{
         
         
     }
+    
+    
+    private void showWinScreen(){
+        
+            /*
+            SHOW WIN SCREEN
+            */
+            
+            fill(0);
+            textSize(20);
+            textAlign(CENTER);
+            text("You Win",240,240);
+           
+    }
+    
+    
+    private void showGameOverScreen(){
+        
+         /*
+            GAME OVER SCREEN
+            */
+         
+        fill(0);
+        textSize(20);
+        textAlign(CENTER);
+        text("GAME OVER",240,240);
+        
+        
+    }
+    
+    
+    private void playerDieAndResetLevel(){
+        
+        
+        if(bomb.isExploded){
+                      
+                      /*
+                      Here checking if any bomb is placed and exploded then show the player in the map
+                      This variable will be if the bomb is not placed
+                      In this way this piece of will be called in other cases Like when player
+                      comes in contact with any enemy
+                      
+                      NOTE: Here the bomb.isExploded is only false when bomb is placed and it will be true
+                      after explosion or even when bomb is not placed. So player will lose life and level will reset when in
+                      contact with explosion or an enemy.
+                      */
+                      
+                      
+                  
+                      
+                  gameLevels[levelIndex].resetLevel();
+                      
+                  Integer[] playerLevelStartPos = pStartPlayerPosLevelList.get(levelIndex);
+                  
+                  map[playerLevelStartPos[0]][playerLevelStartPos[1]] = 'P';
+                  
+                  int totalLivesBeforeLost = bombGuy.getLives();
+                  
+                  bombGuy = new BombGuy();
+                  bombGuy.setLives(totalLivesBeforeLost - 1);
+                  
+                  redEnemy = new RedEnemy();
+                  yellEnemy = new YellowEnemy();
+                  
+                  isPlayerInMap = true;
+                  
+                  }
+        
+        
+    }
+    
+    
+    private void positionBombAnimation(int i, int j){
+        
+        if(bomb.bombX == j && bomb.bombY == i)
+                                    image(bombAnimation.play(bombFramesList),bomb.bombX*32,(bomb.bombY*32) + Map.OFFSET);
+        
+        
+    }
+    
+    
+    
+    
+    private void removeExplosionEffectAfterExplosion(){
+        
+        
+             if(bomb.canExplode){
+                                        bomb.explode(bomb.bombX, bomb.bombY, map);
+                                        bomb.canExplode = false;
+                                  
+                                    new Timer().schedule(new TimerTask(){
+                                      
+                                          @Override
+                                          public void run(){
+                                          
+                                            //this code will run after explosion
+                                            bomb.isExploded = true;
+                                            if(bomb.explodeRange.size() > 0){
+                                              
+                                             
+                                              
+                                                  map[bomb.bombY][bomb.bombX] = ' ';
+                                                  
+                                              
+                                              
+                                              
+                                          }
+                                              
+                                          
+                                          for(int l=0;l<bomb.explodeRange.size();l++){
+                                              
+                                              int[][] rangeDirection = bomb.explodeRange.get(l);
+                                              
+                                              
+                                              if(rangeDirection[0][0] != -1 && rangeDirection[0][1] != -1)
+                                                  if(rangeDirection[0][0] == goalIndex[0] && rangeDirection[0][1] == goalIndex[1])
+                                                      map[rangeDirection[0][0]][rangeDirection[0][1]] = 'G';
+                                                  else                                                      
+                                                      map[rangeDirection[0][0]][rangeDirection[0][1]] = ' ';
+                                              
+                                              
+                                              if(rangeDirection[1][0] != -1 && rangeDirection[1][1] != -1)
+                                                  if(rangeDirection[1][0] == goalIndex[0]  && rangeDirection[1][1] == goalIndex[1])
+                                                      map[rangeDirection[1][0]][rangeDirection[1][1]] = 'G';
+                                                  else
+                                                      map[rangeDirection[1][0]][rangeDirection[1][1]] = ' ';
+                                              
+                                              
+                                              
+                                          }
+                                          
+                                          //this will remove the bomb from map
+                                                bomb.bombX = -1;
+                                                bomb.bombY = -1;
+                                          
+                                      }
+                                      
+                                      
+                                  }, bomb.ExplosionTime);
+                                  
+                                  
+                              }
+        
+        
+    }
+    
+    
+    private void placeBomb(int i, int j){
+        
+        
+        bomb.isExploded = false;
+                              bomb.bombX = j;
+                              bomb.bombY = i;
+
+                              bombAnimation = new Animation(bomb.PerFrameTime);
+                         
+                              
+                              
+                              new Timer().schedule(new TimerTask(){
+                              
+                                  
+                                  @Override
+                                  public void run(){
+                                      
+                                     
+                                      bomb.canExplode = true;
+                                      
+                                      
+                                      
+                                  }
+                              
+                              }, bomb.BombTime);
+                              bomb.isPlaced = false;
+        
+        
+    }
+    
+    
+    private void showLives(){
+        
+        
+        fill(0);
+        textSize(20);
+        text(bombGuy.getLives(),190,40);
+        image(life,150,16);
+        
+        
+    }
+    
+    
+    private void showClockWithTime(Level level){
+        
+        
+        long elapsedTime = System.currentTimeMillis() - startTime;
+      
+        if(elapsedTime/1000!=0){
+          
+          textSize(20);
+          
+          if((level.time - (int)(elapsedTime/1000)) > 0){
+          
+          text((level.time - (int)(elapsedTime/1000)),305,40); 
+          
+          }else
+              isGameOver = true;
+              
+        }else{
+          textSize(20);
+          text((level.time),305,40); 
+        }
+        
+          image(clock,270,16);
+        
+        
+    }
+    
+    
+    private void loadPlayerFramesInLists(){
+        
+        loadPlayerDownFramesList();
+        loadPlayerUpFramesList();
+        loadPlayerRightFramesList();
+        loadPlayerLeftFramesList();
+        
+        
+    }
+    
+    
+    
+    private void loadRedEnemyFramesInLists(){
+        
+        
+        loadRedEnemyUpFrames();
+        loadRedEnemyDownFrames();
+        loadRedEnemyLeftFrames();
+        loadRedEnemyRightFrames();
+        
+        
+    }
+    
+    
+    private void loadYellowEnemyFramesInLists(){
+        
+        
+        
+        loadYellowEnemyDownFrames();
+        loadYellowEnemyUpFrames();
+        loadYellowEnemyLeftFrames();
+        loadYellowEnemyRightFrames();
+        
+        
+    }
+    
+    
+    private void changeLevelIfPlayerAtGoal(int i, int j){
+        
+        /*
+            If Player at Goal Position, change the level. If Player
+            Goal Tile of last level , then player will win game
+        */
+        
+                          if(i == goalIndex[0] && j == goalIndex[1]){
+                              
+                              if(levelIndex == gameLevels.length-1)
+                                  isWin = true;
+                              else
+                                  levelIndex++;
+                              
+                              startTime = System.currentTimeMillis();
+                              bombGuy.anim_direction = -1;
+                          }
+        
+        
+    }
+    
+    
+    
+    private void controlPlayer(int i, int j){
+        
+        
+        //this will change the position of player if there is empty or goal tile towards the position
+                          //requested by user
+                          if(bombGuy.direction == 0 || bombGuy.direction == 1){
+                              //move down or up
+                              
+                              
+                              int yDirec = y_direction[bombGuy.direction]; 
+                              
+                              map = bombGuy.movement(i, j, yDirec , map);
+                              
+                              
+                              
+                              
+                          }else if(bombGuy.direction == 2 || bombGuy.direction == 3){
+                              //move right or left
+                              
+                              int xDirec = x_direction[bombGuy.direction]; 
+                              
+                              map = bombGuy.movement(i, j, xDirec, map);
+                              
+                            
+                          }
+        
+        
+    }
+    
     
 }

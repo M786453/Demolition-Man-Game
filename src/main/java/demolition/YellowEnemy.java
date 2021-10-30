@@ -56,7 +56,7 @@ public class YellowEnemy {
         
          
 
-        if ((xPos >= 0 && xPos < 15) && (yPos >= 0 && yPos < 14)) {
+        if ((xPos >= 0 && xPos < Map.COLUMNS) && (yPos >= 0 && yPos < Map.ROWS)) {
 
             
             if (nextChar == 'B' || nextChar == 'W' || (yPos == App.bomb.bombY && xPos == App.bomb.bombX)) {                                             

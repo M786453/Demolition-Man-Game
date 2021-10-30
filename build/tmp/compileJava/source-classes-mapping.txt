@@ -1,7 +1,9 @@
-demolition/BombGuy.java
- demolition.BombGuy
-demolition/Level.java
- demolition.Level
+demolition/App.java
+ demolition.App
+ demolition.App$1
+ demolition.App$2
+demolition/YellowEnemy.java
+ demolition.YellowEnemy
 demolition/Map.java
  demolition.Map
 demolition/Animation.java
@@ -11,9 +13,7 @@ demolition/Bomb.java
  demolition.Bomb
 demolition/RedEnemy.java
  demolition.RedEnemy
-demolition/App.java
- demolition.App
- demolition.App$1
- demolition.App$2
-demolition/YellowEnemy.java
- demolition.YellowEnemy
+demolition/Level.java
+ demolition.Level
+demolition/BombGuy.java
+ demolition.BombGuy
