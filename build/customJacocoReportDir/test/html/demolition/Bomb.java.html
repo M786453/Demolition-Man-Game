@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Bomb.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gradleproject1</a> &gt; <a href="index.source.html" class="el_package">demolition</a> &gt; <span class="el_source">Bomb.java</span></div><h1>Bomb.java</h1><pre class="source lang-java linenums">/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package demolition;
+
+import java.util.ArrayList;
+
+/**
+ *
+ * @author Ahtesham Sarwar
+ */
+public class Bomb {
+    
+<span class="fc" id="L15">    public final int BombTime = 2000; // it is in milliseconds</span>
+<span class="fc" id="L16">    public final float PerFrameTime = 0.25f;</span>
+<span class="fc" id="L17">    public final int ExplosionTime = 500; // it is in milliseconds</span>
+    
+    public int bombX;
+    public int bombY;
+    public boolean isPlaced;
+    public long placeTime;
+    public boolean isExploded;
+    public boolean canExplode;    
+    public ArrayList&lt;int[][]&gt; explodeRange;
+    
+    
+    
+<span class="fc" id="L29">    public Bomb(){                     </span>
+        
+<span class="fc" id="L31">        bombX = -1;</span>
+<span class="fc" id="L32">        bombY = -1;</span>
+<span class="fc" id="L33">        isPlaced = false;</span>
+<span class="fc" id="L34">        isExploded = true;</span>
+<span class="fc" id="L35">        placeTime = 0;</span>
+<span class="fc" id="L36">        canExplode = false;</span>
+<span class="fc" id="L37">        explodeRange = new ArrayList&lt;&gt;();</span>
+        
+<span class="fc" id="L39">    }</span>
+    
+    
+    public char[][] explode(int x,int y,char[][] map){
+        
+<span class="fc" id="L44">        explodeRange.clear();</span>
+        
+<span class="fc" id="L46">        map[y][x] = 'C'; // y -&gt; y-axis , x -&gt; x-axis</span>
+        
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        for(int i=0;i&lt;4;i++){</span>
+            
+            
+                
+<span class="pc bpc" id="L52" title="1 of 5 branches missed.">                switch(i){</span>
+                    
+                    case 0:
+                        //down
+                        
+                        
+<span class="fc" id="L58">                        explosionRange(x,x,y+1,y+2,map,'V');</span>
+                        
+                        
+                        
+                        
+<span class="fc" id="L63">                        break;</span>
+                    case 1:
+                        //up
+                        
+                        
+<span class="fc" id="L68">                        explosionRange(x,x,y-1,y-2,map,'V');</span>
+                        
+                        
+<span class="fc" id="L71">                        break;</span>
+                    case 2:
+                        //right
+                        
+                        
+                        
+<span class="fc" id="L77">                        explosionRange(x+1,x+2,y,y,map,'H');</span>
+                        
+                                            
+                        
+<span class="fc" id="L81">                        break;</span>
+                    case 3:
+                        //left
+                        
+                        
+                        // pattern eg: L,H
+<span class="fc" id="L87">                        explosionRange(x-1,x-2,y,y,map,'H');</span>
+                        
+
+                        break;
+                    
+                }
+                
+        }
+        
+<span class="fc" id="L96">        return map;</span>
+    }
+    
+    
+    private void explosionRange(int x1,int x2,int y1,int y2,char[][] map,char explosionChar){
+        
+<span class="fc" id="L102">                int[][] rangeForDirection = new int[2][2];</span>
+        
+<span class="pc bpc" id="L104" title="2 of 8 branches missed.">                if(y1 &gt; 0 &amp;&amp; y1 &lt; 12 &amp;&amp; x1 &gt; 0 &amp;&amp; x1 &lt; 14){</span>
+                            
+                    
+                    
+<span class="pc bpc" id="L108" title="4 of 8 branches missed.">                            if(y2 &gt; 0 &amp;&amp; y2 &lt; 12 &amp;&amp; x2 &gt; 0 &amp;&amp; x2 &lt; 14){</span>
+                                
+<span class="fc" id="L110">                                rangeForDirection[1][0] = y2;</span>
+<span class="fc" id="L111">                                rangeForDirection[1][1] = x2;</span>
+                                
+                            }else{
+                                
+<span class="nc" id="L115">                                rangeForDirection[1][0] = -1;</span>
+<span class="nc" id="L116">                                rangeForDirection[1][1] = -1;</span>
+                                
+<span class="nc" id="L118">                                y2 = -1;</span>
+<span class="nc" id="L119">                                x2 = -1;</span>
+                                
+                            }
+                           
+                            
+<span class="fc" id="L124">                            rangeForDirection[0][0] = y1;</span>
+<span class="fc" id="L125">                            rangeForDirection[0][1] = x1;</span>
+                            
+                            
+                            
+                            
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">                            if(map[y1][x1] != 'W'){</span>
+                                
+                                
+<span class="nc bnc" id="L133" title="All 2 branches missed.">                                if(map[y1][x1] != 'B'){</span>
+                                    
+                                    
+                                    
+<span class="nc bnc" id="L137" title="All 6 branches missed.">                                    if((y2 == -1 &amp;&amp; x2 == -1) || map[y2][x2] == 'W'){</span>
+                                        
+<span class="nc" id="L139">                                        map[y1][x1] = explosionChar;</span>
+                                                                               
+                                        
+                                    }else{
+                                        
+<span class="nc" id="L144">                                        map[y1][x1] = explosionChar;</span>
+<span class="nc" id="L145">                                        map[y2][x2] = explosionChar;</span>
+                                        
+                                    }
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                }else{
+                                    
+<span class="nc" id="L156">                                    map[y1][x1] = explosionChar;</span>
+                                    
+<span class="nc" id="L158">                                    rangeForDirection[1][0] = -1;</span>
+<span class="nc" id="L159">                                    rangeForDirection[1][1] = -1;</span>
+                                    
+                                    
+                                }
+                                
+                                
+                                
+                            }else{
+                                
+<span class="fc" id="L168">                                rangeForDirection[0][0] = -1;</span>
+<span class="fc" id="L169">                                rangeForDirection[0][1] = -1;</span>
+                                
+<span class="fc" id="L171">                                rangeForDirection[1][0] = -1;</span>
+<span class="fc" id="L172">                                rangeForDirection[1][1] = -1;</span>
+                                
+                            }
+                            
+                            
+                }else{
+                    
+<span class="fc" id="L179">                      rangeForDirection[0][0] = -1;</span>
+<span class="fc" id="L180">                      rangeForDirection[0][1] = -1;</span>
+                      
+<span class="fc" id="L182">                      rangeForDirection[1][0] = -1;</span>
+<span class="fc" id="L183">                      rangeForDirection[1][1] = -1;</span>
+                    
+                }
+                
+                
+<span class="fc" id="L188">                explodeRange.add(rangeForDirection);</span>
+        
+<span class="fc" id="L190">            }</span>
+    
+    
+    
+    
+    
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

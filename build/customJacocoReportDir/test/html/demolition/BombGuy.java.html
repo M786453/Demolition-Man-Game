@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BombGuy.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gradleproject1</a> &gt; <a href="index.source.html" class="el_package">demolition</a> &gt; <span class="el_source">BombGuy.java</span></div><h1>BombGuy.java</h1><pre class="source lang-java linenums">/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package demolition;
+
+
+/**
+ *
+ * @author Ahtesham Sarwar
+ */
+public class BombGuy{
+    
+    private int lives;
+    public int direction;
+    public int anim_direction;
+    
+    
+    
+    
+    
+<span class="nc" id="L22">    public BombGuy(){</span>
+        
+<span class="nc" id="L24">        direction = -1;</span>
+<span class="nc" id="L25">        anim_direction = -1;</span>
+      
+<span class="nc" id="L27">    }</span>
+    
+    public char[][] movement(int i,int j,int direc,char[][] map){
+        
+        
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        if(direction != -1){</span>
+        
+        char nextChar; // Represents the item at the next movement position
+        int xPos;
+        int yPos;
+
+<span class="nc bnc" id="L38" title="All 4 branches missed.">        if (direction == 0 || direction == 1) {</span>
+            //down or up
+
+<span class="nc" id="L41">            xPos = j;</span>
+<span class="nc" id="L42">            yPos = i + direc;</span>
+<span class="nc" id="L43">            nextChar = map[yPos][xPos];</span>
+
+        } else {
+            //right or left
+
+<span class="nc" id="L48">            xPos = j + direc;</span>
+<span class="nc" id="L49">            yPos = i;</span>
+<span class="nc" id="L50">            nextChar = map[yPos][xPos];</span>
+
+        }
+
+<span class="nc bnc" id="L54" title="All 8 branches missed.">        if ((xPos &gt;= 0 &amp;&amp; xPos &lt; Map.COLUMNS) &amp;&amp; (yPos &gt;= 0 &amp;&amp; yPos &lt; Map.ROWS)) {</span>
+
+<span class="nc bnc" id="L56" title="All 4 branches missed.">            if (nextChar == ' ' || nextChar == 'G') {</span>
+                //replaace player index in map array   
+<span class="nc bnc" id="L58" title="All 4 branches missed.">                if (!(yPos == App.bomb.bombY &amp;&amp; xPos == App.bomb.bombX)) {</span>
+
+<span class="nc" id="L60">                    map[yPos][xPos] = 'P';</span>
+<span class="nc" id="L61">                    map[i][j] = ' ';</span>
+<span class="nc" id="L62">                    direction = -1;</span>
+
+                }
+<span class="nc bnc" id="L65" title="All 10 branches missed.">            } else if (nextChar == 'R' || nextChar == 'Y' || nextChar == 'H'</span>
+                    || nextChar == 'V' || nextChar == 'C') {
+
+                //player will die if this condition fullfils
+<span class="nc" id="L69">                map[i][j] = ' ';</span>
+<span class="nc" id="L70">                direction = -1;</span>
+
+            }
+
+        }
+        
+        }
+                              
+<span class="nc" id="L78">        return map;</span>
+        
+    }
+    
+    
+
+    public int getLives() {
+<span class="nc" id="L85">        return lives;</span>
+    }
+
+    public void setLives(int lives) {
+<span class="nc" id="L89">        this.lives = lives;</span>
+<span class="nc" id="L90">    }</span>
+       
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

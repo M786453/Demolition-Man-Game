@@ -51,7 +51,7 @@ public class BombGuy{
 
         }
 
-        if ((xPos >= 0 && xPos < 15) && (yPos >= 0 && yPos < 14)) {
+        if ((xPos >= 0 && xPos < Map.COLUMNS) && (yPos >= 0 && yPos < Map.ROWS)) {
 
             if (nextChar == ' ' || nextChar == 'G') {
                 //replaace player index in map array   

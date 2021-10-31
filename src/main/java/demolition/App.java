@@ -25,19 +25,30 @@ public class App extends PApplet{
     public static final int WIDTH = 480;
     private final int FPS = 60;
     private static boolean isPlayerInMap;
-    private static ArrayList<Integer[]> pStartPlayerPosLevelList;
-    
     private BombGuy bombGuy;
     private RedEnemy redEnemy;
     private YellowEnemy yellEnemy;    
     public static Bomb bomb;
     private boolean isGameOver;
     private boolean isWin;
-    
+    private PImage solidw,brokenw,emptyw,goalw,life,clock,explosionC,explosionH,explosionV;
     public static long startTime;
+    private Level[] gameLevels;
+    private int levelIndex = 0;   
+    private char[][] map;    
+    private int redFrameCounter2 = 1;
+    private int yellowFrameCounter = 1;    
+    private final int[] x_direction = {0,0,1,-1};
+    private final int[] y_direction = {1,-1,0,0};        
+    public final static int[] goalIndex = new int[2];    
+    private final int start_y_pos_player = 80;
+    private final int start_y_pos_red_en = 80;
+    private final int start_y_pos_yell_en = 80;    
+    private Animation characterAnimation;
+    private Animation bombAnimation;
     
-    private PImage solidw,brokenw,emptyw,goalw,life,clock,explosionC,explosionH,explosionV;            ;
-    
+    private static ArrayList<Integer[]> pStartPlayerPosLevelList;
+       
     private ArrayList<PImage> playerDownFramesList;
     private ArrayList<PImage> playerUpFramesList;
     private ArrayList<PImage> playerLeftFramesList;
@@ -57,27 +68,6 @@ public class App extends PApplet{
     
     private ArrayList<PImage> bombFramesList;
 
-    
-    private Level[] gameLevels;
-    private int levelIndex = 0;
-   
-    private char[][] map;
-    
-    private int redFrameCounter2 = 1;
-    private int yellowFrameCounter = 1;
-    
-    private final int[] x_direction = {0,0,1,-1};
-    private final int[] y_direction = {1,-1,0,0};
-    
-    public final static int[] goalIndex = new int[2];
-    
-    private final int start_y_pos_player = 80;
-    private final int start_y_pos_red_en = 80;
-    private final int start_y_pos_yell_en = 80;
-    
-    private Animation characterAnimation;
-    private Animation bombAnimation;
-    
     
     /**
      * @param args the command line arguments

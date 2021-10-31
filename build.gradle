@@ -23,9 +23,18 @@ repositories {
 
 test {
     useJUnitPlatform()
-    
+    finalizedBy jacocoTestReport
 }
 
+jacocoTestReport {
+    dependsOn test
+}
+
+
+jacoco {
+    toolVersion = "0.8.7"
+    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+}
 
 
 dependencies {
