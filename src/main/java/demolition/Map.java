@@ -14,6 +14,8 @@ public class Map {
     public static final int COLUMNS = 15;
     public static final int OFFSET = 64;
     
+    
+    
  
     public static boolean validateMap(char[][] map){
         

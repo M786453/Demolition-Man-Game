@@ -2,6 +2,8 @@ demolition/App.java
  demolition.App
  demolition.App$1
  demolition.App$2
+demolition/Configurations.java
+ demolition.Configurations
 demolition/YellowEnemy.java
  demolition.YellowEnemy
 demolition/Map.java

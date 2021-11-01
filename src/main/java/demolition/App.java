@@ -47,7 +47,8 @@ public class App extends PApplet{
     private Animation characterAnimation;
     private Animation bombAnimation;
     
-    private static ArrayList<Integer[]> pStartPlayerPosLevelList;
+    
+    
        
     private ArrayList<PImage> playerDownFramesList;
     private ArrayList<PImage> playerUpFramesList;
@@ -103,7 +104,7 @@ public class App extends PApplet{
         frameRate(FPS);
         
         isPlayerInMap = false;
-        pStartPlayerPosLevelList = new ArrayList<>();        
+             
         startTime = System.currentTimeMillis();   
         
         bombGuy = new BombGuy(); 
@@ -111,9 +112,10 @@ public class App extends PApplet{
         redEnemy = new RedEnemy();        
         yellEnemy = new YellowEnemy();
         
-        String configData = readConfig();
-        gameLevels = configureLevels(configData);
-        
+        String configData = Configurations.readConfig();
+        gameLevels = Configurations.configureLevels(configData);
+       
+         
         bombFramesList = new ArrayList<>();
         characterAnimation = new Animation(0.2f);
         bombAnimation = new Animation(bomb.PerFrameTime);
@@ -192,7 +194,7 @@ public class App extends PApplet{
                 IF BOMB GUY LIVES ARE LESS THAN EQUAL TO 0, GAME WILL BE OVER
             */
             
-            if(bombGuy.getLives() <= 0 ){
+            if(BombGuy.lives <= 0 ){
                 isGameOver = true;            
                 return;
                 
@@ -379,129 +381,6 @@ public class App extends PApplet{
         
     }
     
-    
-    private String readConfig(){
-        
-        String data = "";
-        try{
-            
-            File config = new File(System.getProperty("user.dir") + File.separator +"config.json");
-            Scanner scanner = new Scanner(config);
-            
-            while(scanner.hasNextLine())
-                data += scanner.nextLine();
-            
-
-            scanner.close();
-            
-        }catch(Exception e){
-            
-            e.printStackTrace();
-            
-        }
-        
-        return data;
-        
-    }
-    
-    
-    
-    private ArrayList<Level> configureLevels(String jsonData){
-        
-        ArrayList<Level> levelList = new ArrayList<>();
-        
-        try{
-            
-        JSONObject obj = JSONObject.parse(jsonData);      
-        JSONArray levels = obj.getJSONArray("levels");
-        bombGuy.setLives(obj.getInt("lives")); 
-       
-        
-        for(int i=0;i<levels.size();i++){
-            
-            JSONObject levelObj = levels.getJSONObject(i);
-            Level level = new Level(levelObj.getString("path"),levelObj.getInt("time"));
-            
-            char[][] level_map = readMapFromFile(level.path);
-            
-            level.setMap(level_map);
-            
-            
-            if(Map.validateMap(level_map))
-            levelList.add(level);
-            
-            
-        }
-        
-        }catch(Exception e){
-            
-            e.printStackTrace();
-            
-        }
-        
-        return levelList;
-        
-    }
-    
-    private char[][] readMapFromFile(String path){
-        
-        char[][] map = new char[Map.ROWS][Map.COLUMNS];
-        
-        try{
-            
-            if(path != null && !path.isEmpty()){
-                
-                File mapFile = new File(path);
-                Scanner scanner = new Scanner(mapFile);
-                
-                int i=0;
-                while(scanner.hasNextLine()){
-                
-                    String row = scanner.nextLine();
-                    
-                    for(int j=0;j<row.length();j++){
-                      
-                        
-                      map[i][j] = row.charAt(j);  
-                      
-                      if(row.charAt(j) == 'P'){
-                          
-                          Integer[] playerStartPos = new Integer[2];
-                          
-                          playerStartPos[0] = i;
-                          playerStartPos[1] = j;
-                          
-                          
-                          pStartPlayerPosLevelList.add(playerStartPos);
-                          
-                      }
-                      
-                    }
-                
-                    i++;
-                }
-                
-               
-                scanner.close();
-                
-                
-            }
-            
-        }catch(Exception e){
-            
-            e.printStackTrace();
-            
-        }
-        
-        
-        
-        return map;
-    }
-    
-    
-    
-    
-   
     
     
     @Override
@@ -1005,14 +884,14 @@ public class App extends PApplet{
                       
                   gameLevels.get(levelIndex).resetLevel();
                       
-                  Integer[] playerLevelStartPos = pStartPlayerPosLevelList.get(levelIndex);
+                  Integer[] playerLevelStartPos = BombGuy.pStartPlayerPosLevelList.get(levelIndex);
                   
                   map[playerLevelStartPos[0]][playerLevelStartPos[1]] = 'P';
                   
-                  int totalLivesBeforeLost = bombGuy.getLives();
+                  
                   
                   bombGuy = new BombGuy();
-                  bombGuy.setLives(totalLivesBeforeLost - 1);
+                  BombGuy.lives--;
                   
                   redEnemy = new RedEnemy();
                   yellEnemy = new YellowEnemy();
@@ -1136,7 +1015,7 @@ public class App extends PApplet{
         
         fill(0);
         textSize(20);
-        text(bombGuy.getLives(),190,40);
+        text(BombGuy.lives,190,40);
         image(life,150,16);
         
         

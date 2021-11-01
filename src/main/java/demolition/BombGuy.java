@@ -4,6 +4,8 @@
  */
 package demolition;
 
+import java.util.ArrayList;
+
 
 /**
  *
@@ -11,11 +13,11 @@ package demolition;
  */
 public class BombGuy{
     
-    private int lives;
+    public static int lives = 0;
     public int direction;
     public int anim_direction;
     
-    
+    public static ArrayList<Integer[]> pStartPlayerPosLevelList = new ArrayList<>();
     
     
     
@@ -81,12 +83,6 @@ public class BombGuy{
     
     
 
-    public int getLives() {
-        return lives;
-    }
-
-    public void setLives(int lives) {
-        this.lives = lives;
-    }
+   
        
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="demolition.BombTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-11-01T10:37:24" hostname="DESKTOP-A2UL7BQ" time="0.028">
+  <properties/>
+  <testcase name="testExplode()" classname="demolition.BombTest" time="0.028"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

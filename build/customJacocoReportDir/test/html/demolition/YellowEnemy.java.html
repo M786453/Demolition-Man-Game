@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>YellowEnemy.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gradleproject1</a> &gt; <a href="index.source.html" class="el_package">demolition</a> &gt; <span class="el_source">YellowEnemy.java</span></div><h1>YellowEnemy.java</h1><pre class="source lang-java linenums">/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package demolition;
+
+import java.util.ArrayList;
+
+/**
+ *
+ * @author Ahtesham Sarwar
+ */
+public class YellowEnemy {
+    
+    
+    
+    public int yellowEnDirection;
+    public int yellowAnimDirection;
+    
+    
+<span class="nc" id="L21">    public YellowEnemy(){</span>
+    
+<span class="nc" id="L23">        yellowEnDirection = 0;</span>
+<span class="nc" id="L24">        yellowAnimDirection = 0;</span>
+    
+    
+    
+<span class="nc" id="L28">    }</span>
+    
+    
+    public char[][] movement(int i,int j,int direc,char[][] map){       
+        
+        
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        if(yellowEnDirection != -1){</span>
+        
+        char nextChar; // Represents the item at the next movement position
+        int xPos;
+        int yPos;
+        
+<span class="nc bnc" id="L40" title="All 4 branches missed.">        if(yellowEnDirection == 0 || yellowEnDirection == 1){</span>
+            //down or up
+            
+<span class="nc" id="L43">            xPos = j;</span>
+<span class="nc" id="L44">            yPos = i + direc;</span>
+<span class="nc" id="L45">            nextChar = map[yPos][xPos];</span>
+            
+        }else{
+            //right or left
+           
+<span class="nc" id="L50">            xPos = j + direc;</span>
+<span class="nc" id="L51">            yPos = i;</span>
+<span class="nc" id="L52">            nextChar = map[yPos][xPos];</span>
+            
+        }
+        
+        
+         
+
+<span class="nc bnc" id="L59" title="All 8 branches missed.">        if ((xPos &gt;= 0 &amp;&amp; xPos &lt; Map.COLUMNS) &amp;&amp; (yPos &gt;= 0 &amp;&amp; yPos &lt; Map.ROWS)) {</span>
+
+            
+<span class="nc bnc" id="L62" title="All 8 branches missed.">            if (nextChar == 'B' || nextChar == 'W' || (yPos == App.bomb.bombY &amp;&amp; xPos == App.bomb.bombX)) {                                             </span>
+                
+<span class="nc" id="L64">                map = moveClockwise(i,j,map);</span>
+                
+
+<span class="nc bnc" id="L67" title="All 4 branches missed.">            }else if (nextChar == ' ' || nextChar == 'G') {</span>
+
+                //replaace enemy index in map array   
+                
+<span class="nc" id="L71">                map[yPos][xPos] = 'Y';</span>
+                
+                
+<span class="nc bnc" id="L74" title="All 4 branches missed.">                if(i == App.goalIndex[0] &amp;&amp; j == App.goalIndex[1])</span>
+<span class="nc" id="L75">                    map[i][j] = 'G';</span>
+                else
+<span class="nc" id="L77">                    map[i][j] = ' ';</span>
+
+
+<span class="nc bnc" id="L80" title="All 2 branches missed.">            }else if(map[yPos][xPos] == 'R'){</span>
+            
+                //yellow and red enemies can pass through each other
+                
+<span class="nc" id="L84">                map[yPos][xPos] = 'X'; //here X symbol means that yellow and read enemy are at same position</span>
+<span class="nc" id="L85">                map[i][j] = ' ';</span>
+            
+<span class="nc bnc" id="L87" title="All 2 branches missed.">            }else if(nextChar == 'P'){</span>
+
+<span class="nc" id="L89">                map[yPos][xPos] = 'Y';</span>
+<span class="nc" id="L90">                map[i][j] = ' ';</span>
+            
+<span class="nc bnc" id="L92" title="All 6 branches missed.">            }else if(nextChar == 'H'</span>
+                                || nextChar == 'V' ||  nextChar == 'C'){
+                
+                //die if caught in explosion
+                
+<span class="nc" id="L97">                map[i][j] = ' ';</span>
+                
+                
+            }
+
+        }
+        
+        
+    }
+        
+        
+<span class="nc" id="L108">        return map;</span>
+        
+    }
+
+    
+    private char[][] moveClockwise(int i,int j,char[][] map){
+        
+        
+<span class="nc" id="L116">                ArrayList&lt;Integer&gt; cardinalPos = new ArrayList&lt;&gt;();</span>
+
+                //these cardinal positions are arranged in clockwise pattern of positions
+                    
+<span class="nc" id="L120">                cardinalPos.add(i + 1); // down </span>
+                
+<span class="nc" id="L122">                cardinalPos.add(j - 1); //left</span>
+                
+<span class="nc" id="L124">                cardinalPos.add(i - 1); //up                              </span>
+                
+<span class="nc" id="L126">                cardinalPos.add(j + 1); //right</span>
+     
+                
+<span class="nc" id="L129">                int lDirection = getClockwiseDirection();</span>
+<span class="nc" id="L130">                int lDirection2 = lDirection; //duplicating the lDirection variable for later use</span>
+                
+<span class="nc bnc" id="L132" title="All 2 branches missed.">                if(lDirection != -1){</span>
+
+<span class="nc" id="L134">                    lDirection += 1;</span>
+                    
+<span class="nc bnc" id="L136" title="All 2 branches missed.">                if(lDirection &gt; 3)</span>
+<span class="nc" id="L137">                    lDirection = 0;</span>
+                
+<span class="nc bnc" id="L139" title="All 2 branches missed.">                for(int k=lDirection;k &lt; 4;k++){</span>
+                    
+                    char nextChar; // Represent the item present in map for the current clockwise position
+                    int xPos;
+                    int yPos;
+                    
+<span class="nc bnc" id="L145" title="All 4 branches missed.">                    if(k == 0 || k == 2){</span>
+<span class="nc" id="L146">                        nextChar = map[cardinalPos.get(k)][j];</span>
+<span class="nc" id="L147">                        xPos = j;</span>
+<span class="nc" id="L148">                        yPos = cardinalPos.get(k);</span>
+                    }else{                        
+<span class="nc" id="L150">                        nextChar = map[i][cardinalPos.get(k)];</span>
+<span class="nc" id="L151">                        xPos =  cardinalPos.get(k);</span>
+<span class="nc" id="L152">                        yPos =  i;</span>
+                    }
+                        
+                        
+<span class="nc bnc" id="L156" title="All 4 branches missed.">                        if(!(cardinalPos.get(k) == App.bomb.bombY &amp;&amp; j == App.bomb.bombX))</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">                        if(nextChar == ' '){</span>
+                            
+<span class="nc" id="L159">                            map[yPos][xPos] = 'Y';</span>
+                            
+<span class="nc bnc" id="L161" title="All 4 branches missed.">                            if(i == App.goalIndex[0] &amp;&amp; j == App.goalIndex[1])</span>
+<span class="nc" id="L162">                                map[i][j] = 'G';</span>
+                            else
+<span class="nc" id="L164">                                map[i][j] = ' ';</span>
+                            
+<span class="nc" id="L166">                            yellowAnimDirection = yellowEnDirection = getDirection(k); //this will get the direction according to original directions pattern from clockwsie direction value</span>
+                            
+<span class="nc" id="L168">                            break;</span>
+<span class="nc bnc" id="L169" title="All 2 branches missed.">                        }else if(nextChar == 'R'){</span>
+                        
+<span class="nc" id="L171">                            map[yPos][xPos] = 'X';</span>
+<span class="nc" id="L172">                            map[i][j] = ' ';</span>
+<span class="nc" id="L173">                            yellowAnimDirection = yellowEnDirection = getDirection(k); //this will get the direction according to original directions pattern from clockwsie direction value</span>
+                            
+<span class="nc" id="L175">                            break;</span>
+                        
+<span class="nc bnc" id="L177" title="All 2 branches missed.">                        }else if(nextChar == 'P'){</span>
+                       
+<span class="nc" id="L179">                             map[yPos][xPos] = 'Y';</span>
+<span class="nc" id="L180">                             map[i][j] = ' ';</span>
+<span class="nc" id="L181">                             yellowAnimDirection = yellowEnDirection = getDirection(k); //this will get the direction according to original directions pattern from clockwsie direction value</span>
+                            
+<span class="nc" id="L183">                             break;</span>
+                            
+<span class="nc bnc" id="L185" title="All 6 branches missed.">                        }else if(nextChar == 'H'</span>
+                                || nextChar == 'V' || nextChar == 'C'){
+                            
+                            
+<span class="nc" id="L189">                            map[i][j] = ' ';</span>
+                            
+<span class="nc" id="L191">                            break;</span>
+                            
+                        }
+                                
+                  
+<span class="nc bnc" id="L196" title="All 2 branches missed.">                    if(lDirection+1 == lDirection2)</span>
+<span class="nc" id="L197">                        break;</span>
+                        
+                 
+                }                               
+                          
+    }
+                
+<span class="nc" id="L204">        return map;</span>
+    }
+    
+    
+    
+    private int getClockwiseDirection(){
+        
+<span class="nc" id="L211">         int lDirection = -1;</span>
+                
+                /*
+                        Here lDirection will act as index of above cardinalPos list which actually
+                        contains the surrounding possible movement positions of yellow enemy in circular pattern: 
+                            Down -&gt; Left -&gt; Up -&gt; Right 
+                indexes:     0   -&gt;  1   -&gt; 2  -&gt;   3
+                        Where as yellowEnDirection Variable contains the current direction of yellow Enemy.
+                        Here one thing to note is lDirection is the index for cardinalPos list not the actual direction.
+                        On the other hand, yellowEnDirection is the actual direction not an index.
+                        */
+                
+<span class="nc bnc" id="L223" title="All 5 branches missed.">                switch(yellowEnDirection){</span>
+                    
+                    case 0: //Represents Down Direction
+<span class="nc" id="L226">                       lDirection = 0;</span>
+<span class="nc" id="L227">                       break;</span>
+                    case 1: //Represents Up Direction
+<span class="nc" id="L229">                        lDirection = 2;</span>
+<span class="nc" id="L230">                        break;</span>
+                    case 2: //Represents Right Direction
+<span class="nc" id="L232">                        lDirection = 3;</span>
+<span class="nc" id="L233">                        break;</span>
+                    case 3: //Represents Left Direction
+<span class="nc" id="L235">                        lDirection = 1;</span>
+                        break;
+                    
+                    }
+       
+<span class="nc" id="L240">                return lDirection;</span>
+    }
+    
+    
+    private int getDirection(int index){
+        
+<span class="nc" id="L246">        int lDirection = -1;</span>
+                
+                /*
+                
+                This method will retrieve the actual direction from the variable used as index of 
+                cardinalPos list ( list in circular pattern of positions)
+        
+                */
+                
+<span class="nc bnc" id="L255" title="All 5 branches missed.">                switch(index){</span>
+                    
+                    case 0:
+<span class="nc" id="L258">                       lDirection = 0;</span>
+<span class="nc" id="L259">                       break;</span>
+                    case 1:
+<span class="nc" id="L261">                        lDirection = 3;</span>
+<span class="nc" id="L262">                        break;</span>
+                    case 2:
+<span class="nc" id="L264">                        lDirection = 1;</span>
+<span class="nc" id="L265">                        break;</span>
+                    case 3:
+<span class="nc" id="L267">                        lDirection = 2;</span>
+                        break;
+                    
+                    }
+        
+<span class="nc" id="L272">        return lDirection;</span>
+    }
+    
+    
+   
+    
+    
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
