@@ -1,8 +1,0 @@
-demolition/MapTest.java
- demolition.MapTest
-demolition/AnimationTest.java
- demolition.AnimationTest
-demolition/BombTest.java
- demolition.BombTest
-demolition/LevelTest.java
- demolition.LevelTest

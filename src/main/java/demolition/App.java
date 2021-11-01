@@ -33,7 +33,7 @@ public class App extends PApplet{
     private boolean isWin;
     private PImage solidw,brokenw,emptyw,goalw,life,clock,explosionC,explosionH,explosionV;
     public static long startTime;
-    private Level[] gameLevels;
+    private ArrayList<Level> gameLevels;
     private int levelIndex = 0;   
     private char[][] map;    
     private int redFrameCounter2 = 1;
@@ -201,8 +201,13 @@ public class App extends PApplet{
         
         
         //loadLevel
-          
-        Level level = gameLevels[levelIndex];
+        
+        if(gameLevels.size() == 0){
+            isGameOver = true;
+            return;
+        }
+        
+        Level level = gameLevels.get(levelIndex);
         map = level.mapArray;
         
         
@@ -401,9 +406,9 @@ public class App extends PApplet{
     
     
     
-    private Level[] configureLevels(String jsonData){
+    private ArrayList<Level> configureLevels(String jsonData){
         
-        Level[] levelArray = null;
+        ArrayList<Level> levelList = new ArrayList<>();
         
         try{
             
@@ -411,15 +416,19 @@ public class App extends PApplet{
         JSONArray levels = obj.getJSONArray("levels");
         bombGuy.setLives(obj.getInt("lives")); 
        
-        levelArray = new Level[levels.size()];
+        
         for(int i=0;i<levels.size();i++){
             
             JSONObject levelObj = levels.getJSONObject(i);
             Level level = new Level(levelObj.getString("path"),levelObj.getInt("time"));
             
-            level.setMap(readMapFromFile(level.path));
+            char[][] level_map = readMapFromFile(level.path);
             
-            levelArray[i] = level;
+            level.setMap(level_map);
+            
+            
+            if(Map.validateMap(level_map))
+            levelList.add(level);
             
             
         }
@@ -430,7 +439,7 @@ public class App extends PApplet{
             
         }
         
-        return levelArray;
+        return levelList;
         
     }
     
@@ -483,6 +492,8 @@ public class App extends PApplet{
             e.printStackTrace();
             
         }
+        
+        
         
         return map;
     }
@@ -992,7 +1003,7 @@ public class App extends PApplet{
                       
                   
                       
-                  gameLevels[levelIndex].resetLevel();
+                  gameLevels.get(levelIndex).resetLevel();
                       
                   Integer[] playerLevelStartPos = pStartPlayerPosLevelList.get(levelIndex);
                   
@@ -1205,12 +1216,13 @@ public class App extends PApplet{
         
                           if(i == goalIndex[0] && j == goalIndex[1]){
                               
-                              if(levelIndex == gameLevels.length-1)
+                              if(levelIndex == gameLevels.size()-1)
                                   isWin = true;
                               else
                                   levelIndex++;
                               
                               startTime = System.currentTimeMillis();
+                              
                               bombGuy.anim_direction = -1;
                           }
         

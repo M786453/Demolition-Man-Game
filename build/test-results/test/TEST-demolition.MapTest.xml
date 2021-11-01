@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="demolition.MapTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-10-31T18:10:36" hostname="DESKTOP-A2UL7BQ" time="0.004">
-  <properties/>
-  <testcase name="testMapDetails()" classname="demolition.MapTest" time="0.004"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
