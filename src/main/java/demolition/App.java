@@ -8,8 +8,7 @@ package demolition;
 
 import processing.core.*;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 
 
@@ -43,7 +42,7 @@ public class App extends PApplet{
     
     
     private Animation characterAnimation;
-    private Animation bombAnimation;
+    public static Animation bombAnimation;
     public FramesLoader framesLoader = new FramesLoader(this);
     
     
@@ -258,95 +257,6 @@ public class App extends PApplet{
     
     
     
-    
-    
-    private void removeExplosionEffectAfterExplosion(){
-        
-        
-           if (bomb.canExplode) {
-            bomb.explode(Bomb.bombX, Bomb.bombY, map);
-            bomb.canExplode = false;
-
-            new Timer().schedule(new TimerTask() {
-
-                @Override
-                public void run() {
-
-                    //this code will run after explosion
-                    Bomb.isExploded = true;
-                    if (bomb.explodeRange.size() > 0) {
-
-                        map[Bomb.bombY][Bomb.bombX] = ' ';
-
-                    }
-
-                    for (int l = 0; l < bomb.explodeRange.size(); l++) {
-
-                        int[][] rangeDirection = bomb.explodeRange.get(l);
-
-                        if (rangeDirection[0][0] != -1 && rangeDirection[0][1] != -1) {
-                            if (rangeDirection[0][0] == goalIndex[0] && rangeDirection[0][1] == goalIndex[1]) {
-                                map[rangeDirection[0][0]][rangeDirection[0][1]] = 'G';
-                            } else {
-                                map[rangeDirection[0][0]][rangeDirection[0][1]] = ' ';
-                            }
-                        }
-
-                        if (rangeDirection[1][0] != -1 && rangeDirection[1][1] != -1) {
-                            if (rangeDirection[1][0] == goalIndex[0] && rangeDirection[1][1] == goalIndex[1]) {
-                                map[rangeDirection[1][0]][rangeDirection[1][1]] = 'G';
-                            } else {
-                                map[rangeDirection[1][0]][rangeDirection[1][1]] = ' ';
-                            }
-                        }
-
-                    }
-
-                    //this will remove the bomb from map
-                    Bomb.bombX = -1;
-                    Bomb.bombY = -1;
-
-                }
-
-            }, bomb.ExplosionTime);
-
-        }
-        
-        
-    }
-    
-    
-    private void placeBomb(int i, int j){
-        
-        
-        Bomb.isExploded = false;
-                              Bomb.bombX = j;
-                              Bomb.bombY = i;
-
-                              bombAnimation = new Animation(this,bomb.PerFrameTime);
-                         
-                              
-                              
-                              new Timer().schedule(new TimerTask(){
-                              
-                                  
-                                  @Override
-                                  public void run(){
-                                      
-                                     
-                                      bomb.canExplode = true;
-                                      
-                                      
-                                      
-                                  }
-                              
-                              }, bomb.BombTime);
-                              bomb.isPlaced = false;
-        
-        
-    }
-    
-    
     private void showLives(){
         
         
@@ -493,7 +403,7 @@ public class App extends PApplet{
                           //place bomb if space is pressed by the player
                            if(bomb.isPlaced)     {
                               
-                              placeBomb(i,j);
+                              bomb.placeBomb(i,j);
                               
                           }
                                                     
@@ -517,7 +427,7 @@ public class App extends PApplet{
                             bombAnimation.positionBombAnimation(i,j,framesLoader.bombFramesList);
                               
                                
-                            removeExplosionEffectAfterExplosion();
+                            bomb.removeExplosionEffectAfterExplosion();
           
                           
                           break;

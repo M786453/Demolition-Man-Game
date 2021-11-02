@@ -42,7 +42,7 @@ public class AnimationTest extends PApplet {
     public void testPlay() throws InterruptedException {
         
         
-        Animation animation = new Animation(2f);
+        Animation animation = new Animation(this,2f);
         
         ArrayList<PImage> sampleFramesList = new ArrayList<>();
         

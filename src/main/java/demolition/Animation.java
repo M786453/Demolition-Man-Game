@@ -19,9 +19,9 @@ public class Animation{
     
     
     private float timePerFrame;        
-    private int currentFrameNo;
+    public int currentFrameNo;
     private PImage currentFrame;
-    private boolean canChangeFrame;
+    public boolean canChangeFrame;
     private PApplet parent;
     
     

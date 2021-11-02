@@ -4,7 +4,10 @@
  */
 package demolition;
 
+
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
@@ -190,7 +193,95 @@ public class Bomb {
             }
     
     
-    
+     public void placeBomb(int i, int j){
+        
+        
+                              isExploded = false;
+                              bombX = j;
+                              bombY = i;
+
+                              App.bombAnimation.canChangeFrame = true;
+                              App.bombAnimation.currentFrameNo = 0;
+                         
+                              
+                              
+                              new Timer().schedule(new TimerTask(){
+                              
+                                  
+                                  @Override
+                                  public void run(){
+                                      
+                                     
+                                      canExplode = true;
+                                      
+                                      
+                                      
+                                  }
+                              
+                              }, BombTime);
+                              
+                              isPlaced = false;
+        
+        
+    }
+     
+     
+     
+         public void removeExplosionEffectAfterExplosion(){
+        
+        
+           if (canExplode) {
+            explode(bombX, bombY, App.map);
+            canExplode = false;
+
+            new Timer().schedule(new TimerTask() {
+
+                @Override
+                public void run() {
+
+                    //this code will run after explosion
+                    isExploded = true;
+                    
+                    if (explodeRange.size() > 0) {
+
+                        App.map[bombY][bombX] = ' ';
+
+                    }
+
+                    for (int l = 0; l < explodeRange.size(); l++) {
+
+                        int[][] rangeDirection = explodeRange.get(l);
+
+                        if (rangeDirection[0][0] != -1 && rangeDirection[0][1] != -1) {
+                            if (rangeDirection[0][0] == App.goalIndex[0] && rangeDirection[0][1] == App.goalIndex[1]) {
+                                App.map[rangeDirection[0][0]][rangeDirection[0][1]] = 'G';
+                            } else {
+                                App.map[rangeDirection[0][0]][rangeDirection[0][1]] = ' ';
+                            }
+                        }
+
+                        if (rangeDirection[1][0] != -1 && rangeDirection[1][1] != -1) {
+                            if (rangeDirection[1][0] == App.goalIndex[0] && rangeDirection[1][1] == App.goalIndex[1]) {
+                                App.map[rangeDirection[1][0]][rangeDirection[1][1]] = 'G';
+                            } else {
+                                App.map[rangeDirection[1][0]][rangeDirection[1][1]] = ' ';
+                            }
+                        }
+
+                    }
+
+                    //this will remove the bomb from map
+                    bombX = -1;
+                    bombY = -1;
+
+                }
+
+            }, ExplosionTime);
+
+        }
+        
+        
+    }
     
     
     
