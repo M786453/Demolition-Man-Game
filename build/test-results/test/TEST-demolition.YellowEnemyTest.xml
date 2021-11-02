@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="demolition.YellowEnemyTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-11-02T03:09:41" hostname="DESKTOP-A2UL7BQ" time="0.004">
+<testsuite name="demolition.YellowEnemyTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2021-11-02T07:55:18" hostname="DESKTOP-A2UL7BQ" time="0.107">
   <properties/>
-  <testcase name="testMovement()" classname="demolition.YellowEnemyTest" time="0.004"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="testMovementAgainstPlayer()" classname="demolition.YellowEnemyTest" time="0.009"/>
+  <testcase name="testClockwiseMovement()" classname="demolition.YellowEnemyTest" time="0.012"/>
+  <testcase name="testClockwiseMovementAgainstRed()" classname="demolition.YellowEnemyTest" time="0.009"/>
+  <testcase name="testMovementDown()" classname="demolition.YellowEnemyTest" time="0.005"/>
+  <testcase name="testMovementLeft()" classname="demolition.YellowEnemyTest" time="0.004"/>
+  <testcase name="testClockwiseMovementAgainstExplosion()" classname="demolition.YellowEnemyTest" time="0.019"/>
+  <testcase name="testClockwiseMovementAgainstPlayer()" classname="demolition.YellowEnemyTest" time="0.003"/>
+  <testcase name="testMovementAgainstRed()" classname="demolition.YellowEnemyTest" time="0.003"/>
+  <testcase name="testMovementAgainstExplosion()" classname="demolition.YellowEnemyTest" time="0.005"/>
+  <system-out><![CDATA[               
+               
+   W           
+  H            
+               
+               
+               
+               
+               
+               
+               
+               
+               
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

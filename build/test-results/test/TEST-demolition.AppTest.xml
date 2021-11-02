@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="demolition.AppTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2021-11-02T03:09:41" hostname="DESKTOP-A2UL7BQ" time="0.044">
+<testsuite name="demolition.AppTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2021-11-02T07:55:18" hostname="DESKTOP-A2UL7BQ" time="0.062">
   <properties/>
-  <testcase name="testSettings()" classname="demolition.AppTest" time="0.014"/>
-  <testcase name="testSetup()" classname="demolition.AppTest" time="0.003"/>
-  <testcase name="testDraw()" classname="demolition.AppTest" time="0.005"/>
-  <testcase name="testMain()" classname="demolition.AppTest" time="0.004"/>
-  <testcase name="testKeyReleased()" classname="demolition.AppTest" time="0.001"/>
+  <testcase name="testSettings()" classname="demolition.AppTest" time="0.015"/>
+  <testcase name="testSetup()" classname="demolition.AppTest" time="0.019"/>
+  <testcase name="testDraw()" classname="demolition.AppTest" time="0.003"/>
+  <testcase name="testMain()" classname="demolition.AppTest" time="0.005"/>
+  <testcase name="testKeyReleased()" classname="demolition.AppTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

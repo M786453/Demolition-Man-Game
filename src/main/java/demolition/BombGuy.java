@@ -57,7 +57,7 @@ public class BombGuy{
 
             if (nextChar == ' ' || nextChar == 'G') {
                 //replaace player index in map array   
-                if (!(yPos == App.bomb.bombY && xPos == App.bomb.bombX)) {
+                if (!(yPos == Bomb.bombY && xPos == Bomb.bombX)) {
 
                     map[yPos][xPos] = 'P';
                     map[i][j] = ' ';

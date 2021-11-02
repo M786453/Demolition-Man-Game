@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="demolition.MapTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-11-02T03:09:41" hostname="DESKTOP-A2UL7BQ" time="0.026">
+<testsuite name="demolition.MapTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-11-02T07:55:18" hostname="DESKTOP-A2UL7BQ" time="0.02">
   <properties/>
-  <testcase name="testMap1()" classname="demolition.MapTest" time="0.015"/>
-  <testcase name="testMap2()" classname="demolition.MapTest" time="0.002"/>
-  <testcase name="testMap3()" classname="demolition.MapTest" time="0.002"/>
+  <testcase name="testMap1()" classname="demolition.MapTest" time="0.006"/>
+  <testcase name="testMap2()" classname="demolition.MapTest" time="0.001"/>
+  <testcase name="testMap3()" classname="demolition.MapTest" time="0.004"/>
   <testcase name="testMapDetails()" classname="demolition.MapTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

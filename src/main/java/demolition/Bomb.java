@@ -16,8 +16,8 @@ public class Bomb {
     public final float PerFrameTime = 0.25f;
     public final int ExplosionTime = 500; // it is in milliseconds
     
-    public int bombX;
-    public int bombY;
+    public static int bombX = -1;
+    public static int bombY = -1;
     public boolean isPlaced;
     public long placeTime;
     public boolean isExploded;
@@ -28,8 +28,8 @@ public class Bomb {
     
     public Bomb(){                     
         
-        bombX = -1;
-        bombY = -1;
+        
+        
         isPlaced = false;
         isExploded = true;
         placeTime = 0;

@@ -818,8 +818,8 @@ public class App extends PApplet{
     
     private void positionBombAnimation(int i, int j){
         
-        if(bomb.bombX == j && bomb.bombY == i)
-                                    image(bombAnimation.play(bombFramesList),bomb.bombX*32,(bomb.bombY*32) + Map.OFFSET);
+        if(Bomb.bombX == j && Bomb.bombY == i)
+                                    image(bombAnimation.play(bombFramesList),Bomb.bombX*32,(Bomb.bombY*32) + Map.OFFSET);
         
         
     }
@@ -831,7 +831,7 @@ public class App extends PApplet{
         
         
              if(bomb.canExplode){
-                                        bomb.explode(bomb.bombX, bomb.bombY, map);
+                                        bomb.explode(Bomb.bombX, Bomb.bombY, map);
                                         bomb.canExplode = false;
                                   
                                     new Timer().schedule(new TimerTask(){
@@ -845,7 +845,7 @@ public class App extends PApplet{
                                               
                                              
                                               
-                                                  map[bomb.bombY][bomb.bombX] = ' ';
+                                                  map[Bomb.bombY][Bomb.bombX] = ' ';
                                                   
                                               
                                               
@@ -876,8 +876,8 @@ public class App extends PApplet{
                                           }
                                           
                                           //this will remove the bomb from map
-                                                bomb.bombX = -1;
-                                                bomb.bombY = -1;
+                                                Bomb.bombX = -1;
+                                                Bomb.bombY = -1;
                                           
                                       }
                                       
@@ -895,8 +895,8 @@ public class App extends PApplet{
         
         
         bomb.isExploded = false;
-                              bomb.bombX = j;
-                              bomb.bombY = i;
+                              Bomb.bombX = j;
+                              Bomb.bombY = i;
 
                               bombAnimation = new Animation(bomb.PerFrameTime);
                          
@@ -1018,6 +1018,7 @@ public class App extends PApplet{
         
         
         //this will change the position of player if there is empty or goal tile towards the position
+        
                           //requested by user
                           if(bombGuy.direction == 0 || bombGuy.direction == 1){
                               //move down or up
