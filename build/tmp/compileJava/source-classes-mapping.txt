@@ -4,6 +4,8 @@ demolition/App.java
  demolition.App$2
 demolition/Configurations.java
  demolition.Configurations
+demolition/FramesLoader.java
+ demolition.FramesLoader
 demolition/YellowEnemy.java
  demolition.YellowEnemy
 demolition/Map.java
