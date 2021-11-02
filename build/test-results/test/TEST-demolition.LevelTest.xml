@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="demolition.LevelTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-11-01T10:37:32" hostname="DESKTOP-A2UL7BQ" time="0.005">
+<testsuite name="demolition.LevelTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-11-02T03:09:41" hostname="DESKTOP-A2UL7BQ" time="0.003">
   <properties/>
-  <testcase name="testSetMap()" classname="demolition.LevelTest" time="0.003"/>
+  <testcase name="testSetMap()" classname="demolition.LevelTest" time="0.001"/>
   <testcase name="testResetLevel()" classname="demolition.LevelTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

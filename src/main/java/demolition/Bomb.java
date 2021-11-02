@@ -101,7 +101,7 @@ public class Bomb {
         
                 int[][] rangeForDirection = new int[2][2];
         
-                if(y1 > 0 && y1 < 12 && x1 > 0 && x1 < 14){
+                if(y1 >= 0 && y1 < 12 && x1 >= 0 && x1 < 14){
                             
                     
                     

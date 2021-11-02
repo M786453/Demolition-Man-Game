@@ -6,8 +6,6 @@ package demolition;
 
 
 import java.io.File;
-import java.util.Scanner;
-import processing.data.*;
 import processing.core.*;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -70,6 +68,8 @@ public class App extends PApplet{
     private ArrayList<PImage> bombFramesList;
 
     
+    
+    
     /**
      * @param args the command line arguments
      * we extend this class from PApplet 
@@ -80,6 +80,7 @@ public class App extends PApplet{
       
         PApplet.main("demolition.App");
 
+        
     }
     
     
@@ -100,6 +101,8 @@ public class App extends PApplet{
         /*
         Here we need to instantiate every object which we draw on the window
         */
+        
+        
         
         frameRate(FPS);
         
@@ -527,97 +530,6 @@ public class App extends PApplet{
         positionAnimation(yellEnemy.yellowAnimDirection, j * 32, yYellowPos, yellowEnDownFramesList, yellowEnUpFramesList, yellowEnRightFramesList, yellowEnLeftFramesList);
 
 
-    }
-    
-    
-    
-    
-    private void loadPlayerDownFramesList(){
-        
-        playerDownFramesList = new ArrayList<>();
-        
-        
-        playerDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-                + File.separator + "resources" + File.separator + "player" + File.separator + "player1.png"));
-
-        playerDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-                + File.separator + "resources" + File.separator + "player" + File.separator + "player2.png"));
-
-        playerDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-                + File.separator + "resources" + File.separator + "player" + File.separator + "player3.png"));
-
-        playerDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-                + File.separator + "resources" + File.separator + "player" + File.separator + "player4.png"));
-
-        
-        
-        
-    }
-    
-    
-    private void loadPlayerRightFramesList(){
-        
-        playerRightFramesList = new ArrayList<>();
-        
-        playerRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-                + File.separator + "resources" + File.separator + "player" + File.separator + "player_right1.png"));
-
-        playerRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-                + File.separator + "resources" + File.separator + "player" + File.separator + "player_right2.png"));
-
-        playerRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-                + File.separator + "resources" + File.separator + "player" + File.separator + "player_right3.png"));
-
-        playerRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-                + File.separator + "resources" + File.separator + "player" + File.separator + "player_right4.png"));
-        
-        
-        
-    }
-    
-    
-    private void loadPlayerLeftFramesList(){
-        
-        playerLeftFramesList = new ArrayList<>();        
-        
-        playerLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-                + File.separator + "resources" + File.separator + "player" + File.separator + "player_left1.png"));
-
-        playerLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-                + File.separator + "resources" + File.separator + "player" + File.separator + "player_left2.png"));
-
-        playerLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-                + File.separator + "resources" + File.separator + "player" + File.separator + "player_left3.png"));
-
-        playerLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-                + File.separator + "resources" + File.separator + "player" + File.separator + "player_left4.png"));
-
-        
-        
-    }
-    
-    
-    
-    private void loadPlayerUpFramesList(){
-        
-        
-        playerUpFramesList = new ArrayList<>();
-        
-        playerUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-                + File.separator + "resources" + File.separator + "player" + File.separator + "player_up1.png"));
-
-        playerUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-                + File.separator + "resources" + File.separator + "player" + File.separator + "player_up2.png"));
-
-        playerUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-                + File.separator + "resources" + File.separator + "player" + File.separator + "player_up3.png"));
-
-        playerUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-                + File.separator + "resources" + File.separator + "player" + File.separator + "player_up4.png"));
-
-        
-        
-        
     }
     
     
@@ -1049,15 +961,7 @@ public class App extends PApplet{
     }
     
     
-    private void loadPlayerFramesInLists(){
-        
-        loadPlayerDownFramesList();
-        loadPlayerUpFramesList();
-        loadPlayerRightFramesList();
-        loadPlayerLeftFramesList();
-        
-        
-    }
+    
     
     
     
@@ -1138,6 +1042,109 @@ public class App extends PApplet{
         
         
     }
+    
+    
+    public void loadPlayerFramesInLists(){
+        
+        loadPlayerDownFramesList();
+        loadPlayerUpFramesList();
+        loadPlayerRightFramesList();
+        loadPlayerLeftFramesList();
+        
+        
+    }
+    
+    
+    
+    private void loadPlayerDownFramesList(){
+        
+        playerDownFramesList = new ArrayList<>();
+        
+        
+        playerDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player1.png"));
+
+        playerDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player2.png"));
+
+        playerDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player3.png"));
+
+        playerDownFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player4.png"));
+
+        
+        
+        
+    }
+    
+    
+    private void loadPlayerRightFramesList(){
+        
+        playerRightFramesList = new ArrayList<>();
+        
+        playerRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_right1.png"));
+
+        playerRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_right2.png"));
+
+        playerRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_right3.png"));
+
+        playerRightFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_right4.png"));
+        
+        
+        
+    }
+    
+    
+    private void loadPlayerLeftFramesList(){
+        
+        playerLeftFramesList = new ArrayList<>();        
+        
+        playerLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_left1.png"));
+
+        playerLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_left2.png"));
+
+        playerLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_left3.png"));
+
+        playerLeftFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_left4.png"));
+
+        
+        
+    }
+    
+    
+    
+    private void loadPlayerUpFramesList(){
+        
+        
+        playerUpFramesList = new ArrayList<>();
+        
+        playerUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_up1.png"));
+
+        playerUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_up2.png"));
+
+        playerUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_up3.png"));
+
+        playerUpFramesList.add(loadImage(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "player" + File.separator + "player_up4.png"));
+
+        
+        
+        
+    }
+    
+    
     
     
 }

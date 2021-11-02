@@ -113,9 +113,9 @@ public class Map {
         
         
         
-        if(initial_i != end_i && initial_j != end_j){
+        if(initial_i != end_i && initial_j != end_j && initial_i != -1 && initial_j != -1 && end_i != -1 && end_j != -1){
         
-        if(initial_i != -1 && initial_j != -1 && end_i != -1 && end_j != -1){
+        
        
                  for(int i=initial_i;i<=end_i;i++){
                      
@@ -139,9 +139,7 @@ public class Map {
                      
                  }
                  
-        }else{
-            isBoundaryPresent = false;
-        }
+        
         
         }else{
             

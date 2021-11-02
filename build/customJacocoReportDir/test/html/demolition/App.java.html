@@ -6,8 +6,6 @@ package demolition;
 
 
 import java.io.File;
-import java.util.Scanner;
-import processing.data.*;
 import processing.core.*;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -19,11 +17,11 @@ import java.util.TimerTask;
 /**
  * @author Ahtesham Sarwar
  */
-<span class="nc" id="L22">public class App extends PApplet{</span>
+<span class="fc" id="L20">public class App extends PApplet{</span>
 
     public static final int HEIGHT = 480;
     public static final int WIDTH = 480;
-<span class="nc" id="L26">    private final int FPS = 60;</span>
+<span class="fc" id="L24">    private final int FPS = 60;</span>
     private static boolean isPlayerInMap;
     private BombGuy bombGuy;
     private RedEnemy redEnemy;
@@ -34,21 +32,21 @@ import java.util.TimerTask;
     private PImage solidw,brokenw,emptyw,goalw,life,clock,explosionC,explosionH,explosionV;
     public static long startTime;
     private ArrayList&lt;Level&gt; gameLevels;
-<span class="nc" id="L37">    private int levelIndex = 0;   </span>
+<span class="fc" id="L35">    private int levelIndex = 0;   </span>
     private char[][] map;    
-<span class="nc" id="L39">    private int redFrameCounter2 = 1;</span>
-<span class="nc" id="L40">    private int yellowFrameCounter = 1;    </span>
-<span class="nc" id="L41">    private final int[] x_direction = {0,0,1,-1};</span>
-<span class="nc" id="L42">    private final int[] y_direction = {1,-1,0,0};        </span>
-<span class="nc" id="L43">    public final static int[] goalIndex = new int[2];    </span>
-<span class="nc" id="L44">    private final int start_y_pos_player = 80;</span>
-<span class="nc" id="L45">    private final int start_y_pos_red_en = 80;</span>
-<span class="nc" id="L46">    private final int start_y_pos_yell_en = 80;    </span>
+<span class="fc" id="L37">    private int redFrameCounter2 = 1;</span>
+<span class="fc" id="L38">    private int yellowFrameCounter = 1;    </span>
+<span class="fc" id="L39">    private final int[] x_direction = {0,0,1,-1};</span>
+<span class="fc" id="L40">    private final int[] y_direction = {1,-1,0,0};        </span>
+<span class="fc" id="L41">    public final static int[] goalIndex = new int[2];    </span>
+<span class="fc" id="L42">    private final int start_y_pos_player = 80;</span>
+<span class="fc" id="L43">    private final int start_y_pos_red_en = 80;</span>
+<span class="fc" id="L44">    private final int start_y_pos_yell_en = 80;    </span>
     private Animation characterAnimation;
     private Animation bombAnimation;
     
     
-    private static ArrayList&lt;Integer[]&gt; pStartPlayerPosLevelList;
+    
        
     private ArrayList&lt;PImage&gt; playerDownFramesList;
     private ArrayList&lt;PImage&gt; playerUpFramesList;
@@ -70,6 +68,8 @@ import java.util.TimerTask;
     private ArrayList&lt;PImage&gt; bombFramesList;
 
     
+    
+    
     /**
      * @param args the command line arguments
      * we extend this class from PApplet 
@@ -80,7 +80,8 @@ import java.util.TimerTask;
       
 <span class="nc" id="L81">        PApplet.main(&quot;demolition.App&quot;);</span>
 
-<span class="nc" id="L83">    }</span>
+        
+<span class="nc" id="L84">    }</span>
     
     
     
@@ -88,9 +89,9 @@ import java.util.TimerTask;
     public void settings(){
         
         //set the size of window here
-<span class="nc" id="L91">        this.size(HEIGHT,WIDTH);</span>
+<span class="nc" id="L92">        this.size(HEIGHT,WIDTH);</span>
         
-<span class="nc" id="L93">    }</span>
+<span class="nc" id="L94">    }</span>
     
     
     
@@ -101,48 +102,50 @@ import java.util.TimerTask;
         Here we need to instantiate every object which we draw on the window
         */
         
-<span class="nc" id="L104">        frameRate(FPS);</span>
         
-<span class="nc" id="L106">        isPlayerInMap = false;</span>
-<span class="nc" id="L107">        pStartPlayerPosLevelList = new ArrayList&lt;&gt;();        </span>
-<span class="nc" id="L108">        startTime = System.currentTimeMillis();   </span>
         
-<span class="nc" id="L110">        bombGuy = new BombGuy(); </span>
-<span class="nc" id="L111">        bomb = new Bomb();                       </span>
-<span class="nc" id="L112">        redEnemy = new RedEnemy();        </span>
-<span class="nc" id="L113">        yellEnemy = new YellowEnemy();</span>
+<span class="nc" id="L107">        frameRate(FPS);</span>
         
-<span class="nc" id="L115">        String configData = readConfig();</span>
-<span class="nc" id="L116">        gameLevels = configureLevels(configData);</span>
+<span class="nc" id="L109">        isPlayerInMap = false;</span>
+             
+<span class="nc" id="L111">        startTime = System.currentTimeMillis();   </span>
+        
+<span class="nc" id="L113">        bombGuy = new BombGuy(); </span>
+<span class="nc" id="L114">        bomb = new Bomb();                       </span>
+<span class="nc" id="L115">        redEnemy = new RedEnemy();        </span>
+<span class="nc" id="L116">        yellEnemy = new YellowEnemy();</span>
+        
+<span class="nc" id="L118">        String configData = Configurations.readConfig();</span>
+<span class="nc" id="L119">        gameLevels = Configurations.configureLevels(configData);</span>
        
          
-<span class="nc" id="L119">        bombFramesList = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L120">        characterAnimation = new Animation(0.2f);</span>
-<span class="nc" id="L121">        bombAnimation = new Animation(bomb.PerFrameTime);</span>
+<span class="nc" id="L122">        bombFramesList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L123">        characterAnimation = new Animation(0.2f);</span>
+<span class="nc" id="L124">        bombAnimation = new Animation(bomb.PerFrameTime);</span>
 
-<span class="nc" id="L123">        isWin = false;       </span>
-<span class="nc" id="L124">        isGameOver = false;</span>
+<span class="nc" id="L126">        isWin = false;       </span>
+<span class="nc" id="L127">        isGameOver = false;</span>
         
         /*
         TILES AND ICONS INITIALIZATION
         */
         
         
-<span class="nc" id="L131">        loadTiles();        </span>
-<span class="nc" id="L132">        loadIcons();</span>
+<span class="nc" id="L134">        loadTiles();        </span>
+<span class="nc" id="L135">        loadIcons();</span>
 
         
         /*
         PLAYER FRAMES LISTS INITIALIZATION
         */
        
-<span class="nc" id="L139">        loadPlayerFramesInLists();</span>
+<span class="nc" id="L142">        loadPlayerFramesInLists();</span>
 
         /*
         RED ENEMY FRAMES LISTS INITIALIZATION
          */
         
-<span class="nc" id="L145">        loadRedEnemyFramesInLists();</span>
+<span class="nc" id="L148">        loadRedEnemyFramesInLists();</span>
         
 
         /*
@@ -150,7 +153,7 @@ import java.util.TimerTask;
          */
         
         
-<span class="nc" id="L153">        loadYellowEnemyFramesInLists();</span>
+<span class="nc" id="L156">        loadYellowEnemyFramesInLists();</span>
         
         
         
@@ -158,16 +161,16 @@ import java.util.TimerTask;
          BOMB FRAMES LISTS INITIALIZATION
          */
         
-<span class="nc" id="L161">        loadBombFrames();</span>
+<span class="nc" id="L164">        loadBombFrames();</span>
        
         /*
          EXPLOSION FRAMES LISTS INITIALIZATION
          */
 
-<span class="nc" id="L167">        loadExplosionFrames();</span>
+<span class="nc" id="L170">        loadExplosionFrames();</span>
         
         
-<span class="nc" id="L170">    }</span>
+<span class="nc" id="L173">    }</span>
     
     
     @Override
@@ -177,26 +180,26 @@ import java.util.TimerTask;
         This method is used to draw content on the window.
         This method is called 60 times per second
         */
-<span class="nc" id="L180">        background(255,140,0);</span>
+<span class="nc" id="L183">        background(255,140,0);</span>
         
-<span class="nc bnc" id="L182" title="All 2 branches missed.">        if(isWin){</span>
+<span class="nc bnc" id="L185" title="All 2 branches missed.">        if(isWin){</span>
             
-<span class="nc" id="L184">            showWinScreen();</span>
+<span class="nc" id="L187">            showWinScreen();</span>
             
-<span class="nc" id="L186">            return;</span>
+<span class="nc" id="L189">            return;</span>
         }
         
         
         
-<span class="nc bnc" id="L191" title="All 2 branches missed.">        if(!isGameOver){</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">        if(!isGameOver){</span>
             
             /*
                 IF BOMB GUY LIVES ARE LESS THAN EQUAL TO 0, GAME WILL BE OVER
             */
             
-<span class="nc bnc" id="L197" title="All 2 branches missed.">            if(bombGuy.getLives() &lt;= 0 ){</span>
-<span class="nc" id="L198">                isGameOver = true;            </span>
-<span class="nc" id="L199">                return;</span>
+<span class="nc bnc" id="L200" title="All 2 branches missed.">            if(BombGuy.lives &lt;= 0 ){</span>
+<span class="nc" id="L201">                isGameOver = true;            </span>
+<span class="nc" id="L202">                return;</span>
                 
             }
         
@@ -204,97 +207,97 @@ import java.util.TimerTask;
         
         //loadLevel
         
-<span class="nc bnc" id="L207" title="All 2 branches missed.">        if(gameLevels.size() == 0){</span>
-<span class="nc" id="L208">            isGameOver = true;</span>
-<span class="nc" id="L209">            return;</span>
+<span class="nc bnc" id="L210" title="All 2 branches missed.">        if(gameLevels.size() == 0){</span>
+<span class="nc" id="L211">            isGameOver = true;</span>
+<span class="nc" id="L212">            return;</span>
         }
         
-<span class="nc" id="L212">        Level level = gameLevels.get(levelIndex);</span>
-<span class="nc" id="L213">        map = level.mapArray;</span>
+<span class="nc" id="L215">        Level level = gameLevels.get(levelIndex);</span>
+<span class="nc" id="L216">        map = level.mapArray;</span>
         
         
-<span class="nc" id="L216">        showLives();</span>
+<span class="nc" id="L219">        showLives();</span>
         
         
-<span class="nc" id="L219">        showClockWithTime(level);</span>
+<span class="nc" id="L222">        showClockWithTime(level);</span>
         
 
           
-<span class="nc bnc" id="L223" title="All 2 branches missed.">          for(int i=0;i&lt;Map.ROWS;i++){</span>
+<span class="nc bnc" id="L226" title="All 2 branches missed.">          for(int i=0;i&lt;Map.ROWS;i++){</span>
               
               
-<span class="nc bnc" id="L226" title="All 2 branches missed.">              for(int j=0;j&lt;Map.COLUMNS;j++){</span>
+<span class="nc bnc" id="L229" title="All 2 branches missed.">              for(int j=0;j&lt;Map.COLUMNS;j++){</span>
                   
                    
                   
                   
-<span class="nc bnc" id="L231" title="All 12 branches missed.">                  switch(map[i][j]){</span>
+<span class="nc bnc" id="L234" title="All 12 branches missed.">                  switch(map[i][j]){</span>
                       
                       case 'W':
                           
-<span class="nc" id="L235">                          image(solidw,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L238">                          image(solidw,j*32,(i*32)+ Map.OFFSET);</span>
                           
-<span class="nc" id="L237">                          break;                                              </span>
+<span class="nc" id="L240">                          break;                                              </span>
                       
                           
                           
                       
                       case 'H':
                           //horizontal explosion image
-<span class="nc" id="L244">                          image(emptyw,j*32,(i*32)+ Map.OFFSET);</span>
-<span class="nc" id="L245">                          image(explosionH,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L247">                          image(emptyw,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L248">                          image(explosionH,j*32,(i*32)+ Map.OFFSET);</span>
                           
-<span class="nc" id="L247">                          break;</span>
+<span class="nc" id="L250">                          break;</span>
                           
                       case 'V':
                           //vertical explosion image
-<span class="nc" id="L251">                          image(emptyw,j*32,(i*32)+ Map.OFFSET);</span>
-<span class="nc" id="L252">                          image(explosionV,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L254">                          image(emptyw,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L255">                          image(explosionV,j*32,(i*32)+ Map.OFFSET);</span>
                           
                           
-<span class="nc" id="L255">                          break;                          </span>
+<span class="nc" id="L258">                          break;                          </span>
                           
                           case 'C':
                               
                               //center explosion image
-<span class="nc" id="L260">                              image(emptyw,j*32,(i*32)+ Map.OFFSET);</span>
-<span class="nc" id="L261">                              image(explosionC,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L263">                              image(emptyw,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L264">                              image(explosionC,j*32,(i*32)+ Map.OFFSET);</span>
                               
                               
-<span class="nc" id="L264">                              break;</span>
+<span class="nc" id="L267">                              break;</span>
                           
                       case 'P':
 
-<span class="nc" id="L268">                          isPlayerInMap = true;</span>
+<span class="nc" id="L271">                          isPlayerInMap = true;</span>
                          
                           
                           
-<span class="nc" id="L272">                          changeLevelIfPlayerAtGoal(i,j);</span>
+<span class="nc" id="L275">                          changeLevelIfPlayerAtGoal(i,j);</span>
                           
                           
-<span class="nc" id="L275">                          controlPlayer(i,j);                          </span>
+<span class="nc" id="L278">                          controlPlayer(i,j);                          </span>
                           
-<span class="nc" id="L277">                          image(emptyw,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L280">                          image(emptyw,j*32,(i*32)+ Map.OFFSET);</span>
                           
                           
                           //place bomb if space is pressed by the player
-<span class="nc bnc" id="L281" title="All 2 branches missed.">                           if(bomb.isPlaced)     {</span>
+<span class="nc bnc" id="L284" title="All 2 branches missed.">                           if(bomb.isPlaced)     {</span>
                               
-<span class="nc" id="L283">                              placeBomb(i,j);</span>
+<span class="nc" id="L286">                              placeBomb(i,j);</span>
                               
                           }
                                                     
                            
-<span class="nc" id="L288">                          int yPlayerPos = (abs(i-1) * 32)+ start_y_pos_player;</span>
+<span class="nc" id="L291">                          int yPlayerPos = (abs(i-1) * 32)+ start_y_pos_player;</span>
                           
-<span class="nc" id="L290">                          positionAnimation(bombGuy.anim_direction,j*32,yPlayerPos,playerDownFramesList,playerUpFramesList,playerRightFramesList,</span>
+<span class="nc" id="L293">                          positionAnimation(bombGuy.anim_direction,j*32,yPlayerPos,playerDownFramesList,playerUpFramesList,playerRightFramesList,</span>
                                   playerLeftFramesList);
                             
                             
-<span class="nc" id="L294">                          break;</span>
+<span class="nc" id="L297">                          break;</span>
                       case ' ':   
                           
-<span class="nc" id="L297">                          image(emptyw,j*32,(i*32)+ Map.OFFSET);   </span>
+<span class="nc" id="L300">                          image(emptyw,j*32,(i*32)+ Map.OFFSET);   </span>
 
                            
                             /*
@@ -303,47 +306,47 @@ import java.util.TimerTask;
         
                             */
                            
-<span class="nc" id="L306">                            positionBombAnimation(i,j);</span>
+<span class="nc" id="L309">                            positionBombAnimation(i,j);</span>
                               
                                
-<span class="nc" id="L309">                            removeExplosionEffectAfterExplosion();</span>
+<span class="nc" id="L312">                            removeExplosionEffectAfterExplosion();</span>
           
                           
-<span class="nc" id="L312">                          break;</span>
+<span class="nc" id="L315">                          break;</span>
                           
                       case 'R':
                           
-<span class="nc" id="L316">                               redEnemyAI(i,j,map);</span>
+<span class="nc" id="L319">                               redEnemyAI(i,j,map);</span>
                         
-<span class="nc" id="L318">                          break;</span>
+<span class="nc" id="L321">                          break;</span>
                       case 'Y':
                          
-<span class="nc" id="L321">                                yellowEnemyAI(i,j,map);</span>
+<span class="nc" id="L324">                                yellowEnemyAI(i,j,map);</span>
                           
-<span class="nc" id="L323">                          break;</span>
+<span class="nc" id="L326">                          break;</span>
                           
                       case 'X':
                           
-<span class="nc" id="L327">                          yellowEnemyAI(i,j,map);</span>
+<span class="nc" id="L330">                          yellowEnemyAI(i,j,map);</span>
                           
-<span class="nc" id="L329">                          map[i][j] = 'X';</span>
+<span class="nc" id="L332">                          map[i][j] = 'X';</span>
                           
-<span class="nc" id="L331">                          redEnemyAI(i,j,map);</span>
+<span class="nc" id="L334">                          redEnemyAI(i,j,map);</span>
                           
                           
-<span class="nc" id="L334">                          break;</span>
+<span class="nc" id="L337">                          break;</span>
                       case 'B':
                           
-<span class="nc" id="L337">                          image(brokenw,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L340">                          image(brokenw,j*32,(i*32)+ Map.OFFSET);</span>
                           
-<span class="nc" id="L339">                          break;</span>
+<span class="nc" id="L342">                          break;</span>
                       case 'G':
                           
                           
                           
-<span class="nc" id="L344">                          goalIndex[0] = i;</span>
-<span class="nc" id="L345">                          goalIndex[1] = j;</span>
-<span class="nc" id="L346">                          image(goalw,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L347">                          goalIndex[0] = i;</span>
+<span class="nc" id="L348">                          goalIndex[1] = j;</span>
+<span class="nc" id="L349">                          image(goalw,j*32,(i*32)+ Map.OFFSET);</span>
                         
                           break;
                    
@@ -354,11 +357,11 @@ import java.util.TimerTask;
           
     }
           
-<span class="nc bnc" id="L357" title="All 2 branches missed.">          if(isPlayerInMap){</span>
+<span class="nc bnc" id="L360" title="All 2 branches missed.">          if(isPlayerInMap){</span>
                   
                   //we will reset the value of isPlayerInMap to check every time the existence of player in map
                   
-<span class="nc" id="L361">                  isPlayerInMap = false;</span>
+<span class="nc" id="L364">                  isPlayerInMap = false;</span>
               
               }else{
                   
@@ -367,208 +370,85 @@ import java.util.TimerTask;
                   then we add the player respawn position in level according to its level
                   */
                   
-<span class="nc" id="L370">                  playerDieAndResetLevel();</span>
+<span class="nc" id="L373">                  playerDieAndResetLevel();</span>
                   
                   
               }
           
-<span class="nc" id="L375">    }else{</span>
+<span class="nc" id="L378">    }else{</span>
        
-<span class="nc" id="L377">        showGameOverScreen();</span>
+<span class="nc" id="L380">        showGameOverScreen();</span>
             
     }
             
         
-<span class="nc" id="L382">    }</span>
+<span class="nc" id="L385">    }</span>
     
-    
-    public String readConfig(){
-        
-<span class="nc" id="L387">        String data = &quot;&quot;;</span>
-        try{
-            
-<span class="nc" id="L390">            File config = new File(System.getProperty(&quot;user.dir&quot;) + File.separator +&quot;config.json&quot;);</span>
-<span class="nc" id="L391">            Scanner scanner = new Scanner(config);</span>
-            
-<span class="nc bnc" id="L393" title="All 2 branches missed.">            while(scanner.hasNextLine())</span>
-<span class="nc" id="L394">                data += scanner.nextLine();</span>
-            
-
-<span class="nc" id="L397">            scanner.close();</span>
-            
-<span class="nc" id="L399">        }catch(Exception e){</span>
-            
-<span class="nc" id="L401">            e.printStackTrace();</span>
-            
-<span class="nc" id="L403">        }</span>
-        
-<span class="nc" id="L405">        return data;</span>
-        
-    }
-    
-    
-    
-    public ArrayList&lt;Level&gt; configureLevels(String jsonData){
-        
-<span class="nc" id="L413">        ArrayList&lt;Level&gt; levelList = new ArrayList&lt;&gt;();</span>
-        
-        try{
-            
-<span class="nc" id="L417">        JSONObject obj = JSONObject.parse(jsonData);      </span>
-<span class="nc" id="L418">        JSONArray levels = obj.getJSONArray(&quot;levels&quot;);</span>
-        
-<span class="nc" id="L420">        bombGuy.setLives(obj.getInt(&quot;lives&quot;));</span>
-        
-<span class="nc bnc" id="L422" title="All 2 branches missed.">        for(int i=0;i&lt;levels.size();i++){</span>
-            
-<span class="nc" id="L424">            JSONObject levelObj = levels.getJSONObject(i);</span>
-<span class="nc" id="L425">            Level level = new Level(levelObj.getString(&quot;path&quot;),levelObj.getInt(&quot;time&quot;));</span>
-            
-<span class="nc" id="L427">            char[][] level_map = readMapFromFile(level.path);</span>
-            
-<span class="nc" id="L429">            level.setMap(level_map);</span>
-            
-            
-<span class="nc bnc" id="L432" title="All 2 branches missed.">            if(Map.validateMap(level_map))</span>
-<span class="nc" id="L433">            levelList.add(level);</span>
-            
-            
-        }
-        
-<span class="nc" id="L438">        }catch(Exception e){</span>
-            
-<span class="nc" id="L440">            e.printStackTrace();</span>
-            
-<span class="nc" id="L442">        }</span>
-        
-<span class="nc" id="L444">        return levelList;</span>
-        
-    }
-    
-    public char[][] readMapFromFile(String path){
-        
-<span class="nc" id="L450">        char[][] map = new char[Map.ROWS][Map.COLUMNS];</span>
-        
-        try{
-            
-<span class="nc bnc" id="L454" title="All 4 branches missed.">            if(path != null &amp;&amp; !path.isEmpty()){</span>
-                
-<span class="nc" id="L456">                File mapFile = new File(path);</span>
-<span class="nc" id="L457">                Scanner scanner = new Scanner(mapFile);</span>
-                
-<span class="nc" id="L459">                int i=0;</span>
-<span class="nc bnc" id="L460" title="All 2 branches missed.">                while(scanner.hasNextLine()){</span>
-                
-<span class="nc" id="L462">                    String row = scanner.nextLine();</span>
-                    
-<span class="nc bnc" id="L464" title="All 2 branches missed.">                    for(int j=0;j&lt;row.length();j++){</span>
-                      
-                        
-<span class="nc" id="L467">                      map[i][j] = row.charAt(j);  </span>
-                      
-<span class="nc bnc" id="L469" title="All 2 branches missed.">                      if(row.charAt(j) == 'P'){</span>
-                          
-<span class="nc" id="L471">                          Integer[] playerStartPos = new Integer[2];</span>
-                          
-<span class="nc" id="L473">                          playerStartPos[0] = i;</span>
-<span class="nc" id="L474">                          playerStartPos[1] = j;</span>
-                          
-                          
-<span class="nc" id="L477">                          pStartPlayerPosLevelList.add(playerStartPos);</span>
-                          
-                      }
-                      
-                    }
-                
-<span class="nc" id="L483">                    i++;</span>
-<span class="nc" id="L484">                }</span>
-                
-               
-<span class="nc" id="L487">                scanner.close();</span>
-                
-                
-            }
-            
-<span class="nc" id="L492">        }catch(Exception e){</span>
-            
-<span class="nc" id="L494">            e.printStackTrace();</span>
-            
-<span class="nc" id="L496">        }</span>
-        
-        
-        
-<span class="nc" id="L500">        return map;</span>
-    }
-    
-    
-    
-    
-   
     
     
     @Override
     public void keyReleased(){
         
-<span class="nc" id="L512">        int newdire = -1;</span>
-<span class="nc bnc" id="L513" title="All 2 branches missed.">        if(keyCode == DOWN)</span>
-<span class="nc" id="L514">            newdire = 0;</span>
-<span class="nc bnc" id="L515" title="All 2 branches missed.">        else if(keyCode == UP)</span>
-<span class="nc" id="L516">            newdire = 1;</span>
-<span class="nc bnc" id="L517" title="All 2 branches missed.">        else if(keyCode == RIGHT)</span>
-<span class="nc" id="L518">            newdire = 2;</span>
-<span class="nc bnc" id="L519" title="All 2 branches missed.">        else if(keyCode == LEFT)</span>
-<span class="nc" id="L520">            newdire = 3;</span>
-<span class="nc bnc" id="L521" title="All 2 branches missed.">        else if(keyCode == 32){ //keyCode 32 is for spacebar</span>
+<span class="nc" id="L392">        int newdire = -1;</span>
+<span class="nc bnc" id="L393" title="All 2 branches missed.">        if(keyCode == DOWN)</span>
+<span class="nc" id="L394">            newdire = 0;</span>
+<span class="nc bnc" id="L395" title="All 2 branches missed.">        else if(keyCode == UP)</span>
+<span class="nc" id="L396">            newdire = 1;</span>
+<span class="nc bnc" id="L397" title="All 2 branches missed.">        else if(keyCode == RIGHT)</span>
+<span class="nc" id="L398">            newdire = 2;</span>
+<span class="nc bnc" id="L399" title="All 2 branches missed.">        else if(keyCode == LEFT)</span>
+<span class="nc" id="L400">            newdire = 3;</span>
+<span class="nc bnc" id="L401" title="All 2 branches missed.">        else if(keyCode == 32){ //keyCode 32 is for spacebar</span>
             
-<span class="nc bnc" id="L523" title="All 2 branches missed.">            if(bomb.isExploded){</span>
-<span class="nc" id="L524">            bomb.isPlaced = true;</span>
-<span class="nc" id="L525">            bomb.isExploded = false;</span>
-<span class="nc" id="L526">            bomb.placeTime = System.currentTimeMillis();</span>
+<span class="nc bnc" id="L403" title="All 2 branches missed.">            if(bomb.isExploded){</span>
+<span class="nc" id="L404">            bomb.isPlaced = true;</span>
+<span class="nc" id="L405">            bomb.isExploded = false;</span>
+<span class="nc" id="L406">            bomb.placeTime = System.currentTimeMillis();</span>
             }
             
         }
         
-<span class="nc bnc" id="L531" title="All 2 branches missed.">        if(newdire != -1)</span>
-<span class="nc" id="L532">            bombGuy.direction = bombGuy.anim_direction = newdire;</span>
+<span class="nc bnc" id="L411" title="All 2 branches missed.">        if(newdire != -1)</span>
+<span class="nc" id="L412">            bombGuy.direction = bombGuy.anim_direction = newdire;</span>
         
         
         
-<span class="nc" id="L536">    }</span>
+<span class="nc" id="L416">    }</span>
     
     private void positionAnimation(int mDirection,int xPos,int yPos,ArrayList&lt;PImage&gt; downFramesList,ArrayList&lt;PImage&gt; upFramesList,
                                 ArrayList&lt;PImage&gt; rightFramesList,ArrayList&lt;PImage&gt; leftFramesList){
         
         
-<span class="nc bnc" id="L542" title="All 5 branches missed.">        switch (mDirection) {</span>
+<span class="nc bnc" id="L422" title="All 5 branches missed.">        switch (mDirection) {</span>
                           
                           case -1:
                           case 0:
                               
-<span class="nc" id="L547">                              image(characterAnimation.play(downFramesList),xPos,yPos);</span>
+<span class="nc" id="L427">                              image(characterAnimation.play(downFramesList),xPos,yPos);</span>
                               
-<span class="nc" id="L549">                              break;</span>
+<span class="nc" id="L429">                              break;</span>
                           case 1:
                               
-<span class="nc" id="L552">                              image(characterAnimation.play(upFramesList),xPos,yPos);</span>
+<span class="nc" id="L432">                              image(characterAnimation.play(upFramesList),xPos,yPos);</span>
                               
-<span class="nc" id="L554">                              break; </span>
+<span class="nc" id="L434">                              break; </span>
                           case 2:
                               
-<span class="nc" id="L557">                              image(characterAnimation.play(rightFramesList),xPos,yPos);</span>
+<span class="nc" id="L437">                              image(characterAnimation.play(rightFramesList),xPos,yPos);</span>
                               
-<span class="nc" id="L559">                              break;</span>
+<span class="nc" id="L439">                              break;</span>
                           case 3:
                               
-<span class="nc" id="L562">                              image(characterAnimation.play(leftFramesList),xPos,yPos);</span>
+<span class="nc" id="L442">                              image(characterAnimation.play(leftFramesList),xPos,yPos);</span>
                               
-<span class="nc" id="L564">                              break;</span>
+<span class="nc" id="L444">                              break;</span>
                           default:
                               break;
                       
                       }
         
         
-<span class="nc" id="L571">    }</span>
+<span class="nc" id="L451">    }</span>
     
     
     
@@ -576,385 +456,294 @@ import java.util.TimerTask;
         
         
          //changing the direction of red enemy
-<span class="nc bnc" id="L579" title="All 2 branches missed.">            if (redFrameCounter2 == 60) {</span>
+<span class="nc bnc" id="L459" title="All 2 branches missed.">            if (redFrameCounter2 == 60) {</span>
 
-<span class="nc bnc" id="L581" title="All 4 branches missed.">            if (redEnemy.redEnDirection == 0 || redEnemy.redEnDirection == 1) {</span>
+<span class="nc bnc" id="L461" title="All 4 branches missed.">            if (redEnemy.redEnDirection == 0 || redEnemy.redEnDirection == 1) {</span>
 
                 //down or up
-<span class="nc" id="L584">                int yDirec = y_direction[redEnemy.redEnDirection];</span>
+<span class="nc" id="L464">                int yDirec = y_direction[redEnemy.redEnDirection];</span>
 
-<span class="nc" id="L586">                map = redEnemy.movement(i, j, yDirec, map);</span>
+<span class="nc" id="L466">                map = redEnemy.movement(i, j, yDirec, map);</span>
 
-<span class="nc bnc" id="L588" title="All 4 branches missed.">            } else if (redEnemy.redEnDirection == 2 || redEnemy.redEnDirection == 3) {</span>
+<span class="nc bnc" id="L468" title="All 4 branches missed.">            } else if (redEnemy.redEnDirection == 2 || redEnemy.redEnDirection == 3) {</span>
                 //right or left
 
-<span class="nc" id="L591">                int xDirec = x_direction[redEnemy.redEnDirection];</span>
+<span class="nc" id="L471">                int xDirec = x_direction[redEnemy.redEnDirection];</span>
 
-<span class="nc" id="L593">                map = redEnemy.movement(i, j, xDirec, map);</span>
+<span class="nc" id="L473">                map = redEnemy.movement(i, j, xDirec, map);</span>
 
             }
 
-<span class="nc" id="L597">            redFrameCounter2 = 1;</span>
+<span class="nc" id="L477">            redFrameCounter2 = 1;</span>
 
         } else {
 
-<span class="nc" id="L601">            redFrameCounter2++;</span>
+<span class="nc" id="L481">            redFrameCounter2++;</span>
 
         }
 
-<span class="nc" id="L605">        image(emptyw, j * 32, (i * 32) + Map.OFFSET);</span>
+<span class="nc" id="L485">        image(emptyw, j * 32, (i * 32) + Map.OFFSET);</span>
 
         //animating red enemy in right direction
-<span class="nc" id="L608">        int yRedPos = (abs(i - 1) * 32) + start_y_pos_red_en;</span>
+<span class="nc" id="L488">        int yRedPos = (abs(i - 1) * 32) + start_y_pos_red_en;</span>
 
-<span class="nc" id="L610">        positionAnimation(redEnemy.redAnimDirection, j * 32, yRedPos, redEnDownFramesList, redEnUpFramesList, redEnRightFramesList, redEnLeftFramesList);</span>
+<span class="nc" id="L490">        positionAnimation(redEnemy.redAnimDirection, j * 32, yRedPos, redEnDownFramesList, redEnUpFramesList, redEnRightFramesList, redEnLeftFramesList);</span>
 
         
-<span class="nc" id="L613">    }</span>
+<span class="nc" id="L493">    }</span>
     
     
     private void yellowEnemyAI(int i,int j, char[][] map){
         
-<span class="nc bnc" id="L618" title="All 2 branches missed.">            if (yellowFrameCounter == 60) {</span>
+<span class="nc bnc" id="L498" title="All 2 branches missed.">            if (yellowFrameCounter == 60) {</span>
 
-<span class="nc bnc" id="L620" title="All 4 branches missed.">            if (yellEnemy.yellowEnDirection == 0 || yellEnemy.yellowEnDirection == 1) {</span>
+<span class="nc bnc" id="L500" title="All 4 branches missed.">            if (yellEnemy.yellowEnDirection == 0 || yellEnemy.yellowEnDirection == 1) {</span>
 
                 //down or up
-<span class="nc" id="L623">                int yDirec = y_direction[yellEnemy.yellowEnDirection];</span>
+<span class="nc" id="L503">                int yDirec = y_direction[yellEnemy.yellowEnDirection];</span>
 
-<span class="nc" id="L625">                map = yellEnemy.movement(i, j, yDirec, map);</span>
+<span class="nc" id="L505">                map = yellEnemy.movement(i, j, yDirec, map);</span>
 
-<span class="nc bnc" id="L627" title="All 4 branches missed.">            } else if (yellEnemy.yellowEnDirection == 2 || yellEnemy.yellowEnDirection == 3) {</span>
+<span class="nc bnc" id="L507" title="All 4 branches missed.">            } else if (yellEnemy.yellowEnDirection == 2 || yellEnemy.yellowEnDirection == 3) {</span>
 
                 //right or left
-<span class="nc" id="L630">                int xDirec = x_direction[yellEnemy.yellowEnDirection];</span>
+<span class="nc" id="L510">                int xDirec = x_direction[yellEnemy.yellowEnDirection];</span>
 
-<span class="nc" id="L632">                map = yellEnemy.movement(i, j, xDirec, map);</span>
+<span class="nc" id="L512">                map = yellEnemy.movement(i, j, xDirec, map);</span>
 
             }
 
-<span class="nc" id="L636">            yellowFrameCounter = 1;</span>
+<span class="nc" id="L516">            yellowFrameCounter = 1;</span>
 
         } else {
 
-<span class="nc" id="L640">            yellowFrameCounter++;</span>
+<span class="nc" id="L520">            yellowFrameCounter++;</span>
 
         }
 
-<span class="nc" id="L644">        image(emptyw, j * 32, (i * 32) + Map.OFFSET);</span>
+<span class="nc" id="L524">        image(emptyw, j * 32, (i * 32) + Map.OFFSET);</span>
 
         //animated yellow in left direction
-<span class="nc" id="L647">        int yYellowPos = ((i - 1) * 32) + start_y_pos_yell_en;</span>
+<span class="nc" id="L527">        int yYellowPos = ((i - 1) * 32) + start_y_pos_yell_en;</span>
 
         //here only for direction left (test) -&gt; not completed
-<span class="nc" id="L650">        positionAnimation(yellEnemy.yellowAnimDirection, j * 32, yYellowPos, yellowEnDownFramesList, yellowEnUpFramesList, yellowEnRightFramesList, yellowEnLeftFramesList);</span>
+<span class="nc" id="L530">        positionAnimation(yellEnemy.yellowAnimDirection, j * 32, yYellowPos, yellowEnDownFramesList, yellowEnUpFramesList, yellowEnRightFramesList, yellowEnLeftFramesList);</span>
 
 
-<span class="nc" id="L653">    }</span>
-    
-    
-    
-    
-    private void loadPlayerDownFramesList(){
-        
-<span class="nc" id="L660">        playerDownFramesList = new ArrayList&lt;&gt;();</span>
-        
-        
-<span class="nc" id="L663">        playerDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
-                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player1.png&quot;));
-
-<span class="nc" id="L666">        playerDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
-                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player2.png&quot;));
-
-<span class="nc" id="L669">        playerDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
-                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player3.png&quot;));
-
-<span class="nc" id="L672">        playerDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
-                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player4.png&quot;));
-
-        
-        
-        
-<span class="nc" id="L678">    }</span>
-    
-    
-    private void loadPlayerRightFramesList(){
-        
-<span class="nc" id="L683">        playerRightFramesList = new ArrayList&lt;&gt;();</span>
-        
-<span class="nc" id="L685">        playerRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
-                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_right1.png&quot;));
-
-<span class="nc" id="L688">        playerRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
-                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_right2.png&quot;));
-
-<span class="nc" id="L691">        playerRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
-                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_right3.png&quot;));
-
-<span class="nc" id="L694">        playerRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
-                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_right4.png&quot;));
-        
-        
-        
-<span class="nc" id="L699">    }</span>
-    
-    
-    private void loadPlayerLeftFramesList(){
-        
-<span class="nc" id="L704">        playerLeftFramesList = new ArrayList&lt;&gt;();        </span>
-        
-<span class="nc" id="L706">        playerLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
-                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_left1.png&quot;));
-
-<span class="nc" id="L709">        playerLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
-                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_left2.png&quot;));
-
-<span class="nc" id="L712">        playerLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
-                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_left3.png&quot;));
-
-<span class="nc" id="L715">        playerLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
-                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_left4.png&quot;));
-
-        
-        
-<span class="nc" id="L720">    }</span>
-    
-    
-    
-    private void loadPlayerUpFramesList(){
-        
-        
-<span class="nc" id="L727">        playerUpFramesList = new ArrayList&lt;&gt;();</span>
-        
-<span class="nc" id="L729">        playerUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
-                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_up1.png&quot;));
-
-<span class="nc" id="L732">        playerUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
-                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_up2.png&quot;));
-
-<span class="nc" id="L735">        playerUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
-                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_up3.png&quot;));
-
-<span class="nc" id="L738">        playerUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
-                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_up4.png&quot;));
-
-        
-        
-        
-<span class="nc" id="L744">    }</span>
+<span class="nc" id="L533">    }</span>
     
     
     private void loadRedEnemyDownFrames(){
         
         
-<span class="nc" id="L750">        redEnDownFramesList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L539">        redEnDownFramesList = new ArrayList&lt;&gt;();</span>
         
         
-<span class="nc" id="L753">         redEnDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L542">         redEnDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_down1.png&quot;));
-<span class="nc" id="L755">        redEnDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L544">        redEnDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_down2.png&quot;));
-<span class="nc" id="L757">        redEnDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L546">        redEnDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_down3.png&quot;));
-<span class="nc" id="L759">        redEnDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L548">        redEnDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_down4.png&quot;));
 
         
-<span class="nc" id="L763">    }</span>
+<span class="nc" id="L552">    }</span>
     
     
     private void loadRedEnemyUpFrames(){
         
         
-<span class="nc" id="L769">        redEnUpFramesList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L558">        redEnUpFramesList = new ArrayList&lt;&gt;();</span>
         
         
-<span class="nc" id="L772">        redEnUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L561">        redEnUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_up1.png&quot;));
-<span class="nc" id="L774">        redEnUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L563">        redEnUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_up2.png&quot;));
-<span class="nc" id="L776">        redEnUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L565">        redEnUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_up3.png&quot;));
-<span class="nc" id="L778">        redEnUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L567">        redEnUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_up4.png&quot;));
         
-<span class="nc" id="L781">    }</span>
+<span class="nc" id="L570">    }</span>
     
     private void loadRedEnemyRightFrames(){
         
         
-<span class="nc" id="L786">        redEnRightFramesList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L575">        redEnRightFramesList = new ArrayList&lt;&gt;();</span>
         
-<span class="nc" id="L788">        redEnRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L577">        redEnRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_right1.png&quot;));
-<span class="nc" id="L790">        redEnRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L579">        redEnRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_right2.png&quot;));
-<span class="nc" id="L792">        redEnRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L581">        redEnRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_right3.png&quot;));
-<span class="nc" id="L794">        redEnRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L583">        redEnRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_right4.png&quot;));
         
         
-<span class="nc" id="L798">    }</span>
+<span class="nc" id="L587">    }</span>
     
     private void loadRedEnemyLeftFrames(){
         
-<span class="nc" id="L802">        redEnLeftFramesList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L591">        redEnLeftFramesList = new ArrayList&lt;&gt;();</span>
         
-<span class="nc" id="L804">        redEnLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L593">        redEnLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_left1.png&quot;));
-<span class="nc" id="L806">        redEnLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L595">        redEnLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_left2.png&quot;));
-<span class="nc" id="L808">        redEnLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L597">        redEnLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_left3.png&quot;));
-<span class="nc" id="L810">        redEnLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L599">        redEnLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_left4.png&quot;));
         
-<span class="nc" id="L813">    }</span>
+<span class="nc" id="L602">    }</span>
     
     
     private void loadYellowEnemyDownFrames(){
         
         
-<span class="nc" id="L819">        yellowEnDownFramesList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L608">        yellowEnDownFramesList = new ArrayList&lt;&gt;();</span>
         
         
-<span class="nc" id="L822">        yellowEnDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L611">        yellowEnDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_down1.png&quot;));
-<span class="nc" id="L824">        yellowEnDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L613">        yellowEnDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_down2.png&quot;));
-<span class="nc" id="L826">        yellowEnDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L615">        yellowEnDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_down3.png&quot;));
-<span class="nc" id="L828">        yellowEnDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L617">        yellowEnDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_down4.png&quot;));
 
       
-<span class="nc" id="L832">    }</span>
+<span class="nc" id="L621">    }</span>
     
     
     private void loadYellowEnemyUpFrames(){
         
-<span class="nc" id="L837">        yellowEnUpFramesList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L626">        yellowEnUpFramesList = new ArrayList&lt;&gt;();</span>
         
         
         
-<span class="nc" id="L841">         yellowEnUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L630">         yellowEnUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_up1.png&quot;));
-<span class="nc" id="L843">        yellowEnUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L632">        yellowEnUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_up2.png&quot;));
-<span class="nc" id="L845">        yellowEnUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L634">        yellowEnUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_up3.png&quot;));
-<span class="nc" id="L847">        yellowEnUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L636">        yellowEnUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_up4.png&quot;));
         
         
-<span class="nc" id="L851">    }</span>
+<span class="nc" id="L640">    }</span>
     
     
     private void loadYellowEnemyRightFrames(){
         
         
-<span class="nc" id="L857">        yellowEnRightFramesList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L646">        yellowEnRightFramesList = new ArrayList&lt;&gt;();</span>
         
-<span class="nc" id="L859">         yellowEnRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L648">         yellowEnRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_right1.png&quot;));
-<span class="nc" id="L861">        yellowEnRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L650">        yellowEnRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_right2.png&quot;));
-<span class="nc" id="L863">        yellowEnRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L652">        yellowEnRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_right3.png&quot;));
-<span class="nc" id="L865">        yellowEnRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L654">        yellowEnRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_right4.png&quot;));
         
         
-<span class="nc" id="L869">    }</span>
+<span class="nc" id="L658">    }</span>
     
     
     private void loadYellowEnemyLeftFrames(){
         
-<span class="nc" id="L874">        yellowEnLeftFramesList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L663">        yellowEnLeftFramesList = new ArrayList&lt;&gt;();</span>
         
-<span class="nc" id="L876">        yellowEnLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L665">        yellowEnLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_left1.png&quot;));
-<span class="nc" id="L878">        yellowEnLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L667">        yellowEnLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_left2.png&quot;));
-<span class="nc" id="L880">        yellowEnLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L669">        yellowEnLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_left3.png&quot;));
-<span class="nc" id="L882">        yellowEnLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L671">        yellowEnLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_left4.png&quot;));
         
-<span class="nc" id="L885">    }</span>
+<span class="nc" id="L674">    }</span>
     
     
     
     private void loadBombFrames(){
         
         
-<span class="nc" id="L892">        bombFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L681">        bombFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;bomb&quot; + File.separator + &quot;bomb1.png&quot;));
-<span class="nc" id="L894">        bombFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L683">        bombFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;bomb&quot; + File.separator + &quot;bomb2.png&quot;));
-<span class="nc" id="L896">        bombFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L685">        bombFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;bomb&quot; + File.separator + &quot;bomb3.png&quot;));
-<span class="nc" id="L898">        bombFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L687">        bombFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;bomb&quot; + File.separator + &quot;bomb4.png&quot;));
 
-<span class="nc" id="L901">        bombFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L690">        bombFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;bomb&quot; + File.separator + &quot;bomb5.png&quot;));
-<span class="nc" id="L903">        bombFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L692">        bombFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;bomb&quot; + File.separator + &quot;bomb6.png&quot;));
-<span class="nc" id="L905">        bombFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L694">        bombFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;bomb&quot; + File.separator + &quot;bomb7.png&quot;));
-<span class="nc" id="L907">        bombFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L696">        bombFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;bomb&quot; + File.separator + &quot;bomb8.png&quot;));
         
         
-<span class="nc" id="L911">    }</span>
+<span class="nc" id="L700">    }</span>
     
     
     private void loadExplosionFrames(){
         
         
-<span class="nc" id="L917">        explosionC = loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L706">        explosionC = loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;explosion&quot; + File.separator + &quot;centre.png&quot;);
 
-<span class="nc" id="L920">        explosionH = loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L709">        explosionH = loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;explosion&quot; + File.separator + &quot;horizontal.png&quot;);
-<span class="nc" id="L922">        explosionV = loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L711">        explosionV = loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;explosion&quot; + File.separator + &quot;vertical.png&quot;);
         
         
-<span class="nc" id="L926">    }</span>
+<span class="nc" id="L715">    }</span>
     
     
     private void loadTiles(){
         
         
         //walls
-<span class="nc" id="L933">        solidw = loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L722">        solidw = loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;wall&quot; + File.separator + &quot;solid.png&quot;);
-<span class="nc" id="L935">        brokenw = loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L724">        brokenw = loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;broken&quot; + File.separator + &quot;broken.png&quot;);
-<span class="nc" id="L937">        emptyw = loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L726">        emptyw = loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;empty&quot; + File.separator + &quot;empty.png&quot;);
-<span class="nc" id="L939">        goalw = loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L728">        goalw = loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;goal&quot; + File.separator + &quot;goal.png&quot;);
 
       
-<span class="nc" id="L943">    }</span>
+<span class="nc" id="L732">    }</span>
     
     
     private void loadIcons(){
         
         
          //icons
-<span class="nc" id="L950">        life = loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L739">        life = loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;icons&quot; + File.separator + &quot;player.png&quot;);
-<span class="nc" id="L952">        clock = loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+<span class="nc" id="L741">        clock = loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
                 + File.separator + &quot;resources&quot; + File.separator + &quot;icons&quot; + File.separator + &quot;clock.png&quot;);
         
         
         
-<span class="nc" id="L957">    }</span>
+<span class="nc" id="L746">    }</span>
     
     
     private void showWinScreen(){
@@ -963,12 +752,12 @@ import java.util.TimerTask;
             SHOW WIN SCREEN
             */
             
-<span class="nc" id="L966">            fill(0);</span>
-<span class="nc" id="L967">            textSize(20);</span>
-<span class="nc" id="L968">            textAlign(CENTER);</span>
-<span class="nc" id="L969">            text(&quot;You Win&quot;,240,240);</span>
+<span class="nc" id="L755">            fill(0);</span>
+<span class="nc" id="L756">            textSize(20);</span>
+<span class="nc" id="L757">            textAlign(CENTER);</span>
+<span class="nc" id="L758">            text(&quot;You Win&quot;,240,240);</span>
            
-<span class="nc" id="L971">    }</span>
+<span class="nc" id="L760">    }</span>
     
     
     private void showGameOverScreen(){
@@ -977,19 +766,19 @@ import java.util.TimerTask;
             GAME OVER SCREEN
             */
          
-<span class="nc" id="L980">        fill(0);</span>
-<span class="nc" id="L981">        textSize(20);</span>
-<span class="nc" id="L982">        textAlign(CENTER);</span>
-<span class="nc" id="L983">        text(&quot;GAME OVER&quot;,240,240);</span>
+<span class="nc" id="L769">        fill(0);</span>
+<span class="nc" id="L770">        textSize(20);</span>
+<span class="nc" id="L771">        textAlign(CENTER);</span>
+<span class="nc" id="L772">        text(&quot;GAME OVER&quot;,240,240);</span>
         
         
-<span class="nc" id="L986">    }</span>
+<span class="nc" id="L775">    }</span>
     
     
     private void playerDieAndResetLevel(){
         
         
-<span class="nc bnc" id="L992" title="All 2 branches missed.">        if(bomb.isExploded){</span>
+<span class="nc bnc" id="L781" title="All 2 branches missed.">        if(bomb.isExploded){</span>
                       
                       /*
                       Here checking if any bomb is placed and exploded then show the player in the map
@@ -1005,35 +794,35 @@ import java.util.TimerTask;
                       
                   
                       
-<span class="nc" id="L1008">                  gameLevels.get(levelIndex).resetLevel();</span>
+<span class="nc" id="L797">                  gameLevels.get(levelIndex).resetLevel();</span>
                       
-<span class="nc" id="L1010">                  Integer[] playerLevelStartPos = pStartPlayerPosLevelList.get(levelIndex);</span>
+<span class="nc" id="L799">                  Integer[] playerLevelStartPos = BombGuy.pStartPlayerPosLevelList.get(levelIndex);</span>
                   
-<span class="nc" id="L1012">                  map[playerLevelStartPos[0]][playerLevelStartPos[1]] = 'P';</span>
+<span class="nc" id="L801">                  map[playerLevelStartPos[0]][playerLevelStartPos[1]] = 'P';</span>
                   
-<span class="nc" id="L1014">                  int totalLivesBeforeLost = bombGuy.getLives();</span>
                   
-<span class="nc" id="L1016">                  bombGuy = new BombGuy();</span>
-<span class="nc" id="L1017">                  bombGuy.setLives(totalLivesBeforeLost - 1);</span>
                   
-<span class="nc" id="L1019">                  redEnemy = new RedEnemy();</span>
-<span class="nc" id="L1020">                  yellEnemy = new YellowEnemy();</span>
+<span class="nc" id="L805">                  bombGuy = new BombGuy();</span>
+<span class="nc" id="L806">                  BombGuy.lives--;</span>
                   
-<span class="nc" id="L1022">                  isPlayerInMap = true;</span>
+<span class="nc" id="L808">                  redEnemy = new RedEnemy();</span>
+<span class="nc" id="L809">                  yellEnemy = new YellowEnemy();</span>
+                  
+<span class="nc" id="L811">                  isPlayerInMap = true;</span>
                   
                   }
         
         
-<span class="nc" id="L1027">    }</span>
+<span class="nc" id="L816">    }</span>
     
     
     private void positionBombAnimation(int i, int j){
         
-<span class="nc bnc" id="L1032" title="All 4 branches missed.">        if(bomb.bombX == j &amp;&amp; bomb.bombY == i)</span>
-<span class="nc" id="L1033">                                    image(bombAnimation.play(bombFramesList),bomb.bombX*32,(bomb.bombY*32) + Map.OFFSET);</span>
+<span class="nc bnc" id="L821" title="All 4 branches missed.">        if(bomb.bombX == j &amp;&amp; bomb.bombY == i)</span>
+<span class="nc" id="L822">                                    image(bombAnimation.play(bombFramesList),bomb.bombX*32,(bomb.bombY*32) + Map.OFFSET);</span>
         
         
-<span class="nc" id="L1036">    }</span>
+<span class="nc" id="L825">    }</span>
     
     
     
@@ -1041,22 +830,22 @@ import java.util.TimerTask;
     private void removeExplosionEffectAfterExplosion(){
         
         
-<span class="nc bnc" id="L1044" title="All 2 branches missed.">             if(bomb.canExplode){</span>
-<span class="nc" id="L1045">                                        bomb.explode(bomb.bombX, bomb.bombY, map);</span>
-<span class="nc" id="L1046">                                        bomb.canExplode = false;</span>
+<span class="nc bnc" id="L833" title="All 2 branches missed.">             if(bomb.canExplode){</span>
+<span class="nc" id="L834">                                        bomb.explode(bomb.bombX, bomb.bombY, map);</span>
+<span class="nc" id="L835">                                        bomb.canExplode = false;</span>
                                   
-<span class="nc" id="L1048">                                    new Timer().schedule(new TimerTask(){</span>
+<span class="nc" id="L837">                                    new Timer().schedule(new TimerTask(){</span>
                                       
                                           @Override
                                           public void run(){
                                           
                                             //this code will run after explosion
-<span class="nc" id="L1054">                                            bomb.isExploded = true;</span>
-<span class="nc bnc" id="L1055" title="All 2 branches missed.">                                            if(bomb.explodeRange.size() &gt; 0){</span>
+<span class="nc" id="L843">                                            bomb.isExploded = true;</span>
+<span class="nc bnc" id="L844" title="All 2 branches missed.">                                            if(bomb.explodeRange.size() &gt; 0){</span>
                                               
                                              
                                               
-<span class="nc" id="L1059">                                                  map[bomb.bombY][bomb.bombX] = ' ';</span>
+<span class="nc" id="L848">                                                  map[bomb.bombY][bomb.bombX] = ' ';</span>
                                                   
                                               
                                               
@@ -1064,33 +853,33 @@ import java.util.TimerTask;
                                           }
                                               
                                           
-<span class="nc bnc" id="L1067" title="All 2 branches missed.">                                          for(int l=0;l&lt;bomb.explodeRange.size();l++){</span>
+<span class="nc bnc" id="L856" title="All 2 branches missed.">                                          for(int l=0;l&lt;bomb.explodeRange.size();l++){</span>
                                               
-<span class="nc" id="L1069">                                              int[][] rangeDirection = bomb.explodeRange.get(l);</span>
+<span class="nc" id="L858">                                              int[][] rangeDirection = bomb.explodeRange.get(l);</span>
                                               
                                               
-<span class="nc bnc" id="L1072" title="All 4 branches missed.">                                              if(rangeDirection[0][0] != -1 &amp;&amp; rangeDirection[0][1] != -1)</span>
-<span class="nc bnc" id="L1073" title="All 4 branches missed.">                                                  if(rangeDirection[0][0] == goalIndex[0] &amp;&amp; rangeDirection[0][1] == goalIndex[1])</span>
-<span class="nc" id="L1074">                                                      map[rangeDirection[0][0]][rangeDirection[0][1]] = 'G';</span>
+<span class="nc bnc" id="L861" title="All 4 branches missed.">                                              if(rangeDirection[0][0] != -1 &amp;&amp; rangeDirection[0][1] != -1)</span>
+<span class="nc bnc" id="L862" title="All 4 branches missed.">                                                  if(rangeDirection[0][0] == goalIndex[0] &amp;&amp; rangeDirection[0][1] == goalIndex[1])</span>
+<span class="nc" id="L863">                                                      map[rangeDirection[0][0]][rangeDirection[0][1]] = 'G';</span>
                                                   else                                                      
-<span class="nc" id="L1076">                                                      map[rangeDirection[0][0]][rangeDirection[0][1]] = ' ';</span>
+<span class="nc" id="L865">                                                      map[rangeDirection[0][0]][rangeDirection[0][1]] = ' ';</span>
                                               
                                               
-<span class="nc bnc" id="L1079" title="All 4 branches missed.">                                              if(rangeDirection[1][0] != -1 &amp;&amp; rangeDirection[1][1] != -1)</span>
-<span class="nc bnc" id="L1080" title="All 4 branches missed.">                                                  if(rangeDirection[1][0] == goalIndex[0]  &amp;&amp; rangeDirection[1][1] == goalIndex[1])</span>
-<span class="nc" id="L1081">                                                      map[rangeDirection[1][0]][rangeDirection[1][1]] = 'G';</span>
+<span class="nc bnc" id="L868" title="All 4 branches missed.">                                              if(rangeDirection[1][0] != -1 &amp;&amp; rangeDirection[1][1] != -1)</span>
+<span class="nc bnc" id="L869" title="All 4 branches missed.">                                                  if(rangeDirection[1][0] == goalIndex[0]  &amp;&amp; rangeDirection[1][1] == goalIndex[1])</span>
+<span class="nc" id="L870">                                                      map[rangeDirection[1][0]][rangeDirection[1][1]] = 'G';</span>
                                                   else
-<span class="nc" id="L1083">                                                      map[rangeDirection[1][0]][rangeDirection[1][1]] = ' ';</span>
+<span class="nc" id="L872">                                                      map[rangeDirection[1][0]][rangeDirection[1][1]] = ' ';</span>
                                               
                                               
                                               
                                           }
                                           
                                           //this will remove the bomb from map
-<span class="nc" id="L1090">                                                bomb.bombX = -1;</span>
-<span class="nc" id="L1091">                                                bomb.bombY = -1;</span>
+<span class="nc" id="L879">                                                bomb.bombX = -1;</span>
+<span class="nc" id="L880">                                                bomb.bombY = -1;</span>
                                           
-<span class="nc" id="L1093">                                      }</span>
+<span class="nc" id="L882">                                      }</span>
                                       
                                       
                                   }, bomb.ExplosionTime);
@@ -1099,114 +888,106 @@ import java.util.TimerTask;
                               }
         
         
-<span class="nc" id="L1102">    }</span>
+<span class="nc" id="L891">    }</span>
     
     
     private void placeBomb(int i, int j){
         
         
-<span class="nc" id="L1108">        bomb.isExploded = false;</span>
-<span class="nc" id="L1109">                              bomb.bombX = j;</span>
-<span class="nc" id="L1110">                              bomb.bombY = i;</span>
+<span class="nc" id="L897">        bomb.isExploded = false;</span>
+<span class="nc" id="L898">                              bomb.bombX = j;</span>
+<span class="nc" id="L899">                              bomb.bombY = i;</span>
 
-<span class="nc" id="L1112">                              bombAnimation = new Animation(bomb.PerFrameTime);</span>
+<span class="nc" id="L901">                              bombAnimation = new Animation(bomb.PerFrameTime);</span>
                          
                               
                               
-<span class="nc" id="L1116">                              new Timer().schedule(new TimerTask(){</span>
+<span class="nc" id="L905">                              new Timer().schedule(new TimerTask(){</span>
                               
                                   
                                   @Override
                                   public void run(){
                                       
                                      
-<span class="nc" id="L1123">                                      bomb.canExplode = true;</span>
+<span class="nc" id="L912">                                      bomb.canExplode = true;</span>
                                       
                                       
                                       
-<span class="nc" id="L1127">                                  }</span>
+<span class="nc" id="L916">                                  }</span>
                               
                               }, bomb.BombTime);
-<span class="nc" id="L1130">                              bomb.isPlaced = false;</span>
+<span class="nc" id="L919">                              bomb.isPlaced = false;</span>
         
         
-<span class="nc" id="L1133">    }</span>
+<span class="nc" id="L922">    }</span>
     
     
     private void showLives(){
         
         
-<span class="nc" id="L1139">        fill(0);</span>
-<span class="nc" id="L1140">        textSize(20);</span>
-<span class="nc" id="L1141">        text(bombGuy.getLives(),190,40);</span>
-<span class="nc" id="L1142">        image(life,150,16);</span>
+<span class="nc" id="L928">        fill(0);</span>
+<span class="nc" id="L929">        textSize(20);</span>
+<span class="nc" id="L930">        text(BombGuy.lives,190,40);</span>
+<span class="nc" id="L931">        image(life,150,16);</span>
         
         
-<span class="nc" id="L1145">    }</span>
+<span class="nc" id="L934">    }</span>
     
     
     private void showClockWithTime(Level level){
         
         
-<span class="nc" id="L1151">        long elapsedTime = System.currentTimeMillis() - startTime;</span>
+<span class="nc" id="L940">        long elapsedTime = System.currentTimeMillis() - startTime;</span>
       
-<span class="nc bnc" id="L1153" title="All 2 branches missed.">        if(elapsedTime/1000!=0){</span>
+<span class="nc bnc" id="L942" title="All 2 branches missed.">        if(elapsedTime/1000!=0){</span>
           
-<span class="nc" id="L1155">          textSize(20);</span>
+<span class="nc" id="L944">          textSize(20);</span>
           
-<span class="nc bnc" id="L1157" title="All 2 branches missed.">          if((level.time - (int)(elapsedTime/1000)) &gt; 0){</span>
+<span class="nc bnc" id="L946" title="All 2 branches missed.">          if((level.time - (int)(elapsedTime/1000)) &gt; 0){</span>
           
-<span class="nc" id="L1159">          text((level.time - (int)(elapsedTime/1000)),305,40); </span>
+<span class="nc" id="L948">          text((level.time - (int)(elapsedTime/1000)),305,40); </span>
           
           }else
-<span class="nc" id="L1162">              isGameOver = true;</span>
+<span class="nc" id="L951">              isGameOver = true;</span>
               
         }else{
-<span class="nc" id="L1165">          textSize(20);</span>
-<span class="nc" id="L1166">          text((level.time),305,40); </span>
+<span class="nc" id="L954">          textSize(20);</span>
+<span class="nc" id="L955">          text((level.time),305,40); </span>
         }
         
-<span class="nc" id="L1169">          image(clock,270,16);</span>
+<span class="nc" id="L958">          image(clock,270,16);</span>
         
         
-<span class="nc" id="L1172">    }</span>
+<span class="nc" id="L961">    }</span>
     
     
-    private void loadPlayerFramesInLists(){
-        
-<span class="nc" id="L1177">        loadPlayerDownFramesList();</span>
-<span class="nc" id="L1178">        loadPlayerUpFramesList();</span>
-<span class="nc" id="L1179">        loadPlayerRightFramesList();</span>
-<span class="nc" id="L1180">        loadPlayerLeftFramesList();</span>
-        
-        
-<span class="nc" id="L1183">    }</span>
+    
     
     
     
     private void loadRedEnemyFramesInLists(){
         
         
-<span class="nc" id="L1190">        loadRedEnemyUpFrames();</span>
-<span class="nc" id="L1191">        loadRedEnemyDownFrames();</span>
-<span class="nc" id="L1192">        loadRedEnemyLeftFrames();</span>
-<span class="nc" id="L1193">        loadRedEnemyRightFrames();</span>
+<span class="nc" id="L971">        loadRedEnemyUpFrames();</span>
+<span class="nc" id="L972">        loadRedEnemyDownFrames();</span>
+<span class="nc" id="L973">        loadRedEnemyLeftFrames();</span>
+<span class="nc" id="L974">        loadRedEnemyRightFrames();</span>
         
         
-<span class="nc" id="L1196">    }</span>
+<span class="nc" id="L977">    }</span>
     
     
     private void loadYellowEnemyFramesInLists(){
         
         
         
-<span class="nc" id="L1203">        loadYellowEnemyDownFrames();</span>
-<span class="nc" id="L1204">        loadYellowEnemyUpFrames();</span>
-<span class="nc" id="L1205">        loadYellowEnemyLeftFrames();</span>
-<span class="nc" id="L1206">        loadYellowEnemyRightFrames();</span>
+<span class="nc" id="L984">        loadYellowEnemyDownFrames();</span>
+<span class="nc" id="L985">        loadYellowEnemyUpFrames();</span>
+<span class="nc" id="L986">        loadYellowEnemyLeftFrames();</span>
+<span class="nc" id="L987">        loadYellowEnemyRightFrames();</span>
         
         
-<span class="nc" id="L1209">    }</span>
+<span class="nc" id="L990">    }</span>
     
     
     private void changeLevelIfPlayerAtGoal(int i, int j){
@@ -1216,20 +997,20 @@ import java.util.TimerTask;
             Goal Tile of last level , then player will win game
         */
         
-<span class="nc bnc" id="L1219" title="All 4 branches missed.">                          if(i == goalIndex[0] &amp;&amp; j == goalIndex[1]){</span>
+<span class="nc bnc" id="L1000" title="All 4 branches missed.">                          if(i == goalIndex[0] &amp;&amp; j == goalIndex[1]){</span>
                               
-<span class="nc bnc" id="L1221" title="All 2 branches missed.">                              if(levelIndex == gameLevels.size()-1)</span>
-<span class="nc" id="L1222">                                  isWin = true;</span>
+<span class="nc bnc" id="L1002" title="All 2 branches missed.">                              if(levelIndex == gameLevels.size()-1)</span>
+<span class="nc" id="L1003">                                  isWin = true;</span>
                               else
-<span class="nc" id="L1224">                                  levelIndex++;</span>
+<span class="nc" id="L1005">                                  levelIndex++;</span>
                               
-<span class="nc" id="L1226">                              startTime = System.currentTimeMillis();</span>
+<span class="nc" id="L1007">                              startTime = System.currentTimeMillis();</span>
                               
-<span class="nc" id="L1228">                              bombGuy.anim_direction = -1;</span>
+<span class="nc" id="L1009">                              bombGuy.anim_direction = -1;</span>
                           }
         
         
-<span class="nc" id="L1232">    }</span>
+<span class="nc" id="L1013">    }</span>
     
     
     
@@ -1238,29 +1019,132 @@ import java.util.TimerTask;
         
         //this will change the position of player if there is empty or goal tile towards the position
                           //requested by user
-<span class="nc bnc" id="L1241" title="All 4 branches missed.">                          if(bombGuy.direction == 0 || bombGuy.direction == 1){</span>
+<span class="nc bnc" id="L1022" title="All 4 branches missed.">                          if(bombGuy.direction == 0 || bombGuy.direction == 1){</span>
                               //move down or up
                               
                               
-<span class="nc" id="L1245">                              int yDirec = y_direction[bombGuy.direction]; </span>
+<span class="nc" id="L1026">                              int yDirec = y_direction[bombGuy.direction]; </span>
                               
-<span class="nc" id="L1247">                              map = bombGuy.movement(i, j, yDirec , map);</span>
-                              
-                              
+<span class="nc" id="L1028">                              map = bombGuy.movement(i, j, yDirec , map);</span>
                               
                               
-<span class="nc bnc" id="L1252" title="All 4 branches missed.">                          }else if(bombGuy.direction == 2 || bombGuy.direction == 3){</span>
+                              
+                              
+<span class="nc bnc" id="L1033" title="All 4 branches missed.">                          }else if(bombGuy.direction == 2 || bombGuy.direction == 3){</span>
                               //move right or left
                               
-<span class="nc" id="L1255">                              int xDirec = x_direction[bombGuy.direction]; </span>
+<span class="nc" id="L1036">                              int xDirec = x_direction[bombGuy.direction]; </span>
                               
-<span class="nc" id="L1257">                              map = bombGuy.movement(i, j, xDirec, map);</span>
+<span class="nc" id="L1038">                              map = bombGuy.movement(i, j, xDirec, map);</span>
                               
                             
                           }
         
         
-<span class="nc" id="L1263">    }</span>
+<span class="nc" id="L1044">    }</span>
+    
+    
+    public void loadPlayerFramesInLists(){
+        
+<span class="nc" id="L1049">        loadPlayerDownFramesList();</span>
+<span class="nc" id="L1050">        loadPlayerUpFramesList();</span>
+<span class="nc" id="L1051">        loadPlayerRightFramesList();</span>
+<span class="nc" id="L1052">        loadPlayerLeftFramesList();</span>
+        
+        
+<span class="nc" id="L1055">    }</span>
+    
+    
+    
+    private void loadPlayerDownFramesList(){
+        
+<span class="nc" id="L1061">        playerDownFramesList = new ArrayList&lt;&gt;();</span>
+        
+        
+<span class="nc" id="L1064">        playerDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player1.png&quot;));
+
+<span class="nc" id="L1067">        playerDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player2.png&quot;));
+
+<span class="nc" id="L1070">        playerDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player3.png&quot;));
+
+<span class="nc" id="L1073">        playerDownFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player4.png&quot;));
+
+        
+        
+        
+<span class="nc" id="L1079">    }</span>
+    
+    
+    private void loadPlayerRightFramesList(){
+        
+<span class="nc" id="L1084">        playerRightFramesList = new ArrayList&lt;&gt;();</span>
+        
+<span class="nc" id="L1086">        playerRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_right1.png&quot;));
+
+<span class="nc" id="L1089">        playerRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_right2.png&quot;));
+
+<span class="nc" id="L1092">        playerRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_right3.png&quot;));
+
+<span class="nc" id="L1095">        playerRightFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_right4.png&quot;));
+        
+        
+        
+<span class="nc" id="L1100">    }</span>
+    
+    
+    private void loadPlayerLeftFramesList(){
+        
+<span class="nc" id="L1105">        playerLeftFramesList = new ArrayList&lt;&gt;();        </span>
+        
+<span class="nc" id="L1107">        playerLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_left1.png&quot;));
+
+<span class="nc" id="L1110">        playerLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_left2.png&quot;));
+
+<span class="nc" id="L1113">        playerLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_left3.png&quot;));
+
+<span class="nc" id="L1116">        playerLeftFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_left4.png&quot;));
+
+        
+        
+<span class="nc" id="L1121">    }</span>
+    
+    
+    
+    private void loadPlayerUpFramesList(){
+        
+        
+<span class="nc" id="L1128">        playerUpFramesList = new ArrayList&lt;&gt;();</span>
+        
+<span class="nc" id="L1130">        playerUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_up1.png&quot;));
+
+<span class="nc" id="L1133">        playerUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_up2.png&quot;));
+
+<span class="nc" id="L1136">        playerUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_up3.png&quot;));
+
+<span class="nc" id="L1139">        playerUpFramesList.add(loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_up4.png&quot;));
+
+        
+        
+        
+<span class="nc" id="L1145">    }</span>
+    
+    
     
     
 }

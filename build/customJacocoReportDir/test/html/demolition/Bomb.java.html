@@ -12,9 +12,9 @@ import java.util.ArrayList;
  */
 public class Bomb {
     
-<span class="nc" id="L15">    public final int BombTime = 2000; // it is in milliseconds</span>
-<span class="nc" id="L16">    public final float PerFrameTime = 0.25f;</span>
-<span class="nc" id="L17">    public final int ExplosionTime = 500; // it is in milliseconds</span>
+<span class="fc" id="L15">    public final int BombTime = 2000; // it is in milliseconds</span>
+<span class="fc" id="L16">    public final float PerFrameTime = 0.25f;</span>
+<span class="fc" id="L17">    public final int ExplosionTime = 500; // it is in milliseconds</span>
     
     public int bombX;
     public int bombY;
@@ -26,65 +26,65 @@ public class Bomb {
     
     
     
-<span class="nc" id="L29">    public Bomb(){                     </span>
+<span class="fc" id="L29">    public Bomb(){                     </span>
         
-<span class="nc" id="L31">        bombX = -1;</span>
-<span class="nc" id="L32">        bombY = -1;</span>
-<span class="nc" id="L33">        isPlaced = false;</span>
-<span class="nc" id="L34">        isExploded = true;</span>
-<span class="nc" id="L35">        placeTime = 0;</span>
-<span class="nc" id="L36">        canExplode = false;</span>
-<span class="nc" id="L37">        explodeRange = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L31">        bombX = -1;</span>
+<span class="fc" id="L32">        bombY = -1;</span>
+<span class="fc" id="L33">        isPlaced = false;</span>
+<span class="fc" id="L34">        isExploded = true;</span>
+<span class="fc" id="L35">        placeTime = 0;</span>
+<span class="fc" id="L36">        canExplode = false;</span>
+<span class="fc" id="L37">        explodeRange = new ArrayList&lt;&gt;();</span>
         
-<span class="nc" id="L39">    }</span>
+<span class="fc" id="L39">    }</span>
     
     
     public char[][] explode(int x,int y,char[][] map){
         
-<span class="nc" id="L44">        explodeRange.clear();</span>
+<span class="fc" id="L44">        explodeRange.clear();</span>
         
-<span class="nc" id="L46">        map[y][x] = 'C'; // y -&gt; y-axis , x -&gt; x-axis</span>
+<span class="fc" id="L46">        map[y][x] = 'C'; // y -&gt; y-axis , x -&gt; x-axis</span>
         
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        for(int i=0;i&lt;4;i++){</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        for(int i=0;i&lt;4;i++){</span>
             
             
                 
-<span class="nc bnc" id="L52" title="All 5 branches missed.">                switch(i){</span>
+<span class="pc bpc" id="L52" title="1 of 5 branches missed.">                switch(i){</span>
                     
                     case 0:
                         //down
                         
                         
-<span class="nc" id="L58">                        explosionRange(x,x,y+1,y+2,map,'V');</span>
+<span class="fc" id="L58">                        explosionRange(x,x,y+1,y+2,map,'V');</span>
                         
                         
                         
                         
-<span class="nc" id="L63">                        break;</span>
+<span class="fc" id="L63">                        break;</span>
                     case 1:
                         //up
                         
                         
-<span class="nc" id="L68">                        explosionRange(x,x,y-1,y-2,map,'V');</span>
+<span class="fc" id="L68">                        explosionRange(x,x,y-1,y-2,map,'V');</span>
                         
                         
-<span class="nc" id="L71">                        break;</span>
+<span class="fc" id="L71">                        break;</span>
                     case 2:
                         //right
                         
                         
                         
-<span class="nc" id="L77">                        explosionRange(x+1,x+2,y,y,map,'H');</span>
+<span class="fc" id="L77">                        explosionRange(x+1,x+2,y,y,map,'H');</span>
                         
                                             
                         
-<span class="nc" id="L81">                        break;</span>
+<span class="fc" id="L81">                        break;</span>
                     case 3:
                         //left
                         
                         
                         // pattern eg: L,H
-<span class="nc" id="L87">                        explosionRange(x-1,x-2,y,y,map,'H');</span>
+<span class="fc" id="L87">                        explosionRange(x-1,x-2,y,y,map,'H');</span>
                         
 
                         break;
@@ -93,56 +93,56 @@ public class Bomb {
                 
         }
         
-<span class="nc" id="L96">        return map;</span>
+<span class="fc" id="L96">        return map;</span>
     }
     
     
     private void explosionRange(int x1,int x2,int y1,int y2,char[][] map,char explosionChar){
         
-<span class="nc" id="L102">                int[][] rangeForDirection = new int[2][2];</span>
+<span class="fc" id="L102">                int[][] rangeForDirection = new int[2][2];</span>
         
-<span class="nc bnc" id="L104" title="All 8 branches missed.">                if(y1 &gt; 0 &amp;&amp; y1 &lt; 12 &amp;&amp; x1 &gt; 0 &amp;&amp; x1 &lt; 14){</span>
+<span class="pc bpc" id="L104" title="2 of 8 branches missed.">                if(y1 &gt;= 0 &amp;&amp; y1 &lt; 12 &amp;&amp; x1 &gt;= 0 &amp;&amp; x1 &lt; 14){</span>
                             
                     
                     
-<span class="nc bnc" id="L108" title="All 8 branches missed.">                            if(y2 &gt; 0 &amp;&amp; y2 &lt; 12 &amp;&amp; x2 &gt; 0 &amp;&amp; x2 &lt; 14){</span>
+<span class="pc bpc" id="L108" title="2 of 8 branches missed.">                            if(y2 &gt; 0 &amp;&amp; y2 &lt; 12 &amp;&amp; x2 &gt; 0 &amp;&amp; x2 &lt; 14){</span>
                                 
-<span class="nc" id="L110">                                rangeForDirection[1][0] = y2;</span>
-<span class="nc" id="L111">                                rangeForDirection[1][1] = x2;</span>
+<span class="fc" id="L110">                                rangeForDirection[1][0] = y2;</span>
+<span class="fc" id="L111">                                rangeForDirection[1][1] = x2;</span>
                                 
                             }else{
                                 
-<span class="nc" id="L115">                                rangeForDirection[1][0] = -1;</span>
-<span class="nc" id="L116">                                rangeForDirection[1][1] = -1;</span>
+<span class="fc" id="L115">                                rangeForDirection[1][0] = -1;</span>
+<span class="fc" id="L116">                                rangeForDirection[1][1] = -1;</span>
                                 
-<span class="nc" id="L118">                                y2 = -1;</span>
-<span class="nc" id="L119">                                x2 = -1;</span>
+<span class="fc" id="L118">                                y2 = -1;</span>
+<span class="fc" id="L119">                                x2 = -1;</span>
                                 
                             }
                            
                             
-<span class="nc" id="L124">                            rangeForDirection[0][0] = y1;</span>
-<span class="nc" id="L125">                            rangeForDirection[0][1] = x1;</span>
+<span class="fc" id="L124">                            rangeForDirection[0][0] = y1;</span>
+<span class="fc" id="L125">                            rangeForDirection[0][1] = x1;</span>
                             
                             
                             
                             
-<span class="nc bnc" id="L130" title="All 2 branches missed.">                            if(map[y1][x1] != 'W'){</span>
+<span class="fc bfc" id="L130" title="All 2 branches covered.">                            if(map[y1][x1] != 'W'){</span>
                                 
                                 
-<span class="nc bnc" id="L133" title="All 2 branches missed.">                                if(map[y1][x1] != 'B'){</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">                                if(map[y1][x1] != 'B'){</span>
                                     
                                     
                                     
-<span class="nc bnc" id="L137" title="All 6 branches missed.">                                    if((y2 == -1 &amp;&amp; x2 == -1) || map[y2][x2] == 'W'){</span>
+<span class="pc bpc" id="L137" title="2 of 6 branches missed.">                                    if((y2 == -1 &amp;&amp; x2 == -1) || map[y2][x2] == 'W'){</span>
                                         
-<span class="nc" id="L139">                                        map[y1][x1] = explosionChar;</span>
+<span class="fc" id="L139">                                        map[y1][x1] = explosionChar;</span>
                                                                                
                                         
                                     }else{
                                         
-<span class="nc" id="L144">                                        map[y1][x1] = explosionChar;</span>
-<span class="nc" id="L145">                                        map[y2][x2] = explosionChar;</span>
+<span class="fc" id="L144">                                        map[y1][x1] = explosionChar;</span>
+<span class="fc" id="L145">                                        map[y2][x2] = explosionChar;</span>
                                         
                                     }
                                     
@@ -153,10 +153,10 @@ public class Bomb {
                                     
                                 }else{
                                     
-<span class="nc" id="L156">                                    map[y1][x1] = explosionChar;</span>
+<span class="fc" id="L156">                                    map[y1][x1] = explosionChar;</span>
                                     
-<span class="nc" id="L158">                                    rangeForDirection[1][0] = -1;</span>
-<span class="nc" id="L159">                                    rangeForDirection[1][1] = -1;</span>
+<span class="fc" id="L158">                                    rangeForDirection[1][0] = -1;</span>
+<span class="fc" id="L159">                                    rangeForDirection[1][1] = -1;</span>
                                     
                                     
                                 }
@@ -165,29 +165,29 @@ public class Bomb {
                                 
                             }else{
                                 
-<span class="nc" id="L168">                                rangeForDirection[0][0] = -1;</span>
-<span class="nc" id="L169">                                rangeForDirection[0][1] = -1;</span>
+<span class="fc" id="L168">                                rangeForDirection[0][0] = -1;</span>
+<span class="fc" id="L169">                                rangeForDirection[0][1] = -1;</span>
                                 
-<span class="nc" id="L171">                                rangeForDirection[1][0] = -1;</span>
-<span class="nc" id="L172">                                rangeForDirection[1][1] = -1;</span>
+<span class="fc" id="L171">                                rangeForDirection[1][0] = -1;</span>
+<span class="fc" id="L172">                                rangeForDirection[1][1] = -1;</span>
                                 
                             }
                             
                             
                 }else{
                     
-<span class="nc" id="L179">                      rangeForDirection[0][0] = -1;</span>
-<span class="nc" id="L180">                      rangeForDirection[0][1] = -1;</span>
+<span class="fc" id="L179">                      rangeForDirection[0][0] = -1;</span>
+<span class="fc" id="L180">                      rangeForDirection[0][1] = -1;</span>
                       
-<span class="nc" id="L182">                      rangeForDirection[1][0] = -1;</span>
-<span class="nc" id="L183">                      rangeForDirection[1][1] = -1;</span>
+<span class="fc" id="L182">                      rangeForDirection[1][0] = -1;</span>
+<span class="fc" id="L183">                      rangeForDirection[1][1] = -1;</span>
                     
                 }
                 
                 
-<span class="nc" id="L188">                explodeRange.add(rangeForDirection);</span>
+<span class="fc" id="L188">                explodeRange.add(rangeForDirection);</span>
         
-<span class="nc" id="L190">            }</span>
+<span class="fc" id="L190">            }</span>
     
     
     

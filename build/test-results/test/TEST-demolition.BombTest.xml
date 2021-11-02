@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="demolition.BombTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-11-01T10:37:24" hostname="DESKTOP-A2UL7BQ" time="0.028">
+<testsuite name="demolition.BombTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2021-11-02T03:09:41" hostname="DESKTOP-A2UL7BQ" time="0.082">
   <properties/>
-  <testcase name="testExplode()" classname="demolition.BombTest" time="0.028"/>
+  <testcase name="explodeTest1()" classname="demolition.BombTest" time="0.04"/>
+  <testcase name="explodeTest2()" classname="demolition.BombTest" time="0.012"/>
+  <testcase name="explodeTest3()" classname="demolition.BombTest" time="0.007"/>
+  <testcase name="testExplodeWithWall()" classname="demolition.BombTest" time="0.004"/>
+  <testcase name="testExplodeWithEmptyTilesInSurrounding()" classname="demolition.BombTest" time="0.005"/>
+  <testcase name="testExplodeWithBrokenWall()" classname="demolition.BombTest" time="0.004"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
