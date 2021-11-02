@@ -34,13 +34,13 @@ public class App extends PApplet{
     public static ArrayList<Level> gameLevels;
     public static int levelIndex = 0;   
     public static char[][] map;    
-    private int redFrameCounter2 = 1;
+    
     private int yellowFrameCounter = 1;    
     public static final int[] x_direction = {0,0,1,-1};
     public static final int[] y_direction = {1,-1,0,0};        
     public static final int[] goalIndex = new int[2];    
     
-    private final int start_y_pos_red_en = 80;
+    
     private final int start_y_pos_yell_en = 80;    
     private Animation characterAnimation;
     private Animation bombAnimation;
@@ -160,22 +160,31 @@ public class App extends PApplet{
     public void keyReleased(){
         
         int newdire = -1;
-        if(keyCode == DOWN)
-            newdire = 0;
-        else if(keyCode == UP)
-            newdire = 1;
-        else if(keyCode == RIGHT)
-            newdire = 2;
-        else if(keyCode == LEFT)
-            newdire = 3;
-        else if(keyCode == 32){ //keyCode 32 is for spacebar
-            
-            if(bomb.isExploded){
-            bomb.isPlaced = true;
-            bomb.isExploded = false;
-            bomb.placeTime = System.currentTimeMillis();
-            }
-            
+        switch (keyCode) {
+            case DOWN:
+                newdire = 0;
+                break;
+            case UP:
+                newdire = 1;
+                break;
+            case RIGHT:
+                newdire = 2;
+                break;
+            case LEFT:
+                newdire = 3;
+                break;
+            case 32:
+                //keyCode 32 is for spacebar
+
+                if(Bomb.isExploded){
+                    bomb.isPlaced = true;
+                    Bomb.isExploded = false;
+                    bomb.placeTime = System.currentTimeMillis();
+                }
+                
+                break;
+            default:
+                break;
         }
         
         if(newdire != -1)
@@ -224,38 +233,12 @@ public class App extends PApplet{
     
     private void redEnemyAI(int i,int j,char[][] map){
         
-        
-         //changing the direction of red enemy
-            if (redFrameCounter2 == 60) {
-
-            if (redEnemy.redEnDirection == 0 || redEnemy.redEnDirection == 1) {
-
-                //down or up
-                int yDirec = y_direction[redEnemy.redEnDirection];
-
-                map = redEnemy.movement(i, j, yDirec, map);
-
-            } else if (redEnemy.redEnDirection == 2 || redEnemy.redEnDirection == 3) {
-                //right or left
-
-                int xDirec = x_direction[redEnemy.redEnDirection];
-
-                map = redEnemy.movement(i, j, xDirec, map);
-
-            }
-
-            redFrameCounter2 = 1;
-
-        } else {
-
-            redFrameCounter2++;
-
-        }
-
+        redEnemy.controller(i, j);
+       
         image(framesLoader.emptyw, j * 32, (i * 32) + Map.OFFSET);
 
         //animating red enemy in right direction
-        int yRedPos = (abs(i - 1) * 32) + start_y_pos_red_en;
+        int yRedPos = (abs(i - 1) * 32) + RedEnemy.RED_OFFSET;
 
         positionAnimation(redEnemy.redAnimDirection, j * 32, yRedPos, framesLoader.redEnDownFramesList, framesLoader.redEnUpFramesList, 
                 framesLoader.redEnRightFramesList, framesLoader.redEnLeftFramesList);

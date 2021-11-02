@@ -4,6 +4,7 @@
  */
 package demolition;
 
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,12 +16,15 @@ public class RedEnemy{
     
     public int redEnDirection;
     public int redAnimDirection;
+    private int redFrameCounter;
+    public static final int RED_OFFSET = 80;
     
     public RedEnemy(){
         
         
         redEnDirection = 0;
         redAnimDirection = 0;
+        redFrameCounter = 1;
         
     }
     
@@ -229,6 +233,43 @@ public class RedEnemy{
                 redEnDirection = redAnimDirection = 2;
             else if(newY < oldY)
                 redEnDirection = redAnimDirection = 3;
+       
+         
+         
+    }
+    
+    
+    
+    public void controller(int i,int j){
+        
+        
+          //changing the direction of red enemy
+            if (redFrameCounter == 60) {
+
+            if (redEnDirection == 0 || redEnDirection == 1) {
+
+                //down or up
+                int yDirec = App.y_direction[redEnDirection];
+
+                App.map = movement(i, j, yDirec, App.map);
+
+            } else if (redEnDirection == 2 || redEnDirection == 3) {
+                //right or left
+
+                int xDirec = App.x_direction[redEnDirection];
+
+                App.map = movement(i, j, xDirec, App.map);
+
+            }
+
+            redFrameCounter = 1;
+
+        } else {
+
+            redFrameCounter++;
+
+        }
+
         
     }
     
