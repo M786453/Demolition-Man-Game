@@ -22,29 +22,29 @@ public class App extends PApplet{
     public static final int HEIGHT = 480;
     public static final int WIDTH = 480;
     private final int FPS = 60;
-    private static boolean isPlayerInMap;
-    private BombGuy bombGuy;
-    private RedEnemy redEnemy;
-    private YellowEnemy yellEnemy;    
+    
+    public static BombGuy bombGuy;
+    public static RedEnemy redEnemy;
+    public static YellowEnemy yellEnemy;    
     public static Bomb bomb;
-    private boolean isGameOver;
-    private boolean isWin;
+    private boolean isGameOver = false;
+    public static boolean isWin = false;
     
     public static long startTime;
-    private ArrayList<Level> gameLevels;
-    private int levelIndex = 0;   
-    private char[][] map;    
+    public static ArrayList<Level> gameLevels;
+    public static int levelIndex = 0;   
+    public static char[][] map;    
     private int redFrameCounter2 = 1;
     private int yellowFrameCounter = 1;    
-    private final int[] x_direction = {0,0,1,-1};
-    private final int[] y_direction = {1,-1,0,0};        
-    public final static int[] goalIndex = new int[2];    
-    private final int start_y_pos_player = 80;
+    public static final int[] x_direction = {0,0,1,-1};
+    public static final int[] y_direction = {1,-1,0,0};        
+    public static final int[] goalIndex = new int[2];    
+    
     private final int start_y_pos_red_en = 80;
     private final int start_y_pos_yell_en = 80;    
     private Animation characterAnimation;
     private Animation bombAnimation;
-    private FramesLoader framesLoader = new FramesLoader(this);
+    public FramesLoader framesLoader = new FramesLoader(this);
     
     
     /**
@@ -82,8 +82,6 @@ public class App extends PApplet{
         
         
         frameRate(FPS);
-        
-        isPlayerInMap = false;
              
         startTime = System.currentTimeMillis();   
         
@@ -100,8 +98,7 @@ public class App extends PApplet{
         characterAnimation = new Animation(0.2f);
         bombAnimation = new Animation(bomb.PerFrameTime);
 
-        isWin = false;       
-        isGameOver = false;
+        
         
         /*
         TILES AND ICONS INITIALIZATION
@@ -346,45 +343,7 @@ public class App extends PApplet{
     }
     
     
-    private void playerDieAndResetLevel(){
-        
-        
-        if(bomb.isExploded){
-                      
-                      /*
-                      Here checking if any bomb is placed and exploded then show the player in the map
-                      This variable will be if the bomb is not placed
-                      In this way this piece of will be called in other cases Like when player
-                      comes in contact with any enemy
-                      
-                      NOTE: Here the bomb.isExploded is only false when bomb is placed and it will be true
-                      after explosion or even when bomb is not placed. So player will lose life and level will reset when in
-                      contact with explosion or an enemy.
-                      */
-                      
-                      
-                  
-                      
-                  gameLevels.get(levelIndex).resetLevel();
-                      
-                  Integer[] playerLevelStartPos = BombGuy.pStartPlayerPosLevelList.get(levelIndex);
-                  
-                  map[playerLevelStartPos[0]][playerLevelStartPos[1]] = 'P';
-                  
-                  
-                  
-                  bombGuy = new BombGuy();
-                  BombGuy.lives--;
-                  
-                  redEnemy = new RedEnemy();
-                  yellEnemy = new YellowEnemy();
-                  
-                  isPlayerInMap = true;
-                  
-                  }
-        
-        
-    }
+    
     
     
     private void positionBombAnimation(int i, int j){
@@ -538,62 +497,9 @@ public class App extends PApplet{
     
     
     
-    private void changeLevelIfPlayerAtGoal(int i, int j){
-        
-        /*
-            If Player at Goal Position, change the level. If Player
-            Goal Tile of last level , then player will win game
-        */
-        
-                          if(i == goalIndex[0] && j == goalIndex[1]){
-                              
-                              if(levelIndex == gameLevels.size()-1)
-                                  isWin = true;
-                              else
-                                  levelIndex++;
-                              
-                              startTime = System.currentTimeMillis();
-                              
-                              bombGuy.anim_direction = -1;
-                          }
-        
-        
-    }
     
     
-    
-    private void controlPlayer(int i, int j){
-        
-        
-        //this will change the position of player if there is empty or goal tile towards the position
-        
-                          //requested by user
-                          if(bombGuy.direction == 0 || bombGuy.direction == 1){
-                              //move down or up
-                              
-                              
-                              int yDirec = y_direction[bombGuy.direction]; 
-                              
-                              map = bombGuy.movement(i, j, yDirec , map);
-                              
-                              
-                              
-                              
-                          }else if(bombGuy.direction == 2 || bombGuy.direction == 3){
-                              //move right or left
-                              
-                              int xDirec = x_direction[bombGuy.direction]; 
-                              
-                              map = bombGuy.movement(i, j, xDirec, map);
-                              
-                            
-                          }
-        
-        
-    }
-    
-    
-    
+   
     private void startGame(){
         
           
@@ -689,14 +595,11 @@ public class App extends PApplet{
                           
                       case 'P':
 
-                          isPlayerInMap = true;
+                          bombGuy.isPlayerInMap = true;
                          
+                          bombGuy.changeLevelIfPlayerAtGoal(i,j);
                           
-                          
-                          changeLevelIfPlayerAtGoal(i,j);
-                          
-                          
-                          controlPlayer(i,j);                          
+                          bombGuy.controlPlayer(i,j);                          
                           
                           image(framesLoader.emptyw,j*32,(i*32)+ Map.OFFSET);
                           
@@ -709,7 +612,7 @@ public class App extends PApplet{
                           }
                                                     
                            
-                          int yPlayerPos = (abs(i-1) * 32)+ start_y_pos_player;
+                          int yPlayerPos = (abs(i-1) * 32)+ bombGuy.PLAYER_OFFSET;
                           
                           positionAnimation(bombGuy.anim_direction,j*32,yPlayerPos,framesLoader.playerDownFramesList,framesLoader.playerUpFramesList,framesLoader.playerRightFramesList,
                                   framesLoader.playerLeftFramesList);
@@ -778,23 +681,20 @@ public class App extends PApplet{
           
     }
           
-          if(isPlayerInMap){
-                  
-                  //we will reset the value of isPlayerInMap to check every time the existence of player in map
-                  
-                  isPlayerInMap = false;
-              
-              }else{
-                  
-                  /*
+            if (bombGuy.isPlayerInMap) {
+
+                //we will reset the value of isPlayerInMap to check every time the existence of player in map
+                bombGuy.isPlayerInMap = false;
+
+            } else {
+
+                /*
                   if player is not present in map (mean player is died)
                   then we add the player respawn position in level according to its level
-                  */
-                  
-                  playerDieAndResetLevel();
-                  
-                  
-              }
+                 */
+                bombGuy.playerDieAndResetLevel();
+
+            }
           
     }else{
        

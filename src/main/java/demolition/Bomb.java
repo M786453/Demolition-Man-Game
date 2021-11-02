@@ -20,7 +20,7 @@ public class Bomb {
     public static int bombY = -1;
     public boolean isPlaced;
     public long placeTime;
-    public boolean isExploded;
+    public static boolean isExploded;
     public boolean canExplode;    
     public ArrayList<int[][]> explodeRange;
     

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="demolition.BombGuyTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-11-02T10:59:15" hostname="DESKTOP-A2UL7BQ" time="0.055">
-  <properties/>
-  <testcase name="testMovement1()" classname="demolition.BombGuyTest" time="0.045"/>
-  <testcase name="testMovement2()" classname="demolition.BombGuyTest" time="0.007"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

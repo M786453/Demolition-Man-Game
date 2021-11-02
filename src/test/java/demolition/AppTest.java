@@ -10,16 +10,20 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 
+
 /**
- *
  * @author Ahtesham Sarwar
  */
 public class AppTest {
     
-    private App app;
     
+    
+    
+  
     
     public AppTest() {
+         
+       
     }
     
     
@@ -27,7 +31,7 @@ public class AppTest {
     public void beforeEach(){
         
         
-        app = new App();
+       
         
         
         
@@ -52,36 +56,39 @@ public class AppTest {
         
         
     }
-
-    /**
-     * Test of settings method, of class App.
-     */
-    @Test
-    public void testSettings() {
-    }
-
+//
+//    /**
+//     * Test of settings method, of class App.
+//     */
+//    @Test
+//    public void testSettings() {
+//    }
+//
     /**
      * Test of setup method, of class App.
      */
     @Test
     public void testSetup() {
+        
+//        framesLoader.loadPlayerFramesInLists();
+        
     }
 
     /**
-     * Test of draw method, of class App.
-     */
+//     * Test of draw method, of class App.
+//     */
     @Test
     public void testDraw() {
         
         
         
     }
-
-    /**
-     * Test of keyReleased method, of class App.
-     */
-    @Test
-    public void testKeyReleased() {
-    }
+//
+//    /**
+//     * Test of keyReleased method, of class App.
+//     */
+//    @Test
+//    public void testKeyReleased() {
+//    }
     
 }
