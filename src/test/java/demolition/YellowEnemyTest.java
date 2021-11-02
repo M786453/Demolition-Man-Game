@@ -260,8 +260,8 @@ public class YellowEnemyTest {
         
         sampleMap = yellowEnemy.movement(2, 2, 1, sampleMap);
         
-        System.out.print(getMapStr(sampleMap));
-//        assertTrue(sampleMap[3][2] == 'H',"Yellow Enemy Clockwise Movement Against Player"); 
+//        System.out.print(getMapStr(sampleMap));
+        assertTrue(sampleMap[3][2] == 'H',"Yellow Enemy Clockwise Movement Against Player"); 
         
         
         

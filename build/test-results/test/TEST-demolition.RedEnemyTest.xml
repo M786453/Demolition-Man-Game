@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="demolition.RedEnemyTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-11-02T07:55:18" hostname="DESKTOP-A2UL7BQ" time="0.001">
+<testsuite name="demolition.RedEnemyTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2021-11-02T09:22:13" hostname="DESKTOP-A2UL7BQ" time="0.019">
   <properties/>
-  <testcase name="testMovement()" classname="demolition.RedEnemyTest" time="0.001"/>
+  <testcase name="testMovementAgainstPlayer()" classname="demolition.RedEnemyTest" time="0.002"/>
+  <testcase name="testMovmentAgainstExplosion()" classname="demolition.RedEnemyTest" time="0.001"/>
+  <testcase name="testMovementAlongXAxis()" classname="demolition.RedEnemyTest" time="0.003"/>
+  <testcase name="testMovementAlongYAxis()" classname="demolition.RedEnemyTest" time="0.001"/>
+  <testcase name="testRandomMovementAlongXAxis2()" classname="demolition.RedEnemyTest" time="0.001"/>
+  <testcase name="testMovmentAgainstYellowEnemy()" classname="demolition.RedEnemyTest" time="0.001"/>
+  <testcase name="testMovementAgainstWall()" classname="demolition.RedEnemyTest" time="0.001"/>
+  <testcase name="testRandomMovementAgainstPlayer1()" classname="demolition.RedEnemyTest" time="0.001"/>
+  <testcase name="testRandomMovementAgainstPlayer2()" classname="demolition.RedEnemyTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

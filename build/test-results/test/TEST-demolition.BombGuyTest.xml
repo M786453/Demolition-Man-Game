@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="demolition.BombGuyTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-11-02T07:55:18" hostname="DESKTOP-A2UL7BQ" time="0.039">
+<testsuite name="demolition.BombGuyTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-11-02T09:22:13" hostname="DESKTOP-A2UL7BQ" time="0.033">
   <properties/>
-  <testcase name="testMovement1()" classname="demolition.BombGuyTest" time="0.032"/>
+  <testcase name="testMovement1()" classname="demolition.BombGuyTest" time="0.025"/>
   <testcase name="testMovement2()" classname="demolition.BombGuyTest" time="0.006"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
