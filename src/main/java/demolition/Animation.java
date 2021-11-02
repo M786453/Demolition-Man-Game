@@ -22,16 +22,17 @@ public class Animation{
     private int currentFrameNo;
     private PImage currentFrame;
     private boolean canChangeFrame;
+    private PApplet parent;
     
     
-    public Animation(float timePerFrame){
+    public Animation(PApplet parent,float timePerFrame){
         
         
         
         this.timePerFrame = timePerFrame; 
         currentFrameNo = 0;
         canChangeFrame = true;
-        
+        this.parent = parent;
         
         
     }
@@ -78,6 +79,53 @@ public class Animation{
                         
         return currentFrame;
                         
+    }
+    
+    
+    public void positionBombAnimation(int i, int j,ArrayList<PImage> bombFramesList){
+        
+        if(Bomb.bombX == j && Bomb.bombY == i)
+                                    parent.image(play(bombFramesList),Bomb.bombX*32,(Bomb.bombY*32) + Map.OFFSET);
+        
+        
+    }
+    
+    
+    
+    
+        public void positionAnimation(int mDirection,int xPos,int yPos,ArrayList<PImage> downFramesList,ArrayList<PImage> upFramesList,
+                                ArrayList<PImage> rightFramesList,ArrayList<PImage> leftFramesList){
+        
+        
+        switch (mDirection) {
+                          
+                          case -1:
+                          case 0:
+                              
+                              parent.image(play(downFramesList),xPos,yPos);
+                              
+                              break;
+                          case 1:
+                              
+                              parent.image(play(upFramesList),xPos,yPos);
+                              
+                              break; 
+                          case 2:
+                              
+                              parent.image(play(rightFramesList),xPos,yPos);
+                              
+                              break;
+                          case 3:
+                              
+                              parent.image(play(leftFramesList),xPos,yPos);
+                              
+                              break;
+                          default:
+                              break;
+                      
+                      }
+        
+        
     }
     
     

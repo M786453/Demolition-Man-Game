@@ -95,8 +95,8 @@ public class App extends PApplet{
        
          
         
-        characterAnimation = new Animation(0.2f);
-        bombAnimation = new Animation(bomb.PerFrameTime);
+        characterAnimation = new Animation(this,0.2f);
+        bombAnimation = new Animation(this,bomb.PerFrameTime);
 
         
         
@@ -194,43 +194,6 @@ public class App extends PApplet{
         
     }
     
-    private void positionAnimation(int mDirection,int xPos,int yPos,ArrayList<PImage> downFramesList,ArrayList<PImage> upFramesList,
-                                ArrayList<PImage> rightFramesList,ArrayList<PImage> leftFramesList){
-        
-        
-        switch (mDirection) {
-                          
-                          case -1:
-                          case 0:
-                              
-                              image(characterAnimation.play(downFramesList),xPos,yPos);
-                              
-                              break;
-                          case 1:
-                              
-                              image(characterAnimation.play(upFramesList),xPos,yPos);
-                              
-                              break; 
-                          case 2:
-                              
-                              image(characterAnimation.play(rightFramesList),xPos,yPos);
-                              
-                              break;
-                          case 3:
-                              
-                              image(characterAnimation.play(leftFramesList),xPos,yPos);
-                              
-                              break;
-                          default:
-                              break;
-                      
-                      }
-        
-        
-    }
-    
-    
-    
     private void redEnemyAI(int i,int j,char[][] map){
         
         redEnemy.controller(i, j);
@@ -240,7 +203,7 @@ public class App extends PApplet{
         //animating red enemy in right direction
         int yRedPos = (abs(i - 1) * 32) + RedEnemy.RED_OFFSET;
 
-        positionAnimation(redEnemy.redAnimDirection, j * 32, yRedPos, framesLoader.redEnDownFramesList, framesLoader.redEnUpFramesList, 
+        characterAnimation.positionAnimation(redEnemy.redAnimDirection, j * 32, yRedPos, framesLoader.redEnDownFramesList, framesLoader.redEnUpFramesList, 
                 framesLoader.redEnRightFramesList, framesLoader.redEnLeftFramesList);
 
         
@@ -257,7 +220,7 @@ public class App extends PApplet{
         int yYellowPos = ((i - 1) * 32) + YellowEnemy.YELLOW_OFFSET;
 
         //here only for direction left (test) -> not completed
-        positionAnimation(yellEnemy.yellowAnimDirection, j * 32, yYellowPos, framesLoader.yellowEnDownFramesList, 
+        characterAnimation.positionAnimation(yellEnemy.yellowAnimDirection, j * 32, yYellowPos, framesLoader.yellowEnDownFramesList, 
                 framesLoader.yellowEnUpFramesList, framesLoader.yellowEnRightFramesList, 
                 framesLoader.yellowEnLeftFramesList);
 
@@ -294,74 +257,60 @@ public class App extends PApplet{
     }
     
     
-    private void positionBombAnimation(int i, int j){
-        
-        if(Bomb.bombX == j && Bomb.bombY == i)
-                                    image(bombAnimation.play(framesLoader.bombFramesList),Bomb.bombX*32,(Bomb.bombY*32) + Map.OFFSET);
-        
-        
-    }
+    
     
     
     private void removeExplosionEffectAfterExplosion(){
         
         
-             if(bomb.canExplode){
-                                        bomb.explode(Bomb.bombX, Bomb.bombY, map);
-                                        bomb.canExplode = false;
-                                  
-                                    new Timer().schedule(new TimerTask(){
-                                      
-                                          @Override
-                                          public void run(){
-                                          
-                                            //this code will run after explosion
-                                            Bomb.isExploded = true;
-                                            if(bomb.explodeRange.size() > 0){
-                                              
-                                             
-                                              
-                                                  map[Bomb.bombY][Bomb.bombX] = ' ';
-                                                  
-                                              
-                                              
-                                              
-                                          }
-                                              
-                                          
-                                          for(int l=0;l<bomb.explodeRange.size();l++){
-                                              
-                                              int[][] rangeDirection = bomb.explodeRange.get(l);
-                                              
-                                              
-                                              if(rangeDirection[0][0] != -1 && rangeDirection[0][1] != -1)
-                                                  if(rangeDirection[0][0] == goalIndex[0] && rangeDirection[0][1] == goalIndex[1])
-                                                      map[rangeDirection[0][0]][rangeDirection[0][1]] = 'G';
-                                                  else                                                      
-                                                      map[rangeDirection[0][0]][rangeDirection[0][1]] = ' ';
-                                              
-                                              
-                                              if(rangeDirection[1][0] != -1 && rangeDirection[1][1] != -1)
-                                                  if(rangeDirection[1][0] == goalIndex[0]  && rangeDirection[1][1] == goalIndex[1])
-                                                      map[rangeDirection[1][0]][rangeDirection[1][1]] = 'G';
-                                                  else
-                                                      map[rangeDirection[1][0]][rangeDirection[1][1]] = ' ';
-                                              
-                                              
-                                              
-                                          }
-                                          
-                                          //this will remove the bomb from map
-                                                Bomb.bombX = -1;
-                                                Bomb.bombY = -1;
-                                          
-                                      }
-                                      
-                                      
-                                  }, bomb.ExplosionTime);
-                                  
-                                  
-                              }
+           if (bomb.canExplode) {
+            bomb.explode(Bomb.bombX, Bomb.bombY, map);
+            bomb.canExplode = false;
+
+            new Timer().schedule(new TimerTask() {
+
+                @Override
+                public void run() {
+
+                    //this code will run after explosion
+                    Bomb.isExploded = true;
+                    if (bomb.explodeRange.size() > 0) {
+
+                        map[Bomb.bombY][Bomb.bombX] = ' ';
+
+                    }
+
+                    for (int l = 0; l < bomb.explodeRange.size(); l++) {
+
+                        int[][] rangeDirection = bomb.explodeRange.get(l);
+
+                        if (rangeDirection[0][0] != -1 && rangeDirection[0][1] != -1) {
+                            if (rangeDirection[0][0] == goalIndex[0] && rangeDirection[0][1] == goalIndex[1]) {
+                                map[rangeDirection[0][0]][rangeDirection[0][1]] = 'G';
+                            } else {
+                                map[rangeDirection[0][0]][rangeDirection[0][1]] = ' ';
+                            }
+                        }
+
+                        if (rangeDirection[1][0] != -1 && rangeDirection[1][1] != -1) {
+                            if (rangeDirection[1][0] == goalIndex[0] && rangeDirection[1][1] == goalIndex[1]) {
+                                map[rangeDirection[1][0]][rangeDirection[1][1]] = 'G';
+                            } else {
+                                map[rangeDirection[1][0]][rangeDirection[1][1]] = ' ';
+                            }
+                        }
+
+                    }
+
+                    //this will remove the bomb from map
+                    Bomb.bombX = -1;
+                    Bomb.bombY = -1;
+
+                }
+
+            }, bomb.ExplosionTime);
+
+        }
         
         
     }
@@ -374,7 +323,7 @@ public class App extends PApplet{
                               Bomb.bombX = j;
                               Bomb.bombY = i;
 
-                              bombAnimation = new Animation(bomb.PerFrameTime);
+                              bombAnimation = new Animation(this,bomb.PerFrameTime);
                          
                               
                               
@@ -471,7 +420,7 @@ public class App extends PApplet{
         
         //loadLevel
         
-        if(gameLevels.size() == 0){
+        if(gameLevels.isEmpty()){
             isGameOver = true;
             return;
         }
@@ -551,7 +500,7 @@ public class App extends PApplet{
                            
                           int yPlayerPos = (abs(i-1) * 32)+ bombGuy.PLAYER_OFFSET;
                           
-                          positionAnimation(bombGuy.anim_direction,j*32,yPlayerPos,framesLoader.playerDownFramesList,framesLoader.playerUpFramesList,framesLoader.playerRightFramesList,
+                          characterAnimation.positionAnimation(bombGuy.anim_direction,j*32,yPlayerPos,framesLoader.playerDownFramesList,framesLoader.playerUpFramesList,framesLoader.playerRightFramesList,
                                   framesLoader.playerLeftFramesList);
                             
                             
@@ -562,12 +511,10 @@ public class App extends PApplet{
 
                            
                             /*
-        
                                 If bomb is present at i,j position then show the bomb Animation
-        
                             */
                            
-                            positionBombAnimation(i,j);
+                            bombAnimation.positionBombAnimation(i,j,framesLoader.bombFramesList);
                               
                                
                             removeExplosionEffectAfterExplosion();
