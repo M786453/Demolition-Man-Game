@@ -4,6 +4,7 @@
  */
 package demolition;
 
+
 import java.util.ArrayList;
 
 /**
@@ -12,18 +13,16 @@ import java.util.ArrayList;
  */
 public class YellowEnemy {
     
-    
-    
     public int yellowEnDirection;
     public int yellowAnimDirection;
-    
+    private int yellowFrameCounter;
+    public static final int YELLOW_OFFSET = 80;    
     
     public YellowEnemy(){
     
         yellowEnDirection = 0;
         yellowAnimDirection = 0;
-    
-    
+        yellowFrameCounter = 1;
     
     }
     
@@ -273,7 +272,38 @@ public class YellowEnemy {
     }
     
     
-   
+   public void controller(int i,int j){
+       
+    
+       if (yellowFrameCounter == 60) {
+
+            if (yellowEnDirection == 0 || yellowEnDirection == 1) {
+
+                //down or up
+                int yDirec = App.y_direction[yellowEnDirection];
+
+                App.map = movement(i, j, yDirec, App.map);
+
+            } else if (yellowEnDirection == 2 || yellowEnDirection == 3) {
+
+                //right or left
+                int xDirec = App.x_direction[yellowEnDirection];
+
+                App.map = movement(i, j, xDirec, App.map);
+
+            }
+
+            yellowFrameCounter = 1;
+
+        } else {
+
+            yellowFrameCounter++;
+
+        }
+       
+       
+       
+   }
     
     
     

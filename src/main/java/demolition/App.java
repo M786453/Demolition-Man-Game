@@ -35,13 +35,13 @@ public class App extends PApplet{
     public static int levelIndex = 0;   
     public static char[][] map;    
     
-    private int yellowFrameCounter = 1;    
+        
     public static final int[] x_direction = {0,0,1,-1};
     public static final int[] y_direction = {1,-1,0,0};        
     public static final int[] goalIndex = new int[2];    
     
     
-    private final int start_y_pos_yell_en = 80;    
+    
     private Animation characterAnimation;
     private Animation bombAnimation;
     public FramesLoader framesLoader = new FramesLoader(this);
@@ -249,36 +249,12 @@ public class App extends PApplet{
     
     private void yellowEnemyAI(int i,int j, char[][] map){
         
-            if (yellowFrameCounter == 60) {
-
-            if (yellEnemy.yellowEnDirection == 0 || yellEnemy.yellowEnDirection == 1) {
-
-                //down or up
-                int yDirec = y_direction[yellEnemy.yellowEnDirection];
-
-                map = yellEnemy.movement(i, j, yDirec, map);
-
-            } else if (yellEnemy.yellowEnDirection == 2 || yellEnemy.yellowEnDirection == 3) {
-
-                //right or left
-                int xDirec = x_direction[yellEnemy.yellowEnDirection];
-
-                map = yellEnemy.movement(i, j, xDirec, map);
-
-            }
-
-            yellowFrameCounter = 1;
-
-        } else {
-
-            yellowFrameCounter++;
-
-        }
+        yellEnemy.controller(i, j);
 
         image(framesLoader.emptyw, j * 32, (i * 32) + Map.OFFSET);
 
         //animated yellow in left direction
-        int yYellowPos = ((i - 1) * 32) + start_y_pos_yell_en;
+        int yYellowPos = ((i - 1) * 32) + YellowEnemy.YELLOW_OFFSET;
 
         //here only for direction left (test) -> not completed
         positionAnimation(yellEnemy.yellowAnimDirection, j * 32, yYellowPos, framesLoader.yellowEnDownFramesList, 
@@ -287,14 +263,6 @@ public class App extends PApplet{
 
 
     }
-    
-    
-    
-    
-    
-    
-    
-   
     
     
     private void showWinScreen(){
@@ -326,9 +294,6 @@ public class App extends PApplet{
     }
     
     
-    
-    
-    
     private void positionBombAnimation(int i, int j){
         
         if(Bomb.bombX == j && Bomb.bombY == i)
@@ -336,8 +301,6 @@ public class App extends PApplet{
         
         
     }
-    
-    
     
     
     private void removeExplosionEffectAfterExplosion(){
@@ -353,7 +316,7 @@ public class App extends PApplet{
                                           public void run(){
                                           
                                             //this code will run after explosion
-                                            bomb.isExploded = true;
+                                            Bomb.isExploded = true;
                                             if(bomb.explodeRange.size() > 0){
                                               
                                              
@@ -407,7 +370,7 @@ public class App extends PApplet{
     private void placeBomb(int i, int j){
         
         
-        bomb.isExploded = false;
+        Bomb.isExploded = false;
                               Bomb.bombX = j;
                               Bomb.bombY = i;
 
@@ -472,15 +435,6 @@ public class App extends PApplet{
         
         
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
    
     private void startGame(){
