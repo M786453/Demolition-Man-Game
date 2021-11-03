@@ -18,17 +18,17 @@ public class Bomb {
     /**
      * Represent the time(in milliseconds) after which bomb will explode
      */
-    public final int BombTime = 2000; 
+    public final int BOMB_TIME = 2000; 
     
     /**
      * Represents the time of one frame in Animation Cycle
      */
-    public final float PerFrameTime = 0.25f;
+    public final float PER_FRAME_TIME = 0.25f;
     
     /**
      * Represents the time(in milliseconds) of explosion effect 
      */
-    public final int ExplosionTime = 500; // it is in milliseconds
+    public final int EXPLOSION_TIME = 500; // it is in milliseconds
     
     /**
      * Represents the X-axis Position of Bomb
@@ -284,7 +284,7 @@ public class Bomb {
                                       
                                   }
                               
-                              }, BombTime);
+                              }, BOMB_TIME);
                               
                               isPlaced = false;
         
@@ -322,7 +322,7 @@ public class Bomb {
                         int[][] rangeDirection = explodeRange.get(l);
 
                         if (rangeDirection[0][0] != -1 && rangeDirection[0][1] != -1) {
-                            if (rangeDirection[0][0] == App.goalIndex[0] && rangeDirection[0][1] == App.goalIndex[1]) {
+                            if (rangeDirection[0][0] == App.GOAL_INDEX[0] && rangeDirection[0][1] == App.GOAL_INDEX[1]) {
                                 App.map[rangeDirection[0][0]][rangeDirection[0][1]] = 'G';
                             } else {
                                 App.map[rangeDirection[0][0]][rangeDirection[0][1]] = ' ';
@@ -330,7 +330,7 @@ public class Bomb {
                         }
 
                         if (rangeDirection[1][0] != -1 && rangeDirection[1][1] != -1) {
-                            if (rangeDirection[1][0] == App.goalIndex[0] && rangeDirection[1][1] == App.goalIndex[1]) {
+                            if (rangeDirection[1][0] == App.GOAL_INDEX[0] && rangeDirection[1][1] == App.GOAL_INDEX[1]) {
                                 App.map[rangeDirection[1][0]][rangeDirection[1][1]] = 'G';
                             } else {
                                 App.map[rangeDirection[1][0]][rangeDirection[1][1]] = ' ';
@@ -345,7 +345,7 @@ public class Bomb {
 
                 }
 
-            }, ExplosionTime);
+            }, EXPLOSION_TIME);
 
         }
         

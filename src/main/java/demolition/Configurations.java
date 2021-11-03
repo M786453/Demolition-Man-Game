@@ -57,6 +57,7 @@ public class Configurations {
         
         try{
             
+        if(jsonData != null && !jsonData.isEmpty()){    
         JSONObject obj = JSONObject.parse(jsonData);      
         JSONArray levels = obj.getJSONArray("levels");
         
@@ -76,6 +77,8 @@ public class Configurations {
             levelList.add(level);
             
             
+        }
+        
         }
         
         }catch(Exception e){

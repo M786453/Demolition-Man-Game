@@ -96,7 +96,7 @@ public class RedEnemy{
                 map[yPos][xPos] = 'R';
                 
                 
-                if(i == App.goalIndex[0] && j == App.goalIndex[1])
+                if(i == App.GOAL_INDEX[0] && j == App.GOAL_INDEX[1])
                     map[i][j] = 'G';
                 else
                     map[i][j] = ' ';
@@ -218,7 +218,7 @@ public class RedEnemy{
             else if(map[newX][newY] == ' ')
                 map[newX][newY] = 'R';
             
-            if(i == App.goalIndex[0] && j == App.goalIndex[1])
+            if(i == App.GOAL_INDEX[0] && j == App.GOAL_INDEX[1])
                     map[i][j] = 'G';
                 else
                     map[i][j] = ' ';
@@ -281,14 +281,14 @@ public class RedEnemy{
             if (redEnDirection == 0 || redEnDirection == 1) {
 
                 //down or up
-                int yDirec = App.y_direction[redEnDirection];
+                int yDirec = App.Y_DIRECTION[redEnDirection];
 
                 App.map = movement(i, j, yDirec, App.map);
 
             } else if (redEnDirection == 2 || redEnDirection == 3) {
                 //right or left
 
-                int xDirec = App.x_direction[redEnDirection];
+                int xDirec = App.X_DIRECTION[redEnDirection];
 
                 App.map = movement(i, j, xDirec, App.map);
 

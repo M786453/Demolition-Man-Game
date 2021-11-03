@@ -94,7 +94,7 @@ public class YellowEnemy {
                 map[yPos][xPos] = 'Y';
                 
                 
-                if(i == App.goalIndex[0] && j == App.goalIndex[1])
+                if(i == App.GOAL_INDEX[0] && j == App.GOAL_INDEX[1])
                     map[i][j] = 'G';
                 else
                     map[i][j] = ' ';
@@ -187,7 +187,7 @@ public class YellowEnemy {
                             
                             map[yPos][xPos] = 'Y';
                             
-                            if(i == App.goalIndex[0] && j == App.goalIndex[1])
+                            if(i == App.GOAL_INDEX[0] && j == App.GOAL_INDEX[1])
                                 map[i][j] = 'G';
                             else
                                 map[i][j] = ' ';
@@ -314,14 +314,14 @@ public class YellowEnemy {
             if (yellowEnDirection == 0 || yellowEnDirection == 1) {
 
                 //down or up
-                int yDirec = App.y_direction[yellowEnDirection];
+                int yDirec = App.Y_DIRECTION[yellowEnDirection];
 
                 App.map = movement(i, j, yDirec, App.map);
 
             } else if (yellowEnDirection == 2 || yellowEnDirection == 3) {
 
                 //right or left
-                int xDirec = App.x_direction[yellowEnDirection];
+                int xDirec = App.X_DIRECTION[yellowEnDirection];
 
                 App.map = movement(i, j, xDirec, App.map);
 

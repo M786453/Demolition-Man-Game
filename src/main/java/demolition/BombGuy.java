@@ -172,7 +172,7 @@ public class BombGuy{
                               //move down or up
                               
                               
-                              int yDirec = App.y_direction[direction]; 
+                              int yDirec = App.Y_DIRECTION[direction]; 
                               
                               App.map = movement(i, j, yDirec , App.map);
                               
@@ -182,7 +182,7 @@ public class BombGuy{
                           }else if(direction == 2 || direction == 3){
                               //move right or left
                               
-                              int xDirec = App.x_direction[direction]; 
+                              int xDirec = App.X_DIRECTION[direction]; 
                               
                               App.map = movement(i, j, xDirec, App.map);
                               
@@ -204,7 +204,7 @@ public class BombGuy{
             Goal Tile of last level , then player will win game
         */
         
-                          if(i == App.goalIndex[0] && j == App.goalIndex[1]){
+                          if(i == App.GOAL_INDEX[0] && j == App.GOAL_INDEX[1]){
                               
                               if(App.levelIndex == App.gameLevels.size()-1)
                                   App.isWin = true;

@@ -94,17 +94,17 @@ public class App extends PApplet{
     /**
      * Represents the x-axis directions 
      */            
-    public static final int[] x_direction = {0,0,1,-1};
+    public static final int[] X_DIRECTION = {0,0,1,-1};
     
     /**
      * Represents y-axis directions
      */
-    public static final int[] y_direction = {1,-1,0,0};        
+    public static final int[] Y_DIRECTION = {1,-1,0,0};        
     
     /**
      * Represents Position of Goal Tile in current level
      */
-    public static final int[] goalIndex = new int[2];    
+    public static final int[] GOAL_INDEX = new int[2];    
     
     
     /**
@@ -172,7 +172,7 @@ public class App extends PApplet{
          
         
         characterAnimation = new Animation(this,0.2f);
-        bombAnimation = new Animation(this,bomb.PerFrameTime);
+        bombAnimation = new Animation(this,bomb.PER_FRAME_TIME);
 
         
         
@@ -563,8 +563,8 @@ public class App extends PApplet{
                           
                           
                           
-                          goalIndex[0] = i;
-                          goalIndex[1] = j;
+                          GOAL_INDEX[0] = i;
+                          GOAL_INDEX[1] = j;
                           image(framesLoader.goalw,j*32,(i*32)+ Map.OFFSET);
                         
                           break;
