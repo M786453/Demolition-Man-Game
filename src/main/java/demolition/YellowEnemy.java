@@ -8,14 +8,29 @@ package demolition;
 import java.util.ArrayList;
 
 /**
- *
+ * Represents Yellow Enemy Object of Game
  * @author Ahtesham Sarwar
  */
 public class YellowEnemy {
     
+    /**
+     * Represents the Direction of motion of Yellow Enemy
+     */
     public int yellowEnDirection;
+    
+    /**
+     * Represents the Direction of Animation of Yellow Enemy
+     */
     public int yellowAnimDirection;
+    
+    /**
+     * Counts the number of times controller function called by draw function of main class
+     */
     private int yellowFrameCounter;
+    
+    /**
+     * Represents the space between Yellow Enemy and the window
+     */
     public static final int YELLOW_OFFSET = 80;    
     
     public YellowEnemy(){
@@ -27,6 +42,15 @@ public class YellowEnemy {
     }
     
     
+    
+    /**
+     * Use for the movement of Yellow Enemy
+     * @param i Represents the Y-axis Position of Yellow Enemy
+     * @param j Represents the X-axis Position of Yellow Enemy
+     * @param direc Represents the direction of motion of Yellow Enemy
+     * @param map Represents the map of current level 
+     * @return Return a modified map (2-D Char Array)
+     */
     public char[][] movement(int i,int j,int direc,char[][] map){       
         
         
@@ -58,7 +82,7 @@ public class YellowEnemy {
         if ((xPos >= 0 && xPos < Map.COLUMNS) && (yPos >= 0 && yPos < Map.ROWS)) {
 
             
-            if (nextChar == 'B' || nextChar == 'W' || (yPos == App.bomb.bombY && xPos == App.bomb.bombX)) {                                             
+            if (nextChar == 'B' || nextChar == 'W' || (yPos == Bomb.bombY && xPos == Bomb.bombX)) {                                             
                 
                 map = moveClockwise(i,j,map);
                 
@@ -108,7 +132,13 @@ public class YellowEnemy {
         
     }
 
-    
+    /**
+     * Use for the clockwise movement of Yellow Enemy if collide with wall or broken wall
+     * @param i Represent the Y-axis Position of Yellow Enemy
+     * @param j Represent the X-axis Position of Yellow Enemy
+     * @param map Represent the map of current level
+     * @return Return a modified map (2-D Char Array)
+     */
     private char[][] moveClockwise(int i,int j,char[][] map){
         
         
@@ -152,7 +182,7 @@ public class YellowEnemy {
                     }
                         
                         
-                        if(!(cardinalPos.get(k) == App.bomb.bombY && j == App.bomb.bombX))
+                        if(!(cardinalPos.get(k) == Bomb.bombY && j == Bomb.bombX))
                         if(nextChar == ' '){
                             
                             map[yPos][xPos] = 'Y';
@@ -271,7 +301,11 @@ public class YellowEnemy {
         return lDirection;
     }
     
-    
+   /**
+    * Interface to control the movement of Yellow Enemy
+    * @param i Represents the Y-axis Position of Yellow Enemy
+    * @param j Represents the X-axis Position of Yellow Enemy
+    */ 
    public void controller(int i,int j){
        
     

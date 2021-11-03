@@ -9,14 +9,29 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- *
+ * Represents Red Enemy Object of Game
  * @author Ahtesham Sarwar
  */
 public class RedEnemy{
     
+    /**
+     * Represents Red Enemy direction of motion
+     */
     public int redEnDirection;
+    
+    /**
+     * Represents Red Enemy direction of Animation
+     */
     public int redAnimDirection;
+    
+    /**
+     * Counts the number of times controller function called by draw function of main class
+     */
     private int redFrameCounter;
+    
+    /**
+     * Represents the space between Red Enemy and top of window
+     */
     public static final int RED_OFFSET = 80;
     
     public RedEnemy(){
@@ -30,6 +45,14 @@ public class RedEnemy{
     
     
     
+     /**
+      * Use for the movement of Red Enemy 
+      * @param i Represents the Y-axis Position of Red Enemy
+      * @param j Represents the X-axis Position of Red Enemy
+      * @param direc Represents the direction of motion of Red Enemy
+      * @param map Represents the map of current level
+      * @return Return a modified map
+      */
      public char[][] movement(int i,int j,int direc,char[][] map){       
         
         
@@ -111,7 +134,13 @@ public class RedEnemy{
         
     }
     
-    
+    /**
+     * Use to move the Red Enemy in random direction when collide with a wall or broken wall
+     * @param i Represents the Y-axis position of Red Enemy
+     * @param j Represents the X-axis position of Red Enemy
+     * @param map Represents the map which will modify 
+     * @return  Return a modified map (2-D Char Array)
+     */
     private char[][] moveRandom(int i,int j,char[][] map){
         
         
@@ -122,56 +151,55 @@ public class RedEnemy{
         ArrayList<Integer[]> openWays = new ArrayList<>(); //this list will contain positions of empty tiles around redEnemy
         
         
-        if(!(i+1 == App.bomb.bombY && j == App.bomb.bombX))
-        if((map[i+1][j] == ' ' || map[i+1][j] == 'Y')){
-            Integer[] x_y = new Integer[2];
-            x_y[0] = i+1;
-            x_y[1] = j;
-            openWays.add(x_y);
-            
-        }else if(map[i+1][j] == 'P'){
-            pX = i+1;
-            pY = j;
-        }
-        
-        
-        
-        if(!(i-1 == App.bomb.bombY && j == App.bomb.bombX))
-        if(map[i-1][j] == ' ' || map[i-1][j] == 'Y'){
-            Integer[] x_y = new Integer[2];
-            x_y[0] = i-1;
-            x_y[1] = j;
-            openWays.add(x_y);
-            
-        }else if(map[i-1][j] == 'P'){
-            pX = i-1;
-            pY = j;
-        }
-        
-        
-        if(!(i == App.bomb.bombY && j+1 == App.bomb.bombX))
-            if(map[i][j+1] == ' ' || map[i][j+1] == 'Y'){
+        if (!(i + 1 == Bomb.bombY && j == Bomb.bombX)) {
+            if ((map[i + 1][j] == ' ' || map[i + 1][j] == 'Y')) {
                 Integer[] x_y = new Integer[2];
-                x_y[0] = i;
-                x_y[1] = j+1;
+                x_y[0] = i + 1;
+                x_y[1] = j;
                 openWays.add(x_y);
-            
-            }else if(map[i][j+1] == 'P'){
-                pX = i;
-                pY = j+1;
+
+            } else if (map[i + 1][j] == 'P') {
+                pX = i + 1;
+                pY = j;
             }
-        
-        
-        if(!(i == App.bomb.bombY && j-1 == App.bomb.bombX))
-            if(map[i][j-1] == ' ' || map[i][j-1] == 'Y'){
+        }
+
+        if (!(i - 1 == Bomb.bombY && j == Bomb.bombX)) {
+            if (map[i - 1][j] == ' ' || map[i - 1][j] == 'Y') {
+                Integer[] x_y = new Integer[2];
+                x_y[0] = i - 1;
+                x_y[1] = j;
+                openWays.add(x_y);
+
+            } else if (map[i - 1][j] == 'P') {
+                pX = i - 1;
+                pY = j;
+            }
+        }
+
+        if (!(i == Bomb.bombY && j + 1 == Bomb.bombX)) {
+            if (map[i][j + 1] == ' ' || map[i][j + 1] == 'Y') {
                 Integer[] x_y = new Integer[2];
                 x_y[0] = i;
-                x_y[1] = j-1;
+                x_y[1] = j + 1;
                 openWays.add(x_y);
-            
-            }else if(map[i][j-1] == 'P'){
+
+            } else if (map[i][j + 1] == 'P') {
                 pX = i;
-                pY = j-1;
+                pY = j + 1;
+            }
+        }
+
+        if (!(i == Bomb.bombY && j - 1 == Bomb.bombX))
+            if (map[i][j - 1] == ' ' || map[i][j - 1] == 'Y') {
+                Integer[] x_y = new Integer[2];
+                x_y[0] = i;
+                x_y[1] = j - 1;
+                openWays.add(x_y);
+
+            } else if (map[i][j - 1] == 'P') {
+                pX = i;
+                pY = j - 1;
             }
         
         
@@ -239,7 +267,11 @@ public class RedEnemy{
     }
     
     
-    
+    /**
+     * Interface to control the movement of Red Enemy
+     * @param i Represents the Y-axis Position of Red Enemy
+     * @param j Represents the X-axis Position of Red Enemy
+     */
     public void controller(int i,int j){
         
         

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BombGuy.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gradleproject1</a> &gt; <a href="index.source.html" class="el_package">demolition</a> &gt; <span class="el_source">BombGuy.java</span></div><h1>BombGuy.java</h1><pre class="source lang-java linenums">/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package demolition;
+
+
+
+import java.util.ArrayList;
+
+
+
+/**
+ *
+ * @author Ahtesham Sarwar
+ */
+public class BombGuy{
+    
+<span class="fc" id="L19">    public static int lives = 0;</span>
+    public int direction;
+    public int anim_direction;
+<span class="fc" id="L22">    public boolean isPlayerInMap = false;</span>
+<span class="fc" id="L23">    public final int PLAYER_OFFSET = 80;</span>
+    
+    
+<span class="fc" id="L26">    public static ArrayList&lt;Integer[]&gt; pStartPlayerPosLevelList = new ArrayList&lt;&gt;();</span>
+    
+    
+<span class="fc" id="L29">    public BombGuy(){</span>
+        
+<span class="fc" id="L31">        direction = -1;</span>
+<span class="fc" id="L32">        anim_direction = -1;</span>
+        
+      
+<span class="fc" id="L35">    }</span>
+    
+    public char[][] movement(int i,int j,int direc,char[][] map){
+        
+        
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if(direction != -1){</span>
+        
+        char nextChar; // Represents the item at the next movement position
+        int xPos;
+        int yPos;
+
+<span class="pc bpc" id="L46" title="1 of 4 branches missed.">        if (direction == 0 || direction == 1) {</span>
+            //down or up
+
+<span class="fc" id="L49">            xPos = j;</span>
+<span class="fc" id="L50">            yPos = i + direc;</span>
+<span class="fc" id="L51">            nextChar = map[yPos][xPos];</span>
+
+        } else {
+            //right or left
+
+<span class="fc" id="L56">            xPos = j + direc;</span>
+<span class="fc" id="L57">            yPos = i;</span>
+<span class="fc" id="L58">            nextChar = map[yPos][xPos];</span>
+
+        }
+
+<span class="pc bpc" id="L62" title="4 of 8 branches missed.">        if ((xPos &gt;= 0 &amp;&amp; xPos &lt; Map.COLUMNS) &amp;&amp; (yPos &gt;= 0 &amp;&amp; yPos &lt; Map.ROWS)) {</span>
+
+<span class="pc bpc" id="L64" title="1 of 4 branches missed.">            if (nextChar == ' ' || nextChar == 'G') {</span>
+                //replaace player index in map array   
+<span class="pc bpc" id="L66" title="3 of 4 branches missed.">                if (!(yPos == Bomb.bombY &amp;&amp; xPos == Bomb.bombX)) {</span>
+
+<span class="fc" id="L68">                    map[yPos][xPos] = 'P';</span>
+<span class="fc" id="L69">                    map[i][j] = ' ';</span>
+<span class="fc" id="L70">                    direction = -1;</span>
+
+                }
+<span class="pc bpc" id="L73" title="9 of 10 branches missed.">            } else if (nextChar == 'R' || nextChar == 'Y' || nextChar == 'H'</span>
+                    || nextChar == 'V' || nextChar == 'C') {
+
+                //player will die if this condition fullfils
+<span class="fc" id="L77">                map[i][j] = ' ';</span>
+<span class="fc" id="L78">                direction = -1;</span>
+
+            }
+
+        }
+        
+        }
+                              
+<span class="fc" id="L86">        return map;</span>
+        
+    }
+    
+    
+
+    public void playerDieAndResetLevel() {
+
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        if (Bomb.isExploded) {</span>
+
+            /*
+                      Here checking if any bomb is placed and exploded then show the player in the map
+                      This variable will be if the bomb is not placed
+                      In this way this piece of will be called in other cases Like when player
+                      comes in contact with any enemy
+                      
+                      NOTE: Here the bomb.isExploded is only false when bomb is placed and it will be true
+                      after explosion or even when bomb is not placed. So player will lose life and level will reset when in
+                      contact with explosion or an enemy.
+             */
+<span class="nc" id="L106">            App.gameLevels.get(App.levelIndex).resetLevel();</span>
+
+<span class="nc" id="L108">            Integer[] playerLevelStartPos = pStartPlayerPosLevelList.get(App.levelIndex);</span>
+
+<span class="nc" id="L110">            App.map[playerLevelStartPos[0]][playerLevelStartPos[1]] = 'P';</span>
+
+<span class="nc" id="L112">            App.bombGuy = new BombGuy();</span>
+            
+<span class="nc" id="L114">            BombGuy.lives--;</span>
+
+<span class="nc" id="L116">            App.redEnemy = new RedEnemy();</span>
+<span class="nc" id="L117">            App.yellEnemy = new YellowEnemy();</span>
+
+<span class="nc" id="L119">            isPlayerInMap = true;</span>
+
+        }
+
+<span class="nc" id="L123">    }</span>
+    
+    
+    
+        public void controlPlayer(int i, int j){
+        
+        
+        //this will change the position of player if there is empty or goal tile towards the position
+        
+                          //requested by user
+<span class="nc bnc" id="L133" title="All 4 branches missed.">                          if(direction == 0 || direction == 1){</span>
+                              //move down or up
+                              
+                              
+<span class="nc" id="L137">                              int yDirec = App.y_direction[direction]; </span>
+                              
+<span class="nc" id="L139">                              App.map = movement(i, j, yDirec , App.map);</span>
+                              
+                              
+                              
+                              
+<span class="nc bnc" id="L144" title="All 4 branches missed.">                          }else if(direction == 2 || direction == 3){</span>
+                              //move right or left
+                              
+<span class="nc" id="L147">                              int xDirec = App.x_direction[direction]; </span>
+                              
+<span class="nc" id="L149">                              App.map = movement(i, j, xDirec, App.map);</span>
+                              
+                            
+                          }
+        
+        
+<span class="nc" id="L155">    }</span>
+        
+        
+        public void changeLevelIfPlayerAtGoal(int i, int j){
+        
+        /*
+            If Player at Goal Position, change the level. If Player
+            Goal Tile of last level , then player will win game
+        */
+        
+<span class="nc bnc" id="L165" title="All 4 branches missed.">                          if(i == App.goalIndex[0] &amp;&amp; j == App.goalIndex[1]){</span>
+                              
+<span class="nc bnc" id="L167" title="All 2 branches missed.">                              if(App.levelIndex == App.gameLevels.size()-1)</span>
+<span class="nc" id="L168">                                  App.isWin = true;</span>
+                              else
+<span class="nc" id="L170">                                  App.levelIndex++;</span>
+                              
+<span class="nc" id="L172">                              App.startTime = System.currentTimeMillis();</span>
+                              
+<span class="nc" id="L174">                                  anim_direction = -1;</span>
+                          }
+        
+        
+<span class="nc" id="L178">    }</span>
+   
+       
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -14,35 +14,112 @@ import java.util.ArrayList;
 
 
 /**
+ * Represent the main interface of Game
  * @author Ahtesham Sarwar
  */
 public class App extends PApplet{
 
+    /**
+     * Represents the Height of window to be displayed
+     */
     public static final int HEIGHT = 480;
+    
+    /**
+     * Represents the width of window to be displayed
+     */
     public static final int WIDTH = 480;
+    
+    
+    /**
+     * Represents the FPS(frames per second) of Game
+     */
     private final int FPS = 60;
     
+    
+    /**
+     * Represents BombGuy Object of Game
+     */
     public static BombGuy bombGuy;
+    
+    /**
+     * Represents RedEnemy Object of Game
+     */
     public static RedEnemy redEnemy;
-    public static YellowEnemy yellEnemy;    
+    
+    /**
+     * Represents YellowEnemy Object of Game
+     */
+    public static YellowEnemy yellEnemy;
+
+    
+    /**
+     * Represents Bomb Object of Game
+     */
     public static Bomb bomb;
+    
+    /**
+     * Tells whether Game is over or not
+     */
     private boolean isGameOver = false;
+    
+    /**
+     * Tells whether player won or not
+     */
     public static boolean isWin = false;
     
+    
+    /**
+     * Represents the time when game starts
+     */
     public static long startTime;
+    
+    /**
+     * Represents the list levels in Game
+     */
     public static ArrayList<Level> gameLevels;
+    
+    
+    /**
+     * Represents the index of level of game
+     */
     public static int levelIndex = 0;   
+    
+    
+    /**
+     * Represents the map of current level of game
+     */
     public static char[][] map;    
     
-        
+    
+    /**
+     * Represents the x-axis directions 
+     */            
     public static final int[] x_direction = {0,0,1,-1};
+    
+    /**
+     * Represents y-axis directions
+     */
     public static final int[] y_direction = {1,-1,0,0};        
+    
+    /**
+     * Represents Position of Goal Tile in current level
+     */
     public static final int[] goalIndex = new int[2];    
     
     
-    
+    /**
+     * Represents the Animation Object for game Objects (BombGuy,RedEnemy,YellowEnemy)
+     */
     private Animation characterAnimation;
+    
+    /**
+     * Represents the Animation Object for Bomb Animation
+     */
     public static Animation bombAnimation;
+    
+    /**
+     * Represents the FramesLoader Object used to load frames into game
+     */
     public FramesLoader framesLoader = new FramesLoader(this);
     
     
@@ -193,6 +270,13 @@ public class App extends PApplet{
         
     }
     
+    
+    /**
+     * Control and Draw Red Enemy in Game Window
+     * @param i Represents Y-axis Position of Red Enemy
+     * @param j Represents X-axis Position of Red Enemy
+     * @param map Represents map of current of level
+     */
     private void redEnemyAI(int i,int j,char[][] map){
         
         redEnemy.controller(i, j);
@@ -209,6 +293,13 @@ public class App extends PApplet{
     }
     
     
+    
+    /**
+     * Control and draw Yellow Enemy in Game Window
+     * @param i Represents Y-axis Position of Yellow Enemy
+     * @param j Represents X-axis Position of Yellow Enemy
+     * @param map Represents map of current of level
+     */
     private void yellowEnemyAI(int i,int j, char[][] map){
         
         yellEnemy.controller(i, j);
@@ -227,11 +318,11 @@ public class App extends PApplet{
     }
     
     
+    /**
+     * Use to show Win Screen
+     */
     private void showWinScreen(){
         
-            /*
-            SHOW WIN SCREEN
-            */
             
             fill(0);
             textSize(20);
@@ -241,11 +332,12 @@ public class App extends PApplet{
     }
     
     
+    /**
+     * Use to show Game Over Screen
+     */
     private void showGameOverScreen(){
         
-         /*
-            GAME OVER SCREEN
-            */
+        
          
         fill(0);
         textSize(20);
@@ -257,6 +349,9 @@ public class App extends PApplet{
     
     
     
+    /**
+     * Use to show Lives of Bomb Guy on Game window
+     */
     private void showLives(){
         
         
@@ -269,6 +364,10 @@ public class App extends PApplet{
     }
     
     
+    /**
+     * Use to represent Clock and Time on Game window
+     * @param level Represent the current level of game
+     */
     private void showClockWithTime(Level level){
         
         
@@ -295,7 +394,9 @@ public class App extends PApplet{
         
     }
     
-   
+    /**
+     * Use to start the Game
+     */
     private void startGame(){
         
           

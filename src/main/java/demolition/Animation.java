@@ -14,17 +14,34 @@ import java.util.Timer;
 import java.util.TimerTask;
 import processing.core.*;
 
+/**
+ * Used to Animate Objects in Game
+ * @author Ahtesham Sarwar
+ */
+
 public class Animation{
     
     
     
-    private float timePerFrame;        
+    private float timePerFrame; 
+    /**
+     * Represent the Current Frame Number of Animation
+     */
     public int currentFrameNo;
-    private PImage currentFrame;
+    
+    private PImage currentFrame; 
+    /**
+     * Represent whether program can change frame of Animation or not
+     */
+    
     public boolean canChangeFrame;
     private PApplet parent;
     
-    
+    /**
+     * Constructor of Animation Class
+     * @param parent Represents the Reference to PApplet of Main Class 
+     * @param timePerFrame Represents the time for one Frame in Animation Cycle
+     */
     public Animation(PApplet parent,float timePerFrame){
         
         
@@ -37,6 +54,12 @@ public class Animation{
         
     }
     
+    
+    /**
+     * Used to play the Animation of Given FramesList of a Game Object
+     * @param framesList Represent the list of frames(images) of an Game Object 
+     * @return Return a PImage, which is the current frame in Animation 
+     */
     
     public PImage play(ArrayList<PImage> framesList){
         
@@ -82,6 +105,12 @@ public class Animation{
     }
     
     
+    /**
+     * Used to Animate the Bomb at given position
+     * @param i Represent the Y-axis Position of Bomb
+     * @param j Represent the X-axis Position of Bomb
+     * @param bombFramesList Represent a list of Frames(images) of Bomb
+     */
     public void positionBombAnimation(int i, int j,ArrayList<PImage> bombFramesList){
         
         if(Bomb.bombX == j && Bomb.bombY == i)
@@ -92,7 +121,16 @@ public class Animation{
     
     
     
-    
+        /**
+         * Used to Animate the Game Object (BombGuy, Red Enemy, Yellow Enemy) at given position
+         * @param mDirection    Represent the direction of motion of given Game Object
+         * @param xPos Represents the X-axis Position of Game Object
+         * @param yPos Represents the Y-axis Position of Game Object
+         * @param downFramesList Represents the list of frames of Game Object for downward motion
+         * @param upFramesList Represents the list of frames of Game Object for upward motion
+         * @param rightFramesList Represents the list of frames of Game Object for rightward motion
+         * @param leftFramesList Represents the list of frames of Game Object for leftward motion
+         */
         public void positionAnimation(int mDirection,int xPos,int yPos,ArrayList<PImage> downFramesList,ArrayList<PImage> upFramesList,
                                 ArrayList<PImage> rightFramesList,ArrayList<PImage> leftFramesList){
         

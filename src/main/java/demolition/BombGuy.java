@@ -11,18 +11,40 @@ import java.util.ArrayList;
 
 
 /**
- *
+ * Represents the Bomb Guy Object of Game
  * @author Ahtesham Sarwar
  */
 public class BombGuy{
     
+    /**
+     * Represents the Lives of Bomb Guy
+     */
     public static int lives = 0;
+    
+    /**
+     * Represents the direction of motion of Bomb Guy
+     */
     public int direction;
+    
+    /**
+     * Represents the direction of Animation of Bomb Guy
+     */
     public int anim_direction;
+    
+    /**
+     * Represents whether the BombGuy is present in Map or not
+     */
     public boolean isPlayerInMap = false;
+    
+    /**
+     * Represents the space between BombGuy and top window
+     */
     public final int PLAYER_OFFSET = 80;
     
     
+    /**
+     * Represents the list of startup positions of Bomb Guy in each level
+     */
     public static ArrayList<Integer[]> pStartPlayerPosLevelList = new ArrayList<>();
     
     
@@ -34,6 +56,16 @@ public class BombGuy{
       
     }
     
+    
+    
+    /**
+     * Used for the movement of BombGuy according to given positions and direction
+     * @param i Represents Y-axis Position of Bomb Guy in Map
+     * @param j Represents X-axis Position of Bomb Guy in Map
+     * @param direc Represents direction of motion of Bomb Guy
+     * @param map Represents the Map of current level
+     * @return Return a modified map (2-D Char Array)
+     */
     public char[][] movement(int i,int j,int direc,char[][] map){
         
         
@@ -88,7 +120,9 @@ public class BombGuy{
     }
     
     
-
+    /**
+     * Player will die and level will reset
+     */
     public void playerDieAndResetLevel() {
 
         if (Bomb.isExploded) {
@@ -123,7 +157,11 @@ public class BombGuy{
     }
     
     
-    
+        /**
+         * Used to Control movement of Bomb Guy in given position
+         * @param i Represents Y-axis Position of Bomb Guy in map
+         * @param j Represents X-axis Position of Bomb Guy in map
+         */
         public void controlPlayer(int i, int j){
         
         
@@ -154,7 +192,11 @@ public class BombGuy{
         
     }
         
-        
+        /**
+         * Used to change the level if Bomb Guy reaches the goal tile
+         * @param i Represents the Y-axis Position of Bomb Guy in map
+         * @param j Represents the X-axis Position of Bomb Guy in map
+         */
         public void changeLevelIfPlayerAtGoal(int i, int j){
         
         /*

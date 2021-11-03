@@ -10,7 +10,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
- *
+ * Used to load Frames of Game Objects into Game
  * @author Ahtesham Sarwar
  */
 public class FramesLoader {
@@ -48,7 +48,9 @@ public class FramesLoader {
     
     
     
-    
+    /**
+     * Load Frames of Red Enemy in their respective lists
+     */
     public void loadRedEnemyFramesInLists(){
         
         
@@ -60,7 +62,9 @@ public class FramesLoader {
         
     }
     
-    
+    /**
+     * Load Frames of Yellow Enemy in their respective lists
+     */
     public void loadYellowEnemyFramesInLists(){
         
         
@@ -73,7 +77,9 @@ public class FramesLoader {
         
     }
     
-    
+     /**
+      * Load Frames of Player Frames in their respective lists
+      */
      public void loadPlayerFramesInLists(){
         
         loadPlayerDownFramesList();
@@ -85,7 +91,9 @@ public class FramesLoader {
     }
     
     
-    
+    /**
+     * Load Player Down Direction Frames in it's List
+     */
     private void loadPlayerDownFramesList(){
         
         playerDownFramesList = new ArrayList<>();
@@ -109,6 +117,9 @@ public class FramesLoader {
     }
     
     
+    /**
+     * Load Player Right Direction Frames in it's List
+     */
     private void loadPlayerRightFramesList(){
         
         playerRightFramesList = new ArrayList<>();
@@ -130,6 +141,9 @@ public class FramesLoader {
     }
     
     
+    /**
+     * Load Player Left Direction Frames in it's List
+     */
     private void loadPlayerLeftFramesList(){
         
         playerLeftFramesList = new ArrayList<>();        
@@ -151,7 +165,9 @@ public class FramesLoader {
     }
     
     
-    
+    /**
+     * Load Player Up Direction Frames in it's List
+     */
     private void loadPlayerUpFramesList(){
         
         
@@ -176,7 +192,9 @@ public class FramesLoader {
     
     
     
-    
+    /**
+     * Load Frames of Bomb in it's list
+     */
     public void loadBombFrames(){
         
         bombFramesList = new ArrayList<>();
@@ -204,6 +222,9 @@ public class FramesLoader {
     }
     
     
+    /**
+     * Load Frames(images) of Explosion
+     */
     public void loadExplosionFrames(){
         
         
@@ -219,6 +240,9 @@ public class FramesLoader {
     }
     
     
+    /**
+     * Load Frames(images) of all types of tiles
+     */
     public void loadTiles(){
         
         
@@ -236,6 +260,9 @@ public class FramesLoader {
     }
     
     
+     /**
+      * Load Frames(images) of icons of Game
+      */
      public void loadIcons(){
         
         
@@ -250,7 +277,9 @@ public class FramesLoader {
     }
      
      
-     
+    /**
+     * Load Frames of Red Enemy Down Direction in it's respective list
+     */ 
     private void loadRedEnemyDownFrames(){
         
         
@@ -270,6 +299,9 @@ public class FramesLoader {
     }
     
     
+    /**
+     * Load Frames of Red Enemy Up Direction in it's respective list
+     */
     private void loadRedEnemyUpFrames(){
         
         
@@ -287,6 +319,10 @@ public class FramesLoader {
         
     }
     
+    
+    /**
+     * Load Frames of Red Enemy Right Direction in it's respective list
+     */
     private void loadRedEnemyRightFrames(){
         
         
@@ -304,6 +340,10 @@ public class FramesLoader {
         
     }
     
+    
+    /**
+     * Load Frames of Red Enemy Left Direction in it's respective list
+     */
     private void loadRedEnemyLeftFrames(){
         
         redEnLeftFramesList = new ArrayList<>();
@@ -320,6 +360,9 @@ public class FramesLoader {
     }
     
     
+    /**
+     * Load Frames of Yellow Enemy Down Direction in it's respective list
+     */
     private void loadYellowEnemyDownFrames(){
         
         
@@ -338,7 +381,9 @@ public class FramesLoader {
       
     }
     
-    
+    /**
+     * Load Frames of Yellow Enemy Up Direction in it's respective list
+     */
     private void loadYellowEnemyUpFrames(){
         
         yellowEnUpFramesList = new ArrayList<>();
@@ -358,6 +403,9 @@ public class FramesLoader {
     }
     
     
+    /**
+     * Load Frames of Yellow Enemy Right Direction in it's respective list
+     */
     private void loadYellowEnemyRightFrames(){
         
         
@@ -376,6 +424,9 @@ public class FramesLoader {
     }
     
     
+    /**
+     * Load Frames of Yellow Enemy Left Direction in it's respective list
+     */
     private void loadYellowEnemyLeftFrames(){
         
         yellowEnLeftFramesList = new ArrayList<>();

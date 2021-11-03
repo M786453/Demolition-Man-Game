@@ -5,18 +5,35 @@
 package demolition;
 
 /**
- *
+ * Represents properties of map
  * @author Ahtesham Sarwar
  */
 public class Map {
     
+    
+    /**
+     * Represents the number of rows of map
+     */
     public static final int ROWS = 13;
+    
+    /**
+     * Represents the number of columns of map
+     */
     public static final int COLUMNS = 15;
+    
+    /**
+     * Represents the distance between map and top of window
+     */
     public static final int OFFSET = 64;
     
     
     
  
+    /**
+     * Used to validate a map
+     * @param map 2-D Char Array
+     * @return Return a value that tells whether map is valid or not
+     */
     public static boolean validateMap(char[][] map){
         
         

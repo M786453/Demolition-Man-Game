@@ -10,24 +10,66 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- *
+ * Represent the Bomb in Game Which will explode within 2 seconds after placing
  * @author Ahtesham Sarwar
  */
 public class Bomb {
     
-    public final int BombTime = 2000; // it is in milliseconds
+    /**
+     * Represent the time(in milliseconds) after which bomb will explode
+     */
+    public final int BombTime = 2000; 
+    
+    /**
+     * Represents the time of one frame in Animation Cycle
+     */
     public final float PerFrameTime = 0.25f;
+    
+    /**
+     * Represents the time(in milliseconds) of explosion effect 
+     */
     public final int ExplosionTime = 500; // it is in milliseconds
     
+    /**
+     * Represents the X-axis Position of Bomb
+     */
     public static int bombX = -1;
+    
+    /**
+     * Represents the Y-axis Position of Bomb
+     */
     public static int bombY = -1;
+    
+    /**
+     * Represents whether Bomb is placed or not
+     */
     public boolean isPlaced;
+    
+    /**
+     * Represents the time when Bomb is placed
+     */
     public long placeTime;
+    
+    /**
+     * Represents whether the Bomb is exploded or not
+     */
+    
     public static boolean isExploded;
-    public boolean canExplode;    
+    
+    /**
+     * Represents whether Bomb can explode or not
+     */
+    public boolean canExplode;   
+    
+    
+    /**
+     * Represents the range of explosion in each of four directions (down,right,up,left)
+     */
     public ArrayList<int[][]> explodeRange;
     
-    
+    /**
+     * Constructor of Bomb Class
+     */
     
     public Bomb(){                     
         
@@ -42,6 +84,14 @@ public class Bomb {
     }
     
     
+    
+    /**
+     * Used to explode the bomb at given positions in map
+     * @param x Represents the X-axis position of Bomb
+     * @param y Represents the Y-axis position of Bomb
+     * @param map Represents the Map current level
+     * @return  Return modified map (2-D Char Array) 
+     */
     public char[][] explode(int x,int y,char[][] map){
         
         explodeRange.clear();
@@ -100,6 +150,16 @@ public class Bomb {
     }
     
     
+    
+    /**
+     * Used to find the explosion range of bomb on given positions and modify the map accordingly
+     * @param x1 Represents the X-axis Position of First Grid (after bomb grid) in map
+     * @param x2 Represents the X-axis Position of Second Grid (after bomb grid) in map
+     * @param y1 Represents the Y-axis Position of First Grid (after bomb grid) in map
+     * @param y2 Represents the Y-axis Position of Second Grid (after bomb grid) in map
+     * @param map Represents the Map of current level
+     * @param explosionChar Represents the char used for explosion
+     */
     private void explosionRange(int x1,int x2,int y1,int y2,char[][] map,char explosionChar){
         
                 int[][] rangeForDirection = new int[2][2];
@@ -193,6 +253,12 @@ public class Bomb {
             }
     
     
+    
+    /**
+     * Used to place the Bomb in Map at given positions
+     * @param i Represents the X-axis position of Bomb
+     * @param j Represents the Y-axis position of Bomb
+     */
      public void placeBomb(int i, int j){
         
         
@@ -227,6 +293,9 @@ public class Bomb {
      
      
      
+         /**
+          * Used to Remove the explosion effect after 500 milliseconds of explosion
+          */
          public void removeExplosionEffectAfterExplosion(){
         
         

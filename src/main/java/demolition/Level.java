@@ -5,14 +5,29 @@
 package demolition;
 
 /**
- *
+ * Represent a Level of Game
  * @author Ahtesham Sarwar
  */
 public class Level {
     
+    /**
+     * Represent the path of map text file
+     */
     public String path;
+    
+    /**
+     * Represent the total time of level
+     */
     public int time;
+    
+    /**
+     * Represent the map which will modify during the game play
+     */
     public char[][] mapArray;
+    
+    /**
+     * Represents the original map
+     */
     public char[][] originalMap;
     
     
@@ -26,6 +41,11 @@ public class Level {
     }
     
     
+    
+    /**
+     * Used to set the map of level
+     * @param map Represent the map (a 2-D Char Array)
+     */
     public void setMap(char[][] map){
         
         mapArray = map;
@@ -50,7 +70,9 @@ public class Level {
     }
     
    
-    
+    /**
+     * Used to reset the map of level
+     */
     public void resetLevel(){
         
         char[][] resetedMap = new char[Map.ROWS][Map.COLUMNS];

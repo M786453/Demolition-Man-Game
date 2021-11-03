@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FramesLoader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gradleproject1</a> &gt; <a href="index.source.html" class="el_package">demolition</a> &gt; <span class="el_source">FramesLoader.java</span></div><h1>FramesLoader.java</h1><pre class="source lang-java linenums">/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package demolition;
+
+import java.io.File;
+import java.util.ArrayList;
+import processing.core.PApplet;
+import processing.core.PImage;
+
+/**
+ *
+ * @author Ahtesham Sarwar
+ */
+public class FramesLoader {
+    
+    private PApplet p;
+    
+    public PImage solidw,brokenw,emptyw,goalw,life,clock,explosionC,explosionH,explosionV;
+    
+    public ArrayList&lt;PImage&gt; playerDownFramesList;
+    public ArrayList&lt;PImage&gt; playerUpFramesList;
+    public ArrayList&lt;PImage&gt; playerLeftFramesList;
+    public ArrayList&lt;PImage&gt; playerRightFramesList;
+    
+    
+    public ArrayList&lt;PImage&gt; redEnDownFramesList;
+    public ArrayList&lt;PImage&gt; redEnUpFramesList;
+    public ArrayList&lt;PImage&gt; redEnLeftFramesList;
+    public ArrayList&lt;PImage&gt; redEnRightFramesList;
+    
+    
+    public ArrayList&lt;PImage&gt; yellowEnDownFramesList;
+    public ArrayList&lt;PImage&gt; yellowEnUpFramesList;
+    public ArrayList&lt;PImage&gt; yellowEnLeftFramesList;
+    public ArrayList&lt;PImage&gt; yellowEnRightFramesList;
+    
+    public ArrayList&lt;PImage&gt; bombFramesList;
+    
+<span class="nc" id="L41">    FramesLoader(PApplet parent){</span>
+        
+        
+<span class="nc" id="L44">       this.p = parent; // this keeps reference to parent PApplet class</span>
+       
+        
+<span class="nc" id="L47">    }</span>
+    
+    
+    
+    
+    public void loadRedEnemyFramesInLists(){
+        
+        
+<span class="nc" id="L55">        loadRedEnemyUpFrames();</span>
+<span class="nc" id="L56">        loadRedEnemyDownFrames();</span>
+<span class="nc" id="L57">        loadRedEnemyLeftFrames();</span>
+<span class="nc" id="L58">        loadRedEnemyRightFrames();</span>
+        
+        
+<span class="nc" id="L61">    }</span>
+    
+    
+    public void loadYellowEnemyFramesInLists(){
+        
+        
+        
+<span class="nc" id="L68">        loadYellowEnemyDownFrames();</span>
+<span class="nc" id="L69">        loadYellowEnemyUpFrames();</span>
+<span class="nc" id="L70">        loadYellowEnemyLeftFrames();</span>
+<span class="nc" id="L71">        loadYellowEnemyRightFrames();</span>
+        
+        
+<span class="nc" id="L74">    }</span>
+    
+    
+     public void loadPlayerFramesInLists(){
+        
+<span class="nc" id="L79">        loadPlayerDownFramesList();</span>
+<span class="nc" id="L80">        loadPlayerUpFramesList();</span>
+<span class="nc" id="L81">        loadPlayerRightFramesList();</span>
+<span class="nc" id="L82">        loadPlayerLeftFramesList();</span>
+        
+        
+<span class="nc" id="L85">    }</span>
+    
+    
+    
+    private void loadPlayerDownFramesList(){
+        
+<span class="nc" id="L91">        playerDownFramesList = new ArrayList&lt;&gt;();</span>
+        
+        
+<span class="nc" id="L94">        playerDownFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player1.png&quot;));
+
+<span class="nc" id="L97">        playerDownFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player2.png&quot;));
+
+<span class="nc" id="L100">        playerDownFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player3.png&quot;));
+
+<span class="nc" id="L103">        playerDownFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player4.png&quot;));
+
+        
+        
+        
+<span class="nc" id="L109">    }</span>
+    
+    
+    private void loadPlayerRightFramesList(){
+        
+<span class="nc" id="L114">        playerRightFramesList = new ArrayList&lt;&gt;();</span>
+        
+<span class="nc" id="L116">        playerRightFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_right1.png&quot;));
+
+<span class="nc" id="L119">        playerRightFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_right2.png&quot;));
+
+<span class="nc" id="L122">        playerRightFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_right3.png&quot;));
+
+<span class="nc" id="L125">        playerRightFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_right4.png&quot;));
+        
+        
+        
+<span class="nc" id="L130">    }</span>
+    
+    
+    private void loadPlayerLeftFramesList(){
+        
+<span class="nc" id="L135">        playerLeftFramesList = new ArrayList&lt;&gt;();        </span>
+        
+<span class="nc" id="L137">        playerLeftFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_left1.png&quot;));
+
+<span class="nc" id="L140">        playerLeftFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_left2.png&quot;));
+
+<span class="nc" id="L143">        playerLeftFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_left3.png&quot;));
+
+<span class="nc" id="L146">        playerLeftFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_left4.png&quot;));
+
+        
+        
+<span class="nc" id="L151">    }</span>
+    
+    
+    
+    private void loadPlayerUpFramesList(){
+        
+        
+<span class="nc" id="L158">        playerUpFramesList = new ArrayList&lt;&gt;();</span>
+        
+<span class="nc" id="L160">        playerUpFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_up1.png&quot;));
+
+<span class="nc" id="L163">        playerUpFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_up2.png&quot;));
+
+<span class="nc" id="L166">        playerUpFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_up3.png&quot;));
+
+<span class="nc" id="L169">        playerUpFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;player&quot; + File.separator + &quot;player_up4.png&quot;));
+
+        
+        
+        
+<span class="nc" id="L175">    }</span>
+    
+    
+    
+    
+    public void loadBombFrames(){
+        
+<span class="nc" id="L182">        bombFramesList = new ArrayList&lt;&gt;();</span>
+        
+        
+<span class="nc" id="L185">        bombFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;bomb&quot; + File.separator + &quot;bomb1.png&quot;));
+<span class="nc" id="L187">        bombFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;bomb&quot; + File.separator + &quot;bomb2.png&quot;));
+<span class="nc" id="L189">        bombFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;bomb&quot; + File.separator + &quot;bomb3.png&quot;));
+<span class="nc" id="L191">        bombFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;bomb&quot; + File.separator + &quot;bomb4.png&quot;));
+
+<span class="nc" id="L194">        bombFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;bomb&quot; + File.separator + &quot;bomb5.png&quot;));
+<span class="nc" id="L196">        bombFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;bomb&quot; + File.separator + &quot;bomb6.png&quot;));
+<span class="nc" id="L198">        bombFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;bomb&quot; + File.separator + &quot;bomb7.png&quot;));
+<span class="nc" id="L200">        bombFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;bomb&quot; + File.separator + &quot;bomb8.png&quot;));
+        
+        
+<span class="nc" id="L204">    }</span>
+    
+    
+    public void loadExplosionFrames(){
+        
+        
+<span class="nc" id="L210">        explosionC = p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;explosion&quot; + File.separator + &quot;centre.png&quot;);
+
+<span class="nc" id="L213">        explosionH = p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;explosion&quot; + File.separator + &quot;horizontal.png&quot;);
+<span class="nc" id="L215">        explosionV = p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;explosion&quot; + File.separator + &quot;vertical.png&quot;);
+        
+        
+<span class="nc" id="L219">    }</span>
+    
+    
+    public void loadTiles(){
+        
+        
+        //walls
+<span class="nc" id="L226">        solidw = p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;wall&quot; + File.separator + &quot;solid.png&quot;);
+<span class="nc" id="L228">        brokenw = p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;broken&quot; + File.separator + &quot;broken.png&quot;);
+<span class="nc" id="L230">        emptyw = p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;empty&quot; + File.separator + &quot;empty.png&quot;);
+<span class="nc" id="L232">        goalw = p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;goal&quot; + File.separator + &quot;goal.png&quot;);
+
+      
+<span class="nc" id="L236">    }</span>
+    
+    
+     public void loadIcons(){
+        
+        
+         //icons
+<span class="nc" id="L243">        life = p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;icons&quot; + File.separator + &quot;player.png&quot;);
+<span class="nc" id="L245">        clock = p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;icons&quot; + File.separator + &quot;clock.png&quot;);
+        
+        
+        
+<span class="nc" id="L250">    }</span>
+     
+     
+     
+    private void loadRedEnemyDownFrames(){
+        
+        
+<span class="nc" id="L257">        redEnDownFramesList = new ArrayList&lt;&gt;();</span>
+        
+        
+<span class="nc" id="L260">         redEnDownFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_down1.png&quot;));
+<span class="nc" id="L262">        redEnDownFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_down2.png&quot;));
+<span class="nc" id="L264">        redEnDownFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_down3.png&quot;));
+<span class="nc" id="L266">        redEnDownFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_down4.png&quot;));
+
+        
+<span class="nc" id="L270">    }</span>
+    
+    
+    private void loadRedEnemyUpFrames(){
+        
+        
+<span class="nc" id="L276">        redEnUpFramesList = new ArrayList&lt;&gt;();</span>
+        
+        
+<span class="nc" id="L279">        redEnUpFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_up1.png&quot;));
+<span class="nc" id="L281">        redEnUpFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_up2.png&quot;));
+<span class="nc" id="L283">        redEnUpFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_up3.png&quot;));
+<span class="nc" id="L285">        redEnUpFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_up4.png&quot;));
+        
+<span class="nc" id="L288">    }</span>
+    
+    private void loadRedEnemyRightFrames(){
+        
+        
+<span class="nc" id="L293">        redEnRightFramesList = new ArrayList&lt;&gt;();</span>
+        
+<span class="nc" id="L295">        redEnRightFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_right1.png&quot;));
+<span class="nc" id="L297">        redEnRightFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_right2.png&quot;));
+<span class="nc" id="L299">        redEnRightFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_right3.png&quot;));
+<span class="nc" id="L301">        redEnRightFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_right4.png&quot;));
+        
+        
+<span class="nc" id="L305">    }</span>
+    
+    private void loadRedEnemyLeftFrames(){
+        
+<span class="nc" id="L309">        redEnLeftFramesList = new ArrayList&lt;&gt;();</span>
+        
+<span class="nc" id="L311">        redEnLeftFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_left1.png&quot;));
+<span class="nc" id="L313">        redEnLeftFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_left2.png&quot;));
+<span class="nc" id="L315">        redEnLeftFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_left3.png&quot;));
+<span class="nc" id="L317">        redEnLeftFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;red_enemy&quot; + File.separator + &quot;red_left4.png&quot;));
+        
+<span class="nc" id="L320">    }</span>
+    
+    
+    private void loadYellowEnemyDownFrames(){
+        
+        
+<span class="nc" id="L326">        yellowEnDownFramesList = new ArrayList&lt;&gt;();</span>
+        
+        
+<span class="nc" id="L329">        yellowEnDownFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_down1.png&quot;));
+<span class="nc" id="L331">        yellowEnDownFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_down2.png&quot;));
+<span class="nc" id="L333">        yellowEnDownFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_down3.png&quot;));
+<span class="nc" id="L335">        yellowEnDownFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_down4.png&quot;));
+
+      
+<span class="nc" id="L339">    }</span>
+    
+    
+    private void loadYellowEnemyUpFrames(){
+        
+<span class="nc" id="L344">        yellowEnUpFramesList = new ArrayList&lt;&gt;();</span>
+        
+        
+        
+<span class="nc" id="L348">         yellowEnUpFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_up1.png&quot;));
+<span class="nc" id="L350">        yellowEnUpFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_up2.png&quot;));
+<span class="nc" id="L352">        yellowEnUpFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_up3.png&quot;));
+<span class="nc" id="L354">        yellowEnUpFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_up4.png&quot;));
+        
+        
+<span class="nc" id="L358">    }</span>
+    
+    
+    private void loadYellowEnemyRightFrames(){
+        
+        
+<span class="nc" id="L364">        yellowEnRightFramesList = new ArrayList&lt;&gt;();</span>
+        
+<span class="nc" id="L366">         yellowEnRightFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_right1.png&quot;));
+<span class="nc" id="L368">        yellowEnRightFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_right2.png&quot;));
+<span class="nc" id="L370">        yellowEnRightFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_right3.png&quot;));
+<span class="nc" id="L372">        yellowEnRightFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_right4.png&quot;));
+        
+        
+<span class="nc" id="L376">    }</span>
+    
+    
+    private void loadYellowEnemyLeftFrames(){
+        
+<span class="nc" id="L381">        yellowEnLeftFramesList = new ArrayList&lt;&gt;();</span>
+        
+<span class="nc" id="L383">        yellowEnLeftFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_left1.png&quot;));
+<span class="nc" id="L385">        yellowEnLeftFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_left2.png&quot;));
+<span class="nc" id="L387">        yellowEnLeftFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_left3.png&quot;));
+<span class="nc" id="L389">        yellowEnLeftFramesList.add(p.loadImage(System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;src&quot; + File.separator + &quot;main&quot;</span>
+                + File.separator + &quot;resources&quot; + File.separator + &quot;yellow_enemy&quot; + File.separator + &quot;yellow_left4.png&quot;));
+        
+<span class="nc" id="L392">    }</span>
+    
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

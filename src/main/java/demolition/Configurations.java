@@ -11,12 +11,16 @@ import processing.data.JSONArray;
 import processing.data.JSONObject;
 
 /**
- *
+ * Used to configure the levels of Game
  * @author Ahtesham Sarwar
  */
 public class Configurations {
     
     
+        /**
+         * Used to Read configurations from text file
+         * @return Return a string of configurations
+         */
         public static String readConfig(){
         
         String data = "";
@@ -42,7 +46,11 @@ public class Configurations {
     }
     
     
-    
+    /**
+     * Used to configure levels according to given string
+     * @param jsonData configurations data in string 
+     * @return Return list of levels of Game
+     */
     public static ArrayList<Level> configureLevels(String jsonData){
         
         ArrayList<Level> levelList = new ArrayList<>();
@@ -80,7 +88,13 @@ public class Configurations {
         
     }
     
-    private static char[][] readMapFromFile(String path){
+    
+    /**
+     * Used to read map from text file
+     * @param path Represents the path of map text file
+     * @return Return map (2-D Char Array) 
+     */
+    public static char[][] readMapFromFile(String path){
         
         char[][] map = new char[Map.ROWS][Map.COLUMNS];
         
