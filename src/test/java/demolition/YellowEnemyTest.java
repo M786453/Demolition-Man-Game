@@ -270,7 +270,31 @@ public class YellowEnemyTest {
     
     
     
-    
+       /*
+     Test Yellow Enemy Movement Controller 
+    */
+    @Test
+    public void testYellowEnemyMovementController(){
+        
+        App.map = levels.get(0).mapArray;
+        
+        yellowEnemy.yellowFrameCounter = 60;
+        yellowEnemy.yellowEnDirection = 3;
+        
+        
+        yellowEnemy.controller(9, 5);
+        
+        yellowEnemy.controller(9, 5);
+        
+        yellowEnemy.yellowEnDirection = 1;
+        yellowEnemy.yellowFrameCounter = 60;
+        yellowEnemy.controller(9, 5);
+        
+        assertTrue(App.map[9][4] == 'Y',"Test Yellow Enemy Movement Controller");
+//        System.out.println(getMapStr(App.map));
+        
+        
+    }
     
     
     

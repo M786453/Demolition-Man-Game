@@ -8,8 +8,6 @@ demolition/AnimationTest.java
  demolition.AnimationTest
 demolition/BombGuyTest.java
  demolition.BombGuyTest
-demolition/AppTest.java
- demolition.AppTest
 demolition/ConfigurationsTest.java
  demolition.ConfigurationsTest
 demolition/BombTest.java

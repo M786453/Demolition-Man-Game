@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="demolition.BombGuyTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-11-03T03:14:10" hostname="DESKTOP-A2UL7BQ" time="0.088">
+<testsuite name="demolition.BombGuyTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2021-11-03T16:08:50" hostname="DESKTOP-A2UL7BQ" time="0.138">
   <properties/>
-  <testcase name="testMovement1()" classname="demolition.BombGuyTest" time="0.052"/>
-  <testcase name="testMovement2()" classname="demolition.BombGuyTest" time="0.024"/>
+  <testcase name="controlMovementTest()" classname="demolition.BombGuyTest" time="0.057"/>
+  <testcase name="controlMovementTest2()" classname="demolition.BombGuyTest" time="0.012"/>
+  <testcase name="controlMovementTest3()" classname="demolition.BombGuyTest" time="0.01"/>
+  <testcase name="controlMovementTest4()" classname="demolition.BombGuyTest" time="0.01"/>
+  <testcase name="controlMovementTestToReachGoalTile()" classname="demolition.BombGuyTest" time="0.011"/>
+  <testcase name="testMovement1()" classname="demolition.BombGuyTest" time="0.01"/>
+  <testcase name="testMovement2()" classname="demolition.BombGuyTest" time="0.012"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

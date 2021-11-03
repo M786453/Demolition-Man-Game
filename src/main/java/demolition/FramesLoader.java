@@ -6,6 +6,7 @@ package demolition;
 
 import java.io.File;
 import java.util.ArrayList;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -13,6 +14,8 @@ import processing.core.PImage;
  * Used to load Frames of Game Objects into Game
  * @author Ahtesham Sarwar
  */
+
+@Generated
 public class FramesLoader {
     
     private PApplet p;

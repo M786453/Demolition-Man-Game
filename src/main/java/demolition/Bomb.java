@@ -59,7 +59,7 @@ public class Bomb {
     /**
      * Represents whether Bomb can explode or not
      */
-    public boolean canExplode;   
+    public boolean canExplode = false;   
     
     
     /**

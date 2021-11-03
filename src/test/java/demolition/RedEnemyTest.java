@@ -4,6 +4,7 @@
  */
 package demolition;
 
+import java.util.ArrayList;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -18,15 +19,21 @@ public class RedEnemyTest {
     
     
     private RedEnemy redEnemy;
+    private ArrayList<Level> levels;
     
     public RedEnemyTest() {
         
         redEnemy = new RedEnemy();
+        levels = new ArrayList<>();
         
     }
     
     @BeforeEach
     public void beforeEach(){
+        
+        String data = Configurations.readConfig();
+        
+        levels = Configurations.configureLevels(data);
         
         
     }
@@ -264,6 +271,33 @@ public class RedEnemyTest {
         
 //        System.out.println(getMapStr(sampleMap));
         assertTrue(sampleMap[2][3] == 'R',"Red Enemy Movement Along X-Axis 2");
+        
+    }
+    
+    
+    /*
+     Test Red Enemy Movement Controller 
+    */
+    @Test
+    public void testRedEnemyMovementController(){
+        
+        App.map = levels.get(0).mapArray;
+        
+        redEnemy.redFrameCounter = 60;
+        redEnemy.redEnDirection = 3;
+        
+        
+        redEnemy.controller(5, 8);
+        
+        redEnemy.controller(5, 8);
+        
+        redEnemy.redEnDirection = 1;
+        redEnemy.redFrameCounter = 60;
+        redEnemy.controller(5, 7);
+        
+        assertTrue(App.map[4][7] == 'R',"Test Red Enemy Movement Controller");
+//        System.out.println(getMapStr(App.map));
+        
         
     }
     

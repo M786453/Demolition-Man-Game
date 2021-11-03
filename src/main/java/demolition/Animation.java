@@ -111,6 +111,7 @@ public class Animation{
      * @param j Represent the X-axis Position of Bomb
      * @param bombFramesList Represent a list of Frames(images) of Bomb
      */
+    @Generated
     public void positionBombAnimation(int i, int j,ArrayList<PImage> bombFramesList){
         
         if(Bomb.bombX == j && Bomb.bombY == i)
@@ -131,6 +132,7 @@ public class Animation{
          * @param rightFramesList Represents the list of frames of Game Object for rightward motion
          * @param leftFramesList Represents the list of frames of Game Object for leftward motion
          */
+        @Generated
         public void positionAnimation(int mDirection,int xPos,int yPos,ArrayList<PImage> downFramesList,ArrayList<PImage> upFramesList,
                                 ArrayList<PImage> rightFramesList,ArrayList<PImage> leftFramesList){
         

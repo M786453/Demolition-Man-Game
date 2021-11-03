@@ -27,7 +27,7 @@ public class RedEnemy{
     /**
      * Counts the number of times controller function called by draw function of main class
      */
-    private int redFrameCounter;
+    public int redFrameCounter;
     
     /**
      * Represents the space between Red Enemy and top of window

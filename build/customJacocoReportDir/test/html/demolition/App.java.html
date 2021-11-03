@@ -14,36 +14,113 @@ import java.util.ArrayList;
 
 
 /**
+ * Represent the main interface of Game
  * @author Ahtesham Sarwar
  */
-<span class="nc" id="L19">public class App extends PApplet{</span>
+<span class="nc" id="L20">public class App extends PApplet{</span>
 
+    /**
+     * Represents the Height of window to be displayed
+     */
     public static final int HEIGHT = 480;
+    
+    /**
+     * Represents the width of window to be displayed
+     */
     public static final int WIDTH = 480;
-<span class="nc" id="L23">    private final int FPS = 60;</span>
     
+    
+    /**
+     * Represents the FPS(frames per second) of Game
+     */
+<span class="nc" id="L36">    private final int FPS = 60;</span>
+    
+    
+    /**
+     * Represents BombGuy Object of Game
+     */
     public static BombGuy bombGuy;
-    public static RedEnemy redEnemy;
-    public static YellowEnemy yellEnemy;    
-    public static Bomb bomb;
-<span class="nc" id="L29">    private boolean isGameOver = false;</span>
-<span class="fc" id="L30">    public static boolean isWin = false;</span>
     
+    /**
+     * Represents RedEnemy Object of Game
+     */
+    public static RedEnemy redEnemy;
+    
+    /**
+     * Represents YellowEnemy Object of Game
+     */
+    public static YellowEnemy yellEnemy;
+
+    
+    /**
+     * Represents Bomb Object of Game
+     */
+    public static Bomb bomb;
+    
+    /**
+     * Tells whether Game is over or not
+     */
+<span class="nc" id="L63">    private boolean isGameOver = false;</span>
+    
+    /**
+     * Tells whether player won or not
+     */
+<span class="fc" id="L68">    public static boolean isWin = false;</span>
+    
+    
+    /**
+     * Represents the time when game starts
+     */
     public static long startTime;
+    
+    /**
+     * Represents the list levels in Game
+     */
     public static ArrayList&lt;Level&gt; gameLevels;
-<span class="fc" id="L34">    public static int levelIndex = 0;   </span>
+    
+    
+    /**
+     * Represents the index of level of game
+     */
+<span class="fc" id="L85">    public static int levelIndex = 0;   </span>
+    
+    
+    /**
+     * Represents the map of current level of game
+     */
     public static char[][] map;    
     
-        
-<span class="fc" id="L38">    public static final int[] x_direction = {0,0,1,-1};</span>
-<span class="fc" id="L39">    public static final int[] y_direction = {1,-1,0,0};        </span>
-<span class="fc" id="L40">    public static final int[] goalIndex = new int[2];    </span>
+    
+    /**
+     * Represents the x-axis directions 
+     */            
+<span class="fc" id="L97">    public static final int[] X_DIRECTION = {0,0,1,-1};</span>
+    
+    /**
+     * Represents y-axis directions
+     */
+<span class="fc" id="L102">    public static final int[] Y_DIRECTION = {1,-1,0,0};        </span>
+    
+    /**
+     * Represents Position of Goal Tile in current level
+     */
+<span class="fc" id="L107">    public static final int[] GOAL_INDEX = new int[2];    </span>
     
     
-    
+    /**
+     * Represents the Animation Object for game Objects (BombGuy,RedEnemy,YellowEnemy)
+     */
     private Animation characterAnimation;
+    
+    /**
+     * Represents the Animation Object for Bomb Animation
+     */
     public static Animation bombAnimation;
-<span class="nc" id="L46">    public FramesLoader framesLoader = new FramesLoader(this);</span>
+    
+    /**
+     * Represents the FramesLoader Object used to load frames into game
+     */
+<span class="nc" id="L123">    public FramesLoader framesLoader = new FramesLoader(this);</span>
     
     
     /**
@@ -54,10 +131,10 @@ import java.util.ArrayList;
      */
     public static void main(String[] args) {
       
-<span class="nc" id="L57">        PApplet.main(&quot;demolition.App&quot;);</span>
+<span class="nc" id="L134">        PApplet.main(&quot;demolition.App&quot;);</span>
 
         
-<span class="nc" id="L60">    }</span>
+<span class="nc" id="L137">    }</span>
     
     
     
@@ -65,9 +142,9 @@ import java.util.ArrayList;
     public void settings(){
         
         //set the size of window here
-<span class="nc" id="L68">        this.size(HEIGHT,WIDTH);</span>
+<span class="nc" id="L145">        this.size(HEIGHT,WIDTH);</span>
         
-<span class="nc" id="L70">    }</span>
+<span class="nc" id="L147">    }</span>
     
     
     
@@ -80,22 +157,22 @@ import java.util.ArrayList;
         
         
         
-<span class="nc" id="L83">        frameRate(FPS);</span>
+<span class="nc" id="L160">        frameRate(FPS);</span>
              
-<span class="nc" id="L85">        startTime = System.currentTimeMillis();   </span>
+<span class="nc" id="L162">        startTime = System.currentTimeMillis();   </span>
         
-<span class="nc" id="L87">        bombGuy = new BombGuy(); </span>
-<span class="nc" id="L88">        bomb = new Bomb();                       </span>
-<span class="nc" id="L89">        redEnemy = new RedEnemy();        </span>
-<span class="nc" id="L90">        yellEnemy = new YellowEnemy();</span>
+<span class="nc" id="L164">        bombGuy = new BombGuy(); </span>
+<span class="nc" id="L165">        bomb = new Bomb();                       </span>
+<span class="nc" id="L166">        redEnemy = new RedEnemy();        </span>
+<span class="nc" id="L167">        yellEnemy = new YellowEnemy();</span>
         
-<span class="nc" id="L92">        String configData = Configurations.readConfig();</span>
-<span class="nc" id="L93">        gameLevels = Configurations.configureLevels(configData);</span>
+<span class="nc" id="L169">        String configData = Configurations.readConfig();</span>
+<span class="nc" id="L170">        gameLevels = Configurations.configureLevels(configData);</span>
        
          
         
-<span class="nc" id="L97">        characterAnimation = new Animation(this,0.2f);</span>
-<span class="nc" id="L98">        bombAnimation = new Animation(this,bomb.PerFrameTime);</span>
+<span class="nc" id="L174">        characterAnimation = new Animation(this,0.2f);</span>
+<span class="nc" id="L175">        bombAnimation = new Animation(this,bomb.PER_FRAME_TIME);</span>
 
         
         
@@ -104,21 +181,21 @@ import java.util.ArrayList;
         */
         
         
-<span class="nc" id="L107">        framesLoader.loadTiles();        </span>
-<span class="nc" id="L108">        framesLoader.loadIcons();</span>
+<span class="nc" id="L184">        framesLoader.loadTiles();        </span>
+<span class="nc" id="L185">        framesLoader.loadIcons();</span>
 
         
         /*
         PLAYER FRAMES LISTS INITIALIZATION
         */
        
-<span class="nc" id="L115">        framesLoader.loadPlayerFramesInLists();</span>
+<span class="nc" id="L192">        framesLoader.loadPlayerFramesInLists();</span>
 
         /*
         RED ENEMY FRAMES LISTS INITIALIZATION
          */
         
-<span class="nc" id="L121">        framesLoader.loadRedEnemyFramesInLists();</span>
+<span class="nc" id="L198">        framesLoader.loadRedEnemyFramesInLists();</span>
         
 
         /*
@@ -126,7 +203,7 @@ import java.util.ArrayList;
          */
         
         
-<span class="nc" id="L129">        framesLoader.loadYellowEnemyFramesInLists();</span>
+<span class="nc" id="L206">        framesLoader.loadYellowEnemyFramesInLists();</span>
         
         
         
@@ -134,51 +211,51 @@ import java.util.ArrayList;
          BOMB FRAMES LISTS INITIALIZATION
          */
         
-<span class="nc" id="L137">        framesLoader.loadBombFrames();</span>
+<span class="nc" id="L214">        framesLoader.loadBombFrames();</span>
        
         /*
          EXPLOSION FRAMES LISTS INITIALIZATION
          */
 
-<span class="nc" id="L143">        framesLoader.loadExplosionFrames();</span>
+<span class="nc" id="L220">        framesLoader.loadExplosionFrames();</span>
         
         
-<span class="nc" id="L146">    }</span>
+<span class="nc" id="L223">    }</span>
     
     
     @Override
     public void draw(){
         
-<span class="nc" id="L152">      startGame();  </span>
+<span class="nc" id="L229">      startGame();  </span>
       
-<span class="nc" id="L154">    }</span>
+<span class="nc" id="L231">    }</span>
     
     
     
     @Override
     public void keyReleased(){
         
-<span class="nc" id="L161">        int newdire = -1;</span>
-<span class="nc bnc" id="L162" title="All 6 branches missed.">        switch (keyCode) {</span>
+<span class="nc" id="L238">        int newdire = -1;</span>
+<span class="nc bnc" id="L239" title="All 6 branches missed.">        switch (keyCode) {</span>
             case DOWN:
-<span class="nc" id="L164">                newdire = 0;</span>
-<span class="nc" id="L165">                break;</span>
+<span class="nc" id="L241">                newdire = 0;</span>
+<span class="nc" id="L242">                break;</span>
             case UP:
-<span class="nc" id="L167">                newdire = 1;</span>
-<span class="nc" id="L168">                break;</span>
+<span class="nc" id="L244">                newdire = 1;</span>
+<span class="nc" id="L245">                break;</span>
             case RIGHT:
-<span class="nc" id="L170">                newdire = 2;</span>
-<span class="nc" id="L171">                break;</span>
+<span class="nc" id="L247">                newdire = 2;</span>
+<span class="nc" id="L248">                break;</span>
             case LEFT:
-<span class="nc" id="L173">                newdire = 3;</span>
-<span class="nc" id="L174">                break;</span>
+<span class="nc" id="L250">                newdire = 3;</span>
+<span class="nc" id="L251">                break;</span>
             case 32:
                 //keyCode 32 is for spacebar
 
-<span class="nc bnc" id="L178" title="All 2 branches missed.">                if(Bomb.isExploded){</span>
-<span class="nc" id="L179">                    bomb.isPlaced = true;</span>
-<span class="nc" id="L180">                    Bomb.isExploded = false;</span>
-<span class="nc" id="L181">                    bomb.placeTime = System.currentTimeMillis();</span>
+<span class="nc bnc" id="L255" title="All 2 branches missed.">                if(Bomb.isExploded){</span>
+<span class="nc" id="L256">                    bomb.isPlaced = true;</span>
+<span class="nc" id="L257">                    Bomb.isExploded = false;</span>
+<span class="nc" id="L258">                    bomb.placeTime = System.currentTimeMillis();</span>
                 }
                 
                 break;
@@ -186,116 +263,140 @@ import java.util.ArrayList;
                 break;
         }
         
-<span class="nc bnc" id="L189" title="All 2 branches missed.">        if(newdire != -1)</span>
-<span class="nc" id="L190">            bombGuy.direction = bombGuy.anim_direction = newdire;</span>
+<span class="nc bnc" id="L266" title="All 2 branches missed.">        if(newdire != -1)</span>
+<span class="nc" id="L267">            bombGuy.direction = bombGuy.anim_direction = newdire;</span>
         
         
         
-<span class="nc" id="L194">    }</span>
+<span class="nc" id="L271">    }</span>
     
+    
+    /**
+     * Control and Draw Red Enemy in Game Window
+     * @param i Represents Y-axis Position of Red Enemy
+     * @param j Represents X-axis Position of Red Enemy
+     * @param map Represents map of current of level
+     */
     private void redEnemyAI(int i,int j,char[][] map){
         
-<span class="nc" id="L198">        redEnemy.controller(i, j);</span>
+<span class="nc" id="L282">        redEnemy.controller(i, j);</span>
        
-<span class="nc" id="L200">        image(framesLoader.emptyw, j * 32, (i * 32) + Map.OFFSET);</span>
+<span class="nc" id="L284">        image(framesLoader.emptyw, j * 32, (i * 32) + Map.OFFSET);</span>
 
         //animating red enemy in right direction
-<span class="nc" id="L203">        int yRedPos = (abs(i - 1) * 32) + RedEnemy.RED_OFFSET;</span>
+<span class="nc" id="L287">        int yRedPos = (abs(i - 1) * 32) + RedEnemy.RED_OFFSET;</span>
 
-<span class="nc" id="L205">        characterAnimation.positionAnimation(redEnemy.redAnimDirection, j * 32, yRedPos, framesLoader.redEnDownFramesList, framesLoader.redEnUpFramesList, </span>
+<span class="nc" id="L289">        characterAnimation.positionAnimation(redEnemy.redAnimDirection, j * 32, yRedPos, framesLoader.redEnDownFramesList, framesLoader.redEnUpFramesList, </span>
                 framesLoader.redEnRightFramesList, framesLoader.redEnLeftFramesList);
 
         
-<span class="nc" id="L209">    }</span>
+<span class="nc" id="L293">    }</span>
     
     
+    
+    /**
+     * Control and draw Yellow Enemy in Game Window
+     * @param i Represents Y-axis Position of Yellow Enemy
+     * @param j Represents X-axis Position of Yellow Enemy
+     * @param map Represents map of current of level
+     */
     private void yellowEnemyAI(int i,int j, char[][] map){
         
-<span class="nc" id="L214">        yellEnemy.controller(i, j);</span>
+<span class="nc" id="L305">        yellEnemy.controller(i, j);</span>
 
-<span class="nc" id="L216">        image(framesLoader.emptyw, j * 32, (i * 32) + Map.OFFSET);</span>
+<span class="nc" id="L307">        image(framesLoader.emptyw, j * 32, (i * 32) + Map.OFFSET);</span>
 
         //animated yellow in left direction
-<span class="nc" id="L219">        int yYellowPos = ((i - 1) * 32) + YellowEnemy.YELLOW_OFFSET;</span>
+<span class="nc" id="L310">        int yYellowPos = ((i - 1) * 32) + YellowEnemy.YELLOW_OFFSET;</span>
 
         //here only for direction left (test) -&gt; not completed
-<span class="nc" id="L222">        characterAnimation.positionAnimation(yellEnemy.yellowAnimDirection, j * 32, yYellowPos, framesLoader.yellowEnDownFramesList, </span>
+<span class="nc" id="L313">        characterAnimation.positionAnimation(yellEnemy.yellowAnimDirection, j * 32, yYellowPos, framesLoader.yellowEnDownFramesList, </span>
                 framesLoader.yellowEnUpFramesList, framesLoader.yellowEnRightFramesList, 
                 framesLoader.yellowEnLeftFramesList);
 
 
-<span class="nc" id="L227">    }</span>
+<span class="nc" id="L318">    }</span>
     
     
+    /**
+     * Use to show Win Screen
+     */
     private void showWinScreen(){
         
-            /*
-            SHOW WIN SCREEN
-            */
             
-<span class="nc" id="L236">            fill(0);</span>
-<span class="nc" id="L237">            textSize(20);</span>
-<span class="nc" id="L238">            textAlign(CENTER);</span>
-<span class="nc" id="L239">            text(&quot;You Win&quot;,240,240);</span>
+<span class="nc" id="L327">            fill(0);</span>
+<span class="nc" id="L328">            textSize(20);</span>
+<span class="nc" id="L329">            textAlign(CENTER);</span>
+<span class="nc" id="L330">            text(&quot;You Win&quot;,240,240);</span>
            
-<span class="nc" id="L241">    }</span>
+<span class="nc" id="L332">    }</span>
     
     
+    /**
+     * Use to show Game Over Screen
+     */
     private void showGameOverScreen(){
         
-         /*
-            GAME OVER SCREEN
-            */
+        
          
-<span class="nc" id="L250">        fill(0);</span>
-<span class="nc" id="L251">        textSize(20);</span>
-<span class="nc" id="L252">        textAlign(CENTER);</span>
-<span class="nc" id="L253">        text(&quot;GAME OVER&quot;,240,240);</span>
+<span class="nc" id="L342">        fill(0);</span>
+<span class="nc" id="L343">        textSize(20);</span>
+<span class="nc" id="L344">        textAlign(CENTER);</span>
+<span class="nc" id="L345">        text(&quot;GAME OVER&quot;,240,240);</span>
         
         
-<span class="nc" id="L256">    }</span>
+<span class="nc" id="L348">    }</span>
     
     
     
+    /**
+     * Use to show Lives of Bomb Guy on Game window
+     */
     private void showLives(){
         
         
-<span class="nc" id="L263">        fill(0);</span>
-<span class="nc" id="L264">        textSize(20);</span>
-<span class="nc" id="L265">        text(BombGuy.lives,190,40);</span>
-<span class="nc" id="L266">        image(framesLoader.life,150,16);</span>
+<span class="nc" id="L358">        fill(0);</span>
+<span class="nc" id="L359">        textSize(20);</span>
+<span class="nc" id="L360">        text(BombGuy.lives,190,40);</span>
+<span class="nc" id="L361">        image(framesLoader.life,150,16);</span>
         
         
-<span class="nc" id="L269">    }</span>
+<span class="nc" id="L364">    }</span>
     
     
+    /**
+     * Use to represent Clock and Time on Game window
+     * @param level Represent the current level of game
+     */
     private void showClockWithTime(Level level){
         
         
-<span class="nc" id="L275">        long elapsedTime = System.currentTimeMillis() - startTime;</span>
+<span class="nc" id="L374">        long elapsedTime = System.currentTimeMillis() - startTime;</span>
       
-<span class="nc bnc" id="L277" title="All 2 branches missed.">        if(elapsedTime/1000!=0){</span>
+<span class="nc bnc" id="L376" title="All 2 branches missed.">        if(elapsedTime/1000!=0){</span>
           
-<span class="nc" id="L279">          textSize(20);</span>
+<span class="nc" id="L378">          textSize(20);</span>
           
-<span class="nc bnc" id="L281" title="All 2 branches missed.">          if((level.time - (int)(elapsedTime/1000)) &gt; 0){</span>
+<span class="nc bnc" id="L380" title="All 2 branches missed.">          if((level.time - (int)(elapsedTime/1000)) &gt; 0){</span>
           
-<span class="nc" id="L283">          text((level.time - (int)(elapsedTime/1000)),305,40); </span>
+<span class="nc" id="L382">          text((level.time - (int)(elapsedTime/1000)),305,40); </span>
           
           }else
-<span class="nc" id="L286">              isGameOver = true;</span>
+<span class="nc" id="L385">              isGameOver = true;</span>
               
         }else{
-<span class="nc" id="L289">          textSize(20);</span>
-<span class="nc" id="L290">          text((level.time),305,40); </span>
+<span class="nc" id="L388">          textSize(20);</span>
+<span class="nc" id="L389">          text((level.time),305,40); </span>
         }
         
-<span class="nc" id="L293">          image(framesLoader.clock,270,16);</span>
+<span class="nc" id="L392">          image(framesLoader.clock,270,16);</span>
         
         
-<span class="nc" id="L296">    }</span>
+<span class="nc" id="L395">    }</span>
     
-   
+    /**
+     * Use to start the Game
+     */
     private void startGame(){
         
           
@@ -303,26 +404,26 @@ import java.util.ArrayList;
         This method is used to draw content on the window.
         This method is called 60 times per second
         */
-<span class="nc" id="L306">        background(255,140,0);</span>
+<span class="nc" id="L407">        background(255,140,0);</span>
         
-<span class="nc bnc" id="L308" title="All 2 branches missed.">        if(isWin){</span>
+<span class="nc bnc" id="L409" title="All 2 branches missed.">        if(isWin){</span>
             
-<span class="nc" id="L310">            showWinScreen();</span>
+<span class="nc" id="L411">            showWinScreen();</span>
             
-<span class="nc" id="L312">            return;</span>
+<span class="nc" id="L413">            return;</span>
         }
         
         
         
-<span class="nc bnc" id="L317" title="All 2 branches missed.">        if(!isGameOver){</span>
+<span class="nc bnc" id="L418" title="All 2 branches missed.">        if(!isGameOver){</span>
             
             /*
                 IF BOMB GUY LIVES ARE LESS THAN EQUAL TO 0, GAME WILL BE OVER
             */
             
-<span class="nc bnc" id="L323" title="All 2 branches missed.">            if(BombGuy.lives &lt;= 0 ){</span>
-<span class="nc" id="L324">                isGameOver = true;            </span>
-<span class="nc" id="L325">                return;</span>
+<span class="nc bnc" id="L424" title="All 2 branches missed.">            if(BombGuy.lives &lt;= 0 ){</span>
+<span class="nc" id="L425">                isGameOver = true;            </span>
+<span class="nc" id="L426">                return;</span>
                 
             }
         
@@ -330,141 +431,141 @@ import java.util.ArrayList;
         
         //loadLevel
         
-<span class="nc bnc" id="L333" title="All 2 branches missed.">        if(gameLevels.isEmpty()){</span>
-<span class="nc" id="L334">            isGameOver = true;</span>
-<span class="nc" id="L335">            return;</span>
+<span class="nc bnc" id="L434" title="All 2 branches missed.">        if(gameLevels.isEmpty()){</span>
+<span class="nc" id="L435">            isGameOver = true;</span>
+<span class="nc" id="L436">            return;</span>
         }
         
-<span class="nc" id="L338">        Level level = gameLevels.get(levelIndex);</span>
-<span class="nc" id="L339">        map = level.mapArray;</span>
+<span class="nc" id="L439">        Level level = gameLevels.get(levelIndex);</span>
+<span class="nc" id="L440">        map = level.mapArray;</span>
         
         
-<span class="nc" id="L342">        showLives();</span>
+<span class="nc" id="L443">        showLives();</span>
         
         
-<span class="nc" id="L345">        showClockWithTime(level);</span>
+<span class="nc" id="L446">        showClockWithTime(level);</span>
         
 
           
-<span class="nc bnc" id="L349" title="All 2 branches missed.">          for(int i=0;i&lt;Map.ROWS;i++){</span>
+<span class="nc bnc" id="L450" title="All 2 branches missed.">          for(int i=0;i&lt;Map.ROWS;i++){</span>
               
               
-<span class="nc bnc" id="L352" title="All 2 branches missed.">              for(int j=0;j&lt;Map.COLUMNS;j++){</span>
+<span class="nc bnc" id="L453" title="All 2 branches missed.">              for(int j=0;j&lt;Map.COLUMNS;j++){</span>
                   
                    
                   
                   
-<span class="nc bnc" id="L357" title="All 12 branches missed.">                  switch(map[i][j]){</span>
+<span class="nc bnc" id="L458" title="All 12 branches missed.">                  switch(map[i][j]){</span>
                       
                       case 'W':
                           
-<span class="nc" id="L361">                          image(framesLoader.solidw,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L462">                          image(framesLoader.solidw,j*32,(i*32)+ Map.OFFSET);</span>
                           
-<span class="nc" id="L363">                          break;                                              </span>
+<span class="nc" id="L464">                          break;                                              </span>
                       
                           
                           
                       
                       case 'H':
                           //horizontal explosion image
-<span class="nc" id="L370">                          image(framesLoader.emptyw,j*32,(i*32)+ Map.OFFSET);</span>
-<span class="nc" id="L371">                          image(framesLoader.explosionH,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L471">                          image(framesLoader.emptyw,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L472">                          image(framesLoader.explosionH,j*32,(i*32)+ Map.OFFSET);</span>
                           
-<span class="nc" id="L373">                          break;</span>
+<span class="nc" id="L474">                          break;</span>
                           
                       case 'V':
                           //vertical explosion image
-<span class="nc" id="L377">                          image(framesLoader.emptyw,j*32,(i*32)+ Map.OFFSET);</span>
-<span class="nc" id="L378">                          image(framesLoader.explosionV,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L478">                          image(framesLoader.emptyw,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L479">                          image(framesLoader.explosionV,j*32,(i*32)+ Map.OFFSET);</span>
                           
                           
-<span class="nc" id="L381">                          break;                          </span>
+<span class="nc" id="L482">                          break;                          </span>
                           
                           case 'C':
                               
                               //center explosion image
-<span class="nc" id="L386">                              image(framesLoader.emptyw,j*32,(i*32)+ Map.OFFSET);</span>
-<span class="nc" id="L387">                              image(framesLoader.explosionC,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L487">                              image(framesLoader.emptyw,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L488">                              image(framesLoader.explosionC,j*32,(i*32)+ Map.OFFSET);</span>
                               
                               
-<span class="nc" id="L390">                              break;</span>
+<span class="nc" id="L491">                              break;</span>
                           
                       case 'P':
 
-<span class="nc" id="L394">                          bombGuy.isPlayerInMap = true;</span>
+<span class="nc" id="L495">                          bombGuy.isPlayerInMap = true;</span>
                          
-<span class="nc" id="L396">                          bombGuy.changeLevelIfPlayerAtGoal(i,j);</span>
+<span class="nc" id="L497">                          bombGuy.changeLevelIfPlayerAtGoal(i,j);</span>
                           
-<span class="nc" id="L398">                          bombGuy.controlPlayer(i,j);                          </span>
+<span class="nc" id="L499">                          bombGuy.controlPlayer(i,j);                          </span>
                           
-<span class="nc" id="L400">                          image(framesLoader.emptyw,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L501">                          image(framesLoader.emptyw,j*32,(i*32)+ Map.OFFSET);</span>
                           
                           
                           //place bomb if space is pressed by the player
-<span class="nc bnc" id="L404" title="All 2 branches missed.">                           if(bomb.isPlaced)     {</span>
+<span class="nc bnc" id="L505" title="All 2 branches missed.">                           if(bomb.isPlaced)     {</span>
                               
-<span class="nc" id="L406">                              bomb.placeBomb(i,j);</span>
+<span class="nc" id="L507">                              bomb.placeBomb(i,j);</span>
                               
                           }
                                                     
                            
-<span class="nc" id="L411">                          int yPlayerPos = (abs(i-1) * 32)+ bombGuy.PLAYER_OFFSET;</span>
+<span class="nc" id="L512">                          int yPlayerPos = (abs(i-1) * 32)+ bombGuy.PLAYER_OFFSET;</span>
                           
-<span class="nc" id="L413">                          characterAnimation.positionAnimation(bombGuy.anim_direction,j*32,yPlayerPos,framesLoader.playerDownFramesList,framesLoader.playerUpFramesList,framesLoader.playerRightFramesList,</span>
+<span class="nc" id="L514">                          characterAnimation.positionAnimation(bombGuy.anim_direction,j*32,yPlayerPos,framesLoader.playerDownFramesList,framesLoader.playerUpFramesList,framesLoader.playerRightFramesList,</span>
                                   framesLoader.playerLeftFramesList);
                             
                             
-<span class="nc" id="L417">                          break;</span>
+<span class="nc" id="L518">                          break;</span>
                       case ' ':   
                           
-<span class="nc" id="L420">                          image(framesLoader.emptyw,j*32,(i*32)+ Map.OFFSET);   </span>
+<span class="nc" id="L521">                          image(framesLoader.emptyw,j*32,(i*32)+ Map.OFFSET);   </span>
 
                            
                             /*
                                 If bomb is present at i,j position then show the bomb Animation
                             */
                            
-<span class="nc" id="L427">                            bombAnimation.positionBombAnimation(i,j,framesLoader.bombFramesList);</span>
+<span class="nc" id="L528">                            bombAnimation.positionBombAnimation(i,j,framesLoader.bombFramesList);</span>
                               
                                
-<span class="nc" id="L430">                            bomb.removeExplosionEffectAfterExplosion();</span>
+<span class="nc" id="L531">                            bomb.removeExplosionEffectAfterExplosion();</span>
           
                           
-<span class="nc" id="L433">                          break;</span>
+<span class="nc" id="L534">                          break;</span>
                           
                       case 'R':
                           
-<span class="nc" id="L437">                               redEnemyAI(i,j,map);</span>
+<span class="nc" id="L538">                               redEnemyAI(i,j,map);</span>
                         
-<span class="nc" id="L439">                          break;</span>
+<span class="nc" id="L540">                          break;</span>
                       case 'Y':
                          
-<span class="nc" id="L442">                                yellowEnemyAI(i,j,map);</span>
+<span class="nc" id="L543">                                yellowEnemyAI(i,j,map);</span>
                           
-<span class="nc" id="L444">                          break;</span>
+<span class="nc" id="L545">                          break;</span>
                           
                       case 'X':
                           
-<span class="nc" id="L448">                          yellowEnemyAI(i,j,map);</span>
+<span class="nc" id="L549">                          yellowEnemyAI(i,j,map);</span>
                           
-<span class="nc" id="L450">                          map[i][j] = 'X';</span>
+<span class="nc" id="L551">                          map[i][j] = 'X';</span>
                           
-<span class="nc" id="L452">                          redEnemyAI(i,j,map);</span>
+<span class="nc" id="L553">                          redEnemyAI(i,j,map);</span>
                           
                           
-<span class="nc" id="L455">                          break;</span>
+<span class="nc" id="L556">                          break;</span>
                       case 'B':
                           
-<span class="nc" id="L458">                          image(framesLoader.brokenw,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L559">                          image(framesLoader.brokenw,j*32,(i*32)+ Map.OFFSET);</span>
                           
-<span class="nc" id="L460">                          break;</span>
+<span class="nc" id="L561">                          break;</span>
                       case 'G':
                           
                           
                           
-<span class="nc" id="L465">                          goalIndex[0] = i;</span>
-<span class="nc" id="L466">                          goalIndex[1] = j;</span>
-<span class="nc" id="L467">                          image(framesLoader.goalw,j*32,(i*32)+ Map.OFFSET);</span>
+<span class="nc" id="L566">                          GOAL_INDEX[0] = i;</span>
+<span class="nc" id="L567">                          GOAL_INDEX[1] = j;</span>
+<span class="nc" id="L568">                          image(framesLoader.goalw,j*32,(i*32)+ Map.OFFSET);</span>
                         
                           break;
                    
@@ -475,10 +576,10 @@ import java.util.ArrayList;
           
     }
           
-<span class="nc bnc" id="L478" title="All 2 branches missed.">            if (bombGuy.isPlayerInMap) {</span>
+<span class="nc bnc" id="L579" title="All 2 branches missed.">            if (bombGuy.isPlayerInMap) {</span>
 
                 //we will reset the value of isPlayerInMap to check every time the existence of player in map
-<span class="nc" id="L481">                bombGuy.isPlayerInMap = false;</span>
+<span class="nc" id="L582">                bombGuy.isPlayerInMap = false;</span>
 
             } else {
 
@@ -486,19 +587,19 @@ import java.util.ArrayList;
                   if player is not present in map (mean player is died)
                   then we add the player respawn position in level according to its level
                  */
-<span class="nc" id="L489">                bombGuy.playerDieAndResetLevel();</span>
+<span class="nc" id="L590">                bombGuy.playerDieAndResetLevel();</span>
 
             }
           
-<span class="nc" id="L493">    }else{</span>
+<span class="nc" id="L594">    }else{</span>
        
-<span class="nc" id="L495">        showGameOverScreen();</span>
+<span class="nc" id="L596">        showGameOverScreen();</span>
             
     }
             
       
         
-<span class="nc" id="L501">    }</span>
+<span class="nc" id="L602">    }</span>
    
     
 }

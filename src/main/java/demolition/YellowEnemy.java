@@ -26,7 +26,7 @@ public class YellowEnemy {
     /**
      * Counts the number of times controller function called by draw function of main class
      */
-    private int yellowFrameCounter;
+    public int yellowFrameCounter;
     
     /**
      * Represents the space between Yellow Enemy and the window

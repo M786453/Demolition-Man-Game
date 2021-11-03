@@ -14,60 +14,83 @@ import java.util.Timer;
 import java.util.TimerTask;
 import processing.core.*;
 
+/**
+ * Used to Animate Objects in Game
+ * @author Ahtesham Sarwar
+ */
+
 public class Animation{
     
     
     
-    private float timePerFrame;        
+    private float timePerFrame; 
+    /**
+     * Represent the Current Frame Number of Animation
+     */
     public int currentFrameNo;
-    private PImage currentFrame;
+    
+    private PImage currentFrame; 
+    /**
+     * Represent whether program can change frame of Animation or not
+     */
+    
     public boolean canChangeFrame;
     private PApplet parent;
     
+    /**
+     * Constructor of Animation Class
+     * @param parent Represents the Reference to PApplet of Main Class 
+     * @param timePerFrame Represents the time for one Frame in Animation Cycle
+     */
+<span class="fc" id="L45">    public Animation(PApplet parent,float timePerFrame){</span>
+        
+        
+        
+<span class="fc" id="L49">        this.timePerFrame = timePerFrame; </span>
+<span class="fc" id="L50">        currentFrameNo = 0;</span>
+<span class="fc" id="L51">        canChangeFrame = true;</span>
+<span class="fc" id="L52">        this.parent = parent;</span>
+        
+        
+<span class="fc" id="L55">    }</span>
     
-<span class="fc" id="L28">    public Animation(PApplet parent,float timePerFrame){</span>
-        
-        
-        
-<span class="fc" id="L32">        this.timePerFrame = timePerFrame; </span>
-<span class="fc" id="L33">        currentFrameNo = 0;</span>
-<span class="fc" id="L34">        canChangeFrame = true;</span>
-<span class="fc" id="L35">        this.parent = parent;</span>
-        
-        
-<span class="fc" id="L38">    }</span>
     
+    /**
+     * Used to play the Animation of Given FramesList of a Game Object
+     * @param framesList Represent the list of frames(images) of an Game Object 
+     * @return Return a PImage, which is the current frame in Animation 
+     */
     
     public PImage play(ArrayList&lt;PImage&gt; framesList){
         
                 
         
-<span class="pc bpc" id="L45" title="1 of 2 branches missed.">                if(canChangeFrame){</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">                if(canChangeFrame){</span>
             
         
                     //this boolean is used to avoid running the bellow code every time play function called by draw function
                     //because we want to change the frame of player after specific amount of time
                     
-<span class="fc" id="L51">                    canChangeFrame = false;</span>
+<span class="fc" id="L74">                    canChangeFrame = false;</span>
                     
                     
                     
                     
         
-<span class="fc" id="L57">                        new Timer().schedule(new TimerTask(){</span>
+<span class="fc" id="L80">                        new Timer().schedule(new TimerTask(){</span>
                               
                                   
                                   @Override
                                   public void run(){
                                       
-<span class="fc bfc" id="L63" title="All 2 branches covered.">                                      if(currentFrameNo != framesList.size()-1)</span>
-<span class="fc" id="L64">                                          currentFrameNo++;</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">                                      if(currentFrameNo != framesList.size()-1)</span>
+<span class="fc" id="L87">                                          currentFrameNo++;</span>
                                       else
-<span class="fc" id="L66">                                          currentFrameNo = 0;</span>
+<span class="fc" id="L89">                                          currentFrameNo = 0;</span>
                                      
-<span class="fc" id="L68">                                      canChangeFrame = true;</span>
+<span class="fc" id="L91">                                      canChangeFrame = true;</span>
                                       
-<span class="fc" id="L70">                                  }</span>
+<span class="fc" id="L93">                                  }</span>
                               
                               }, (int)(timePerFrame*1000));
         
@@ -75,58 +98,75 @@ public class Animation{
                 }
         
                         
-<span class="fc" id="L78">        currentFrame = framesList.get(currentFrameNo);        </span>
+<span class="fc" id="L101">        currentFrame = framesList.get(currentFrameNo);        </span>
                         
-<span class="fc" id="L80">        return currentFrame;</span>
+<span class="fc" id="L103">        return currentFrame;</span>
                         
     }
     
     
+    /**
+     * Used to Animate the Bomb at given position
+     * @param i Represent the Y-axis Position of Bomb
+     * @param j Represent the X-axis Position of Bomb
+     * @param bombFramesList Represent a list of Frames(images) of Bomb
+     */
+    @Generated
     public void positionBombAnimation(int i, int j,ArrayList&lt;PImage&gt; bombFramesList){
         
-<span class="nc bnc" id="L87" title="All 4 branches missed.">        if(Bomb.bombX == j &amp;&amp; Bomb.bombY == i)</span>
-<span class="nc" id="L88">                                    parent.image(play(bombFramesList),Bomb.bombX*32,(Bomb.bombY*32) + Map.OFFSET);</span>
+        if(Bomb.bombX == j &amp;&amp; Bomb.bombY == i)
+                                    parent.image(play(bombFramesList),Bomb.bombX*32,(Bomb.bombY*32) + Map.OFFSET);
         
         
-<span class="nc" id="L91">    }</span>
+    }
     
     
     
-    
+        /**
+         * Used to Animate the Game Object (BombGuy, Red Enemy, Yellow Enemy) at given position
+         * @param mDirection    Represent the direction of motion of given Game Object
+         * @param xPos Represents the X-axis Position of Game Object
+         * @param yPos Represents the Y-axis Position of Game Object
+         * @param downFramesList Represents the list of frames of Game Object for downward motion
+         * @param upFramesList Represents the list of frames of Game Object for upward motion
+         * @param rightFramesList Represents the list of frames of Game Object for rightward motion
+         * @param leftFramesList Represents the list of frames of Game Object for leftward motion
+         */
+        @Generated
         public void positionAnimation(int mDirection,int xPos,int yPos,ArrayList&lt;PImage&gt; downFramesList,ArrayList&lt;PImage&gt; upFramesList,
                                 ArrayList&lt;PImage&gt; rightFramesList,ArrayList&lt;PImage&gt; leftFramesList){
         
         
-<span class="nc bnc" id="L100" title="All 5 branches missed.">        switch (mDirection) {</span>
+        switch (mDirection) {
                           
                           case -1:
                           case 0:
                               
-<span class="nc" id="L105">                              parent.image(play(downFramesList),xPos,yPos);</span>
+                              parent.image(play(downFramesList),xPos,yPos);
                               
-<span class="nc" id="L107">                              break;</span>
+                              break;
                           case 1:
                               
-<span class="nc" id="L110">                              parent.image(play(upFramesList),xPos,yPos);</span>
+                              parent.image(play(upFramesList),xPos,yPos);
                               
-<span class="nc" id="L112">                              break; </span>
+                              break; 
                           case 2:
                               
-<span class="nc" id="L115">                              parent.image(play(rightFramesList),xPos,yPos);</span>
+                              parent.image(play(rightFramesList),xPos,yPos);
                               
-<span class="nc" id="L117">                              break;</span>
+                              break;
                           case 3:
                               
-<span class="nc" id="L120">                              parent.image(play(leftFramesList),xPos,yPos);</span>
+                              parent.image(play(leftFramesList),xPos,yPos);
                               
-<span class="nc" id="L122">                              break;</span>
+                              break;
                           default:
                               break;
                       
                       }
         
         
-<span class="nc" id="L129">    }</span>
+    }
     
     
     

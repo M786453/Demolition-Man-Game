@@ -17,6 +17,7 @@ import java.util.ArrayList;
  * Represent the main interface of Game
  * @author Ahtesham Sarwar
  */
+@Generated
 public class App extends PApplet{
 
     /**
@@ -129,6 +130,8 @@ public class App extends PApplet{
      * so that we can use powerful animations of processing
      * library
      */
+    
+    
     public static void main(String[] args) {
       
         PApplet.main("demolition.App");

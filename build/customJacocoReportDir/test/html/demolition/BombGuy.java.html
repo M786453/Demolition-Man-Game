@@ -11,71 +11,103 @@ import java.util.ArrayList;
 
 
 /**
- *
+ * Represents the Bomb Guy Object of Game
  * @author Ahtesham Sarwar
  */
 public class BombGuy{
     
-<span class="fc" id="L19">    public static int lives = 0;</span>
+    /**
+     * Represents the Lives of Bomb Guy
+     */
+<span class="fc" id="L22">    public static int lives = 0;</span>
+    
+    /**
+     * Represents the direction of motion of Bomb Guy
+     */
     public int direction;
+    
+    /**
+     * Represents the direction of Animation of Bomb Guy
+     */
     public int anim_direction;
-<span class="fc" id="L22">    public boolean isPlayerInMap = false;</span>
-<span class="fc" id="L23">    public final int PLAYER_OFFSET = 80;</span>
+    
+    /**
+     * Represents whether the BombGuy is present in Map or not
+     */
+<span class="fc" id="L37">    public boolean isPlayerInMap = false;</span>
+    
+    /**
+     * Represents the space between BombGuy and top window
+     */
+<span class="fc" id="L42">    public final int PLAYER_OFFSET = 80;</span>
     
     
-<span class="fc" id="L26">    public static ArrayList&lt;Integer[]&gt; pStartPlayerPosLevelList = new ArrayList&lt;&gt;();</span>
+    /**
+     * Represents the list of startup positions of Bomb Guy in each level
+     */
+<span class="fc" id="L48">    public static ArrayList&lt;Integer[]&gt; pStartPlayerPosLevelList = new ArrayList&lt;&gt;();</span>
     
     
-<span class="fc" id="L29">    public BombGuy(){</span>
+<span class="fc" id="L51">    public BombGuy(){</span>
         
-<span class="fc" id="L31">        direction = -1;</span>
-<span class="fc" id="L32">        anim_direction = -1;</span>
+<span class="fc" id="L53">        direction = -1;</span>
+<span class="fc" id="L54">        anim_direction = -1;</span>
         
       
-<span class="fc" id="L35">    }</span>
+<span class="fc" id="L57">    }</span>
     
+    
+    
+    /**
+     * Used for the movement of BombGuy according to given positions and direction
+     * @param i Represents Y-axis Position of Bomb Guy in Map
+     * @param j Represents X-axis Position of Bomb Guy in Map
+     * @param direc Represents direction of motion of Bomb Guy
+     * @param map Represents the Map of current level
+     * @return Return a modified map (2-D Char Array)
+     */
     public char[][] movement(int i,int j,int direc,char[][] map){
         
         
-<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if(direction != -1){</span>
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">        if(direction != -1){</span>
         
         char nextChar; // Represents the item at the next movement position
         int xPos;
         int yPos;
 
-<span class="pc bpc" id="L46" title="1 of 4 branches missed.">        if (direction == 0 || direction == 1) {</span>
+<span class="fc bfc" id="L78" title="All 4 branches covered.">        if (direction == 0 || direction == 1) {</span>
             //down or up
 
-<span class="fc" id="L49">            xPos = j;</span>
-<span class="fc" id="L50">            yPos = i + direc;</span>
-<span class="fc" id="L51">            nextChar = map[yPos][xPos];</span>
+<span class="fc" id="L81">            xPos = j;</span>
+<span class="fc" id="L82">            yPos = i + direc;</span>
+<span class="fc" id="L83">            nextChar = map[yPos][xPos];</span>
 
         } else {
             //right or left
 
-<span class="fc" id="L56">            xPos = j + direc;</span>
-<span class="fc" id="L57">            yPos = i;</span>
-<span class="fc" id="L58">            nextChar = map[yPos][xPos];</span>
+<span class="fc" id="L88">            xPos = j + direc;</span>
+<span class="fc" id="L89">            yPos = i;</span>
+<span class="fc" id="L90">            nextChar = map[yPos][xPos];</span>
 
         }
 
-<span class="pc bpc" id="L62" title="4 of 8 branches missed.">        if ((xPos &gt;= 0 &amp;&amp; xPos &lt; Map.COLUMNS) &amp;&amp; (yPos &gt;= 0 &amp;&amp; yPos &lt; Map.ROWS)) {</span>
+<span class="pc bpc" id="L94" title="4 of 8 branches missed.">        if ((xPos &gt;= 0 &amp;&amp; xPos &lt; Map.COLUMNS) &amp;&amp; (yPos &gt;= 0 &amp;&amp; yPos &lt; Map.ROWS)) {</span>
 
-<span class="pc bpc" id="L64" title="1 of 4 branches missed.">            if (nextChar == ' ' || nextChar == 'G') {</span>
+<span class="pc bpc" id="L96" title="1 of 4 branches missed.">            if (nextChar == ' ' || nextChar == 'G') {</span>
                 //replaace player index in map array   
-<span class="pc bpc" id="L66" title="3 of 4 branches missed.">                if (!(yPos == Bomb.bombY &amp;&amp; xPos == Bomb.bombX)) {</span>
+<span class="pc bpc" id="L98" title="3 of 4 branches missed.">                if (!(yPos == Bomb.bombY &amp;&amp; xPos == Bomb.bombX)) {</span>
 
-<span class="fc" id="L68">                    map[yPos][xPos] = 'P';</span>
-<span class="fc" id="L69">                    map[i][j] = ' ';</span>
-<span class="fc" id="L70">                    direction = -1;</span>
+<span class="fc" id="L100">                    map[yPos][xPos] = 'P';</span>
+<span class="fc" id="L101">                    map[i][j] = ' ';</span>
+<span class="fc" id="L102">                    direction = -1;</span>
 
                 }
-<span class="pc bpc" id="L73" title="9 of 10 branches missed.">            } else if (nextChar == 'R' || nextChar == 'Y' || nextChar == 'H'</span>
+<span class="pc bpc" id="L105" title="4 of 10 branches missed.">            } else if (nextChar == 'R' || nextChar == 'Y' || nextChar == 'H'</span>
                     || nextChar == 'V' || nextChar == 'C') {
 
                 //player will die if this condition fullfils
-<span class="fc" id="L77">                map[i][j] = ' ';</span>
-<span class="fc" id="L78">                direction = -1;</span>
+<span class="fc" id="L109">                map[i][j] = ' ';</span>
+<span class="fc" id="L110">                direction = -1;</span>
 
             }
 
@@ -83,15 +115,17 @@ public class BombGuy{
         
         }
                               
-<span class="fc" id="L86">        return map;</span>
+<span class="fc" id="L118">        return map;</span>
         
     }
     
     
-
+    /**
+     * Player will die and level will reset
+     */
     public void playerDieAndResetLevel() {
 
-<span class="nc bnc" id="L94" title="All 2 branches missed.">        if (Bomb.isExploded) {</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        if (Bomb.isExploded) {</span>
 
             /*
                       Here checking if any bomb is placed and exploded then show the player in the map
@@ -103,58 +137,66 @@ public class BombGuy{
                       after explosion or even when bomb is not placed. So player will lose life and level will reset when in
                       contact with explosion or an enemy.
              */
-<span class="nc" id="L106">            App.gameLevels.get(App.levelIndex).resetLevel();</span>
+<span class="fc" id="L140">            App.gameLevels.get(App.levelIndex).resetLevel();</span>
 
-<span class="nc" id="L108">            Integer[] playerLevelStartPos = pStartPlayerPosLevelList.get(App.levelIndex);</span>
+<span class="fc" id="L142">            Integer[] playerLevelStartPos = pStartPlayerPosLevelList.get(App.levelIndex);</span>
 
-<span class="nc" id="L110">            App.map[playerLevelStartPos[0]][playerLevelStartPos[1]] = 'P';</span>
+<span class="fc" id="L144">            App.map[playerLevelStartPos[0]][playerLevelStartPos[1]] = 'P';</span>
 
-<span class="nc" id="L112">            App.bombGuy = new BombGuy();</span>
+<span class="fc" id="L146">            App.bombGuy = new BombGuy();</span>
             
-<span class="nc" id="L114">            BombGuy.lives--;</span>
+<span class="fc" id="L148">            BombGuy.lives--;</span>
 
-<span class="nc" id="L116">            App.redEnemy = new RedEnemy();</span>
-<span class="nc" id="L117">            App.yellEnemy = new YellowEnemy();</span>
+<span class="fc" id="L150">            App.redEnemy = new RedEnemy();</span>
+<span class="fc" id="L151">            App.yellEnemy = new YellowEnemy();</span>
 
-<span class="nc" id="L119">            isPlayerInMap = true;</span>
+<span class="fc" id="L153">            isPlayerInMap = true;</span>
 
         }
 
-<span class="nc" id="L123">    }</span>
+<span class="fc" id="L157">    }</span>
     
     
-    
+        /**
+         * Used to Control movement of Bomb Guy in given position
+         * @param i Represents Y-axis Position of Bomb Guy in map
+         * @param j Represents X-axis Position of Bomb Guy in map
+         */
         public void controlPlayer(int i, int j){
         
         
         //this will change the position of player if there is empty or goal tile towards the position
         
                           //requested by user
-<span class="nc bnc" id="L133" title="All 4 branches missed.">                          if(direction == 0 || direction == 1){</span>
+<span class="fc bfc" id="L171" title="All 4 branches covered.">                          if(direction == 0 || direction == 1){</span>
                               //move down or up
                               
                               
-<span class="nc" id="L137">                              int yDirec = App.y_direction[direction]; </span>
+<span class="fc" id="L175">                              int yDirec = App.Y_DIRECTION[direction]; </span>
                               
-<span class="nc" id="L139">                              App.map = movement(i, j, yDirec , App.map);</span>
-                              
-                              
+<span class="fc" id="L177">                              App.map = movement(i, j, yDirec , App.map);</span>
                               
                               
-<span class="nc bnc" id="L144" title="All 4 branches missed.">                          }else if(direction == 2 || direction == 3){</span>
+                              
+                              
+<span class="fc bfc" id="L182" title="All 4 branches covered.">                          }else if(direction == 2 || direction == 3){</span>
                               //move right or left
                               
-<span class="nc" id="L147">                              int xDirec = App.x_direction[direction]; </span>
+<span class="fc" id="L185">                              int xDirec = App.X_DIRECTION[direction]; </span>
                               
-<span class="nc" id="L149">                              App.map = movement(i, j, xDirec, App.map);</span>
+<span class="fc" id="L187">                              App.map = movement(i, j, xDirec, App.map);</span>
                               
                             
                           }
         
         
-<span class="nc" id="L155">    }</span>
+<span class="fc" id="L193">    }</span>
         
-        
+        /**
+         * Used to change the level if Bomb Guy reaches the goal tile
+         * @param i Represents the Y-axis Position of Bomb Guy in map
+         * @param j Represents the X-axis Position of Bomb Guy in map
+         */
         public void changeLevelIfPlayerAtGoal(int i, int j){
         
         /*
@@ -162,20 +204,20 @@ public class BombGuy{
             Goal Tile of last level , then player will win game
         */
         
-<span class="nc bnc" id="L165" title="All 4 branches missed.">                          if(i == App.goalIndex[0] &amp;&amp; j == App.goalIndex[1]){</span>
+<span class="fc bfc" id="L207" title="All 4 branches covered.">                          if(i == App.GOAL_INDEX[0] &amp;&amp; j == App.GOAL_INDEX[1]){</span>
                               
-<span class="nc bnc" id="L167" title="All 2 branches missed.">                              if(App.levelIndex == App.gameLevels.size()-1)</span>
-<span class="nc" id="L168">                                  App.isWin = true;</span>
+<span class="fc bfc" id="L209" title="All 2 branches covered.">                              if(App.levelIndex == App.gameLevels.size()-1)</span>
+<span class="fc" id="L210">                                  App.isWin = true;</span>
                               else
-<span class="nc" id="L170">                                  App.levelIndex++;</span>
+<span class="fc" id="L212">                                  App.levelIndex++;</span>
                               
-<span class="nc" id="L172">                              App.startTime = System.currentTimeMillis();</span>
+<span class="fc" id="L214">                              App.startTime = System.currentTimeMillis();</span>
                               
-<span class="nc" id="L174">                                  anim_direction = -1;</span>
+<span class="fc" id="L216">                                  anim_direction = -1;</span>
                           }
         
         
-<span class="nc" id="L178">    }</span>
+<span class="fc" id="L220">    }</span>
    
        
 }

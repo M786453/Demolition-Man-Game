@@ -19,5 +19,7 @@ demolition/RedEnemy.java
  demolition.RedEnemy
 demolition/Level.java
  demolition.Level
+demolition/Generated.java
+ demolition.Generated
 demolition/BombGuy.java
  demolition.BombGuy

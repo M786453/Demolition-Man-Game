@@ -4,18 +4,20 @@
  */
 package demolition;
 
+import static java.lang.Thread.sleep;
 import java.util.ArrayList;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
+import processing.core.PApplet;
 
 /**
  *
  * @author Ahtesham Sarwar
  */
-public class BombTest {
+public class BombTest extends PApplet {
     
     
     static ArrayList<Level> levels;
@@ -241,6 +243,36 @@ public class BombTest {
         assertTrue(isExplodedRight, "Bomb Explosion Test3");
         
         
+        
+    }
+    
+    
+    /*
+     Test placeBomb function of Bomb
+    */
+    @Test
+    public void testBombPlacing() throws InterruptedException{
+        
+        Bomb bomb = new Bomb();
+        
+        char[][] sampleMap = levels.get(0).mapArray;
+        App.map = sampleMap;
+        App.bombAnimation = new Animation(this,bomb.PER_FRAME_TIME);
+        App.GOAL_INDEX[0] = 11;
+        App.GOAL_INDEX[1] =13;
+        bomb.placeBomb(1, 1);
+        
+        sleep(2500);
+        
+        bomb.removeExplosionEffectAfterExplosion();
+        
+        sleep(1000);
+        
+
+        
+//        System.out.println(getMapStr(sampleMap));
+        
+        assertTrue(Bomb.isExploded);
         
     }
     
