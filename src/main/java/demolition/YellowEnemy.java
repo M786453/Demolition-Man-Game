@@ -54,7 +54,7 @@ public class YellowEnemy {
     public char[][] movement(int i,int j,int direc,char[][] map){       
         
         
-        if(yellowEnDirection != -1){
+        if(yellowEnDirection != -1 && (j >= 0 && j < Map.COLUMNS) && (i >= 0 && i < Map.ROWS)){
         
         char nextChar; // Represents the item at the next movement position
         int xPos;
@@ -79,7 +79,7 @@ public class YellowEnemy {
         
          
 
-        if ((xPos >= 0 && xPos < Map.COLUMNS) && (yPos >= 0 && yPos < Map.ROWS)) {
+        
 
             
             if (nextChar == 'B' || nextChar == 'W' || (yPos == Bomb.bombY && xPos == Bomb.bombX)) {                                             
@@ -122,7 +122,7 @@ public class YellowEnemy {
                 
             }
 
-        }
+        
         
         
     }

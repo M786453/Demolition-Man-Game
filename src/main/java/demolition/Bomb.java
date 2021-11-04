@@ -160,11 +160,11 @@ public class Bomb {
      * @param map Represents the Map of current level
      * @param explosionChar Represents the char used for explosion
      */
-    private void explosionRange(int x1,int x2,int y1,int y2,char[][] map,char explosionChar){
+    public void explosionRange(int x1,int x2,int y1,int y2,char[][] map,char explosionChar){
         
                 int[][] rangeForDirection = new int[2][2];
         
-                if(y1 >= 0 && y1 < 12 && x1 >= 0 && x1 < 14){
+                if(y1 > 0 && y1 < 12 && x1 > 0 && x1 < 14){
                             
                     
                     

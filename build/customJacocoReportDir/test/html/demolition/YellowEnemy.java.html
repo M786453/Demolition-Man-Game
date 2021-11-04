@@ -54,7 +54,7 @@ public class YellowEnemy {
     public char[][] movement(int i,int j,int direc,char[][] map){       
         
         
-<span class="pc bpc" id="L57" title="1 of 2 branches missed.">        if(yellowEnDirection != -1){</span>
+<span class="fc bfc" id="L57" title="All 10 branches covered.">        if(yellowEnDirection != -1 &amp;&amp; (j &gt;= 0 &amp;&amp; j &lt; Map.COLUMNS) &amp;&amp; (i &gt;= 0 &amp;&amp; i &lt; Map.ROWS)){</span>
         
         char nextChar; // Represents the item at the next movement position
         int xPos;
@@ -79,22 +79,22 @@ public class YellowEnemy {
         
          
 
-<span class="pc bpc" id="L82" title="4 of 8 branches missed.">        if ((xPos &gt;= 0 &amp;&amp; xPos &lt; Map.COLUMNS) &amp;&amp; (yPos &gt;= 0 &amp;&amp; yPos &lt; Map.ROWS)) {</span>
+        
 
             
-<span class="pc bpc" id="L85" title="4 of 8 branches missed.">            if (nextChar == 'B' || nextChar == 'W' || (yPos == Bomb.bombY &amp;&amp; xPos == Bomb.bombX)) {                                             </span>
+<span class="fc bfc" id="L85" title="All 8 branches covered.">            if (nextChar == 'B' || nextChar == 'W' || (yPos == Bomb.bombY &amp;&amp; xPos == Bomb.bombX)) {                                             </span>
                 
 <span class="fc" id="L87">                map = moveClockwise(i,j,map);</span>
                 
 
-<span class="pc bpc" id="L90" title="1 of 4 branches missed.">            }else if (nextChar == ' ' || nextChar == 'G') {</span>
+<span class="fc bfc" id="L90" title="All 4 branches covered.">            }else if (nextChar == ' ' || nextChar == 'G') {</span>
 
                 //replaace enemy index in map array   
                 
 <span class="fc" id="L94">                map[yPos][xPos] = 'Y';</span>
                 
                 
-<span class="pc bpc" id="L97" title="3 of 4 branches missed.">                if(i == App.GOAL_INDEX[0] &amp;&amp; j == App.GOAL_INDEX[1])</span>
+<span class="pc bpc" id="L97" title="1 of 4 branches missed.">                if(i == App.GOAL_INDEX[0] &amp;&amp; j == App.GOAL_INDEX[1])</span>
 <span class="nc" id="L98">                    map[i][j] = 'G';</span>
                 else
 <span class="fc" id="L100">                    map[i][j] = ' ';</span>
@@ -112,7 +112,7 @@ public class YellowEnemy {
 <span class="fc" id="L112">                map[yPos][xPos] = 'Y';</span>
 <span class="fc" id="L113">                map[i][j] = ' ';</span>
             
-<span class="pc bpc" id="L115" title="5 of 6 branches missed.">            }else if(nextChar == 'H'</span>
+<span class="fc bfc" id="L115" title="All 6 branches covered.">            }else if(nextChar == 'H'</span>
                                 || nextChar == 'V' ||  nextChar == 'C'){
                 
                 //die if caught in explosion
@@ -122,7 +122,7 @@ public class YellowEnemy {
                 
             }
 
-        }
+        
         
         
     }
@@ -182,13 +182,13 @@ public class YellowEnemy {
                     }
                         
                         
-<span class="pc bpc" id="L185" title="3 of 4 branches missed.">                        if(!(cardinalPos.get(k) == Bomb.bombY &amp;&amp; j == Bomb.bombX))</span>
+<span class="pc bpc" id="L185" title="1 of 4 branches missed.">                        if(!(cardinalPos.get(k) == Bomb.bombY &amp;&amp; j == Bomb.bombX))</span>
 <span class="fc bfc" id="L186" title="All 2 branches covered.">                        if(nextChar == ' '){</span>
                             
 <span class="fc" id="L188">                            map[yPos][xPos] = 'Y';</span>
                             
-<span class="pc bpc" id="L190" title="2 of 4 branches missed.">                            if(i == App.GOAL_INDEX[0] &amp;&amp; j == App.GOAL_INDEX[1])</span>
-<span class="nc" id="L191">                                map[i][j] = 'G';</span>
+<span class="fc bfc" id="L190" title="All 4 branches covered.">                            if(i == App.GOAL_INDEX[0] &amp;&amp; j == App.GOAL_INDEX[1])</span>
+<span class="fc" id="L191">                                map[i][j] = 'G';</span>
                             else
 <span class="fc" id="L193">                                map[i][j] = ' ';</span>
                             
@@ -211,7 +211,7 @@ public class YellowEnemy {
                             
 <span class="fc" id="L212">                             break;</span>
                             
-<span class="pc bpc" id="L214" title="5 of 6 branches missed.">                        }else if(nextChar == 'H'</span>
+<span class="fc bfc" id="L214" title="All 6 branches covered.">                        }else if(nextChar == 'H'</span>
                                 || nextChar == 'V' || nextChar == 'C'){
                             
                             
@@ -222,7 +222,7 @@ public class YellowEnemy {
                         }
                                 
                   
-<span class="nc bnc" id="L225" title="All 2 branches missed.">                    if(lDirection+1 == lDirection2)</span>
+<span class="pc bpc" id="L225" title="1 of 2 branches missed.">                    if(lDirection+1 == lDirection2)</span>
 <span class="nc" id="L226">                        break;</span>
                         
                  
@@ -281,11 +281,11 @@ public class YellowEnemy {
         
                 */
                 
-<span class="pc bpc" id="L284" title="2 of 5 branches missed.">                switch(index){</span>
+<span class="pc bpc" id="L284" title="1 of 5 branches missed.">                switch(index){</span>
                     
                     case 0:
-<span class="nc" id="L287">                       lDirection = 0;</span>
-<span class="nc" id="L288">                       break;</span>
+<span class="fc" id="L287">                       lDirection = 0;</span>
+<span class="fc" id="L288">                       break;</span>
                     case 1:
 <span class="fc" id="L290">                        lDirection = 3;</span>
 <span class="fc" id="L291">                        break;</span>

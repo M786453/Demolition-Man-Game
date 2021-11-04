@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="demolition.BombTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2021-11-03T16:08:51" hostname="DESKTOP-A2UL7BQ" time="3.595">
+<testsuite name="demolition.BombTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2021-11-04T17:36:23" hostname="DESKTOP-A2UL7BQ" time="12.094">
   <properties/>
-  <testcase name="explodeTest1()" classname="demolition.BombTest" time="0.011"/>
-  <testcase name="explodeTest2()" classname="demolition.BombTest" time="0.008"/>
-  <testcase name="explodeTest3()" classname="demolition.BombTest" time="0.014"/>
-  <testcase name="testBombPlacing()" classname="demolition.BombTest" time="3.518"/>
-  <testcase name="testExplodeWithWall()" classname="demolition.BombTest" time="0.009"/>
-  <testcase name="testExplodeWithEmptyTilesInSurrounding()" classname="demolition.BombTest" time="0.008"/>
-  <testcase name="testExplodeWithBrokenWall()" classname="demolition.BombTest" time="0.006"/>
+  <testcase name="explodeTest1()" classname="demolition.BombTest" time="0.009"/>
+  <testcase name="explodeTest2()" classname="demolition.BombTest" time="0.007"/>
+  <testcase name="explodeTest3()" classname="demolition.BombTest" time="0.005"/>
+  <testcase name="testRemoveExplosionRange()" classname="demolition.BombTest" time="1.005"/>
+  <testcase name="testBombPlacing()" classname="demolition.BombTest" time="3.507"/>
+  <testcase name="testRemoveExplosionRange2()" classname="demolition.BombTest" time="0.003"/>
+  <testcase name="testExplodeWithWall()" classname="demolition.BombTest" time="0.005"/>
+  <testcase name="testExplodeWithEmptyTilesInSurrounding()" classname="demolition.BombTest" time="0.004"/>
+  <testcase name="testBombExplosionRange1()" classname="demolition.BombTest" time="0.005"/>
+  <testcase name="testBombExplosionRange2()" classname="demolition.BombTest" time="2.505"/>
+  <testcase name="testBombExplosionRange3()" classname="demolition.BombTest" time="2.504"/>
+  <testcase name="testBombExplosionRange4()" classname="demolition.BombTest" time="2.503"/>
+  <testcase name="testExplodeWithBrokenWall()" classname="demolition.BombTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

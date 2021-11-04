@@ -56,7 +56,7 @@ public class RedEnemy{
      public char[][] movement(int i,int j,int direc,char[][] map){       
         
         
-        if(redEnDirection != -1){
+        if(redEnDirection != -1 && (j >= 0 && j < Map.COLUMNS) && (i >= 0 && i < Map.ROWS) ){
         
         char nextChar; // Represents the item at the next movement position
         int xPos;
@@ -81,7 +81,7 @@ public class RedEnemy{
         
          
 
-        if ((xPos >= 0 && xPos < Map.COLUMNS) && (yPos >= 0 && yPos < Map.ROWS)) {
+        
 
             
             if (nextChar == 'B' || nextChar == 'W' || (yPos == App.bomb.bombY && xPos == App.bomb.bombX)) {                                             
@@ -124,7 +124,7 @@ public class RedEnemy{
                 
             }
 
-        }
+        
         
         
     }

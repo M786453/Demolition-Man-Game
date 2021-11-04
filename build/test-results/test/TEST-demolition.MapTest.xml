@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="demolition.MapTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-11-03T16:08:54" hostname="DESKTOP-A2UL7BQ" time="0.008">
+<testsuite name="demolition.MapTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2021-11-04T17:36:36" hostname="DESKTOP-A2UL7BQ" time="0.074">
   <properties/>
-  <testcase name="testMap1()" classname="demolition.MapTest" time="0.003"/>
-  <testcase name="testMap2()" classname="demolition.MapTest" time="0.001"/>
-  <testcase name="testMap3()" classname="demolition.MapTest" time="0.001"/>
-  <testcase name="testMapDetails()" classname="demolition.MapTest" time="0.001"/>
+  <testcase name="testMap1()" classname="demolition.MapTest" time="0.007"/>
+  <testcase name="testMap2()" classname="demolition.MapTest" time="0.004"/>
+  <testcase name="testMap3()" classname="demolition.MapTest" time="0.004"/>
+  <testcase name="testMapDetails()" classname="demolition.MapTest" time="0.003"/>
+  <testcase name="testValidateMap10()" classname="demolition.MapTest" time="0.004"/>
+  <testcase name="testValidateMap11()" classname="demolition.MapTest" time="0.004"/>
+  <testcase name="testValidateMap12()" classname="demolition.MapTest" time="0.004"/>
+  <testcase name="testValidateMap13()" classname="demolition.MapTest" time="0.004"/>
+  <testcase name="testValidateMap4()" classname="demolition.MapTest" time="0.003"/>
+  <testcase name="testValidateMap5()" classname="demolition.MapTest" time="0.004"/>
+  <testcase name="testValidateMap6()" classname="demolition.MapTest" time="0.002"/>
+  <testcase name="testValidateMap7()" classname="demolition.MapTest" time="0.003"/>
+  <testcase name="testValidateMap8()" classname="demolition.MapTest" time="0.004"/>
+  <testcase name="testValidateMap9()" classname="demolition.MapTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

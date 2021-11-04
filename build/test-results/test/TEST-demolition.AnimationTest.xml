@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="demolition.AnimationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-11-03T16:08:42" hostname="DESKTOP-A2UL7BQ" time="8.063">
+<testsuite name="demolition.AnimationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-11-04T17:36:15" hostname="DESKTOP-A2UL7BQ" time="8.067">
   <properties/>
-  <testcase name="testPlay()" classname="demolition.AnimationTest" time="8.063"/>
+  <testcase name="testPlay()" classname="demolition.AnimationTest" time="8.067"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

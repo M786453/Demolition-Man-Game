@@ -295,18 +295,412 @@ public class RedEnemyTest {
         redEnemy.redFrameCounter = 60;
         redEnemy.controller(5, 7);
         
-        assertTrue(App.map[4][7] == 'R',"Test Red Enemy Movement Controller");
+        redEnemy.redEnDirection = 0;
+        redEnemy.redFrameCounter = 60;
+        redEnemy.controller(4, 7);
+        
+        redEnemy.redEnDirection = 2;
+        redEnemy.redFrameCounter = 60;
+        redEnemy.controller(5, 7);
+        
+        
+        redEnemy.redEnDirection = -1;
+        redEnemy.redFrameCounter = 60;
+        redEnemy.controller(5, 8);
+        
+        
+        assertTrue(App.map[5][8] == 'R',"Test Red Enemy Movement Controller");
 //        System.out.println(getMapStr(App.map));
+        
+        
+    }
+    
+    /**
+     * 
+     * Test Red Enemy Movement method
+     */
+    
+    @Test
+    public void testRedEnemyMovement(){
+        
+        
+        char[][] sampleMap = createEmptyMap();
+        
+        sampleMap[2][2] = 'R';
+        
+        redEnemy.redEnDirection = 1;
+        redEnemy.movement(2, 2, -1, sampleMap);
+
+//        System.out.println(getMapStr(sampleMap));
+        redEnemy.movement(2, -1, 1, sampleMap);
+ 
+        redEnemy.movement(-1, 2, 1, sampleMap);
+        
+        redEnemy.movement(18, 2, 1, sampleMap);
+        
+        redEnemy.movement(2, 18, 1, sampleMap);
+        
+        redEnemy.movement(18,18, 1, sampleMap);
+        
+        redEnemy.movement(-1,-1, 1, sampleMap);
+        
+        redEnemy.redEnDirection = -1;
+        redEnemy.movement(1, 2, -1, sampleMap);
+        
+
+        
+        assertTrue(sampleMap[1][2] == 'R',()-> "Test Red Enemy movement by giving valid and invalid positions");
+        
+    }
+    
+    
+    /*
+    Test Red Enemy movement Against movement blockers
+    */
+    
+    @Test
+    public void testRedEnemyMovementAgainstBlockers(){
+        
+        
+        
+        
+    }
+    
+    
+    /*
+      Test Red enemy movement against explosion
+    */
+    
+    @Test
+    public void testRedEnemyMovementAgainstExplosion(){
+        
+        char[][] sampleMap = createEmptyMap();
+        sampleMap[2][2] = 'R';
+        sampleMap[3][2] = 'H';
+        
+        redEnemy.movement(2, 2, 1, sampleMap);
+        
+        sampleMap[2][2] = 'R';
+        sampleMap[3][2] = 'V';
+        
+        redEnemy.movement(2, 2, 1, sampleMap);
+        
+        sampleMap[2][2] = 'R';
+        sampleMap[3][2] = 'C';
+        
+        redEnemy.movement(2, 2, 1, sampleMap);
+        
+        sampleMap[2][2] = 'R';
+        sampleMap[3][2] = 'L';
+        
+        redEnemy.movement(2, 2, 1, sampleMap);
+        
+        assertTrue(sampleMap[2][2] == 'R',"Test red enemy movement against explosion");
+//        System.out.println(getMapStr(sampleMap));
         
         
     }
     
     
     
+        /*
+    Test Red Enemy against soild, broken wall and bomb
+    */
+    
+    @Test
+    public void testRedMovementAgainstSolidAndBrokenWall(){
+        
+        char[][] sampleMap = createEmptyMap();
+        sampleMap[2][2] = 'R';
+        sampleMap[2][3] = 'B';
+        
+        redEnemy.redEnDirection = 2;
+        
+        redEnemy.movement(2, 2, 1, sampleMap);
+        
+        sampleMap = createEmptyMap();
+        
+        
+        sampleMap[2][2] = 'R';
+        sampleMap[2][3] = 'W';
+        
+        redEnemy.redEnDirection = 2;
+        
+        
+        redEnemy.movement(2, 2, 1, sampleMap);
+
+        
+//        System.out.println(getMapStr(sampleMap));
+
+
+        
+        
+    }
+    
+    /*
+    Test Red Enemy Movement Against Bomb
+    */
+    
+    @Test
+    public void testRedEnemyMovementAgainstBomb(){
+        
+        char[][] sampleMap = createEmptyMap();
+        sampleMap[2][1] = 'R';
+        Bomb.bombX = 2;
+        Bomb.bombY = 2;
+        
+        redEnemy.redEnDirection = 2;
+        
+        redEnemy.movement(2, 2, 1, sampleMap);
+        
+        redEnemy.movement(2, 1, 1, sampleMap);
+        
+//        System.out.println(getMapStr(sampleMap));
+        
+
+        
+    }
     
     
+    /*
+    Test Red Enemy Movement against goal tile
+    */
+    @Test
+    public void testYellowEnemyMovementAgainstGoalTile(){
+        
+        char[][] sampleMap = createEmptyMap();
+        
+        sampleMap[2][2] = 'R';
+        sampleMap[2][3] = 'G';
+        
+        App.GOAL_INDEX[0] = 2;
+        App.GOAL_INDEX[1] = 3;
+        
+        redEnemy.redEnDirection = 2;
+        
+        redEnemy.movement(2, 2, 1, sampleMap);
+        
+        redEnemy.movement(2, 3, 1, sampleMap);
+        
+//        System.out.println(getMapStr(sampleMap));
+
+        assertTrue(sampleMap[2][3] == 'G',()-> "Test Red Enemy Movement against goal tile");
+        
+        
+    }
     
     
+    /*
+    Test Red Enemy Random Movement Against bomb 1 Up
+    */
+    
+    @Test 
+    public void testRedEnemyRandomMovementAgainstBomb1UP(){
+        
+        char[][] sampleMap = createEmptyMap();
+        sampleMap[2][1] = 'R';
+        Bomb.bombX = 1;
+        Bomb.bombY = 1;
+        
+        redEnemy.redEnDirection = 1;
+        
+        redEnemy.movement(2, 1, -1, sampleMap);
+       
+        
+        
+        
+        
+    }
+    
+    /*
+    Test Red Enemy Random Movement Against bomb 2 Up
+    */
+    @Test
+    public void testRedEnemyMovementAgainstBomb2UP(){
+        
+        char[][] sampleMap = createEmptyMap();
+        sampleMap[2][1] = 'R';
+        redEnemy.redEnDirection = 1;
+        Bomb.bombX = 3;
+        Bomb.bombY = 1;
+        redEnemy.movement(2, 1, -1, sampleMap);
+       
+        
+        
+    }
+    
+    
+     /*
+    Test Red Enemy Random Movement Against bomb 3 Up
+    */
+    @Test
+    public void testRedEnemyMovementAgainstBomb3UP(){
+        
+         char[][] sampleMap = createEmptyMap();
+        sampleMap[2][1] = 'R';
+        sampleMap[1][1] = ' ';
+        Bomb.bombX = -1;
+        Bomb.bombY = -1;
+        redEnemy.redEnDirection = 1;
+        
+        redEnemy.movement(2, 1, -1, sampleMap);
+        
+        
+        
+    }
+    
+    
+     /*
+    Test Red Enemy Random Movement Against bomb 4 Up
+    */
+    @Test
+    public void testRedEnemyMovementAgainstBomb4UP(){
+        
+        char[][] sampleMap = createEmptyMap();
+        sampleMap[2][1] = 'R';
+        sampleMap[1][1] = 'Y';
+        Bomb.bombX = -1;
+        Bomb.bombY = -1;
+        redEnemy.redEnDirection = 1;
+        
+        redEnemy.movement(2, 1, -1, sampleMap);
+        
+        
+        
+    }
+    
+    
+       /*
+    Test Red Enemy Random Movement Against bomb 5 Up
+    */
+    @Test
+    public void testRedEnemyMovementAgainstBomb5UP(){
+        
+        char[][] sampleMap = createEmptyMap();
+        sampleMap[2][1] = 'R';
+        sampleMap[1][1] = 'L';
+        Bomb.bombX = -1;
+        Bomb.bombY = -1;
+        redEnemy.redEnDirection = 1;
+        
+        redEnemy.movement(2, 1, -1, sampleMap);
+        
+        
+        
+    }
+    
+    
+       /*
+    Test Red Enemy Random Movement Against bomb 1 Up
+    */
+//    
+    @Test 
+    public void testRedEnemyRandomMovementAgainstBomb1DOWN(){
+        
+        char[][] sampleMap = createEmptyMap();
+        sampleMap[2][3] = 'R';
+        Bomb.bombX = 1;
+        Bomb.bombY = 3;
+        
+        redEnemy.redEnDirection = 0;
+        
+        redEnemy.movement(2, 1, 1, sampleMap);
+       
+        
+        
+        
+        
+    }
+    
+    /*
+    Test Red Enemy Random Movement Against bomb 2 Down
+    */
+    @Test
+    public void testRedEnemyMovementAgainstBomb2DOWN(){
+        
+        char[][] sampleMap = createEmptyMap();
+        sampleMap[4][4] = 'R';
+        Bomb.bombX = 1;
+        Bomb.bombY = 3;
+        
+        redEnemy.redEnDirection = 0;
+        
+        redEnemy.movement(4, 4, 1, sampleMap);
+       
+        
+        
+    }
+    
+    
+    /*
+        Test Red Enemy Random Movement No path found
+    */
+    @Test
+    public void testRedEnemyRandomMovementNoPathFound(){
+        
+        char[][] sampleMap = createEmptyMap();
+        sampleMap[2][2] = 'R';
+        sampleMap[2][3] = 'Y';
+        sampleMap[2][1] = 'Y';
+        sampleMap[1][2] = 'Y';
+        sampleMap[3][2] = 'W';
+        
+        redEnemy.redEnDirection = 0;
+        
+        redEnemy.movement(2, 2, 1, sampleMap);
+        
+//        System.out.println(getMapStr(sampleMap));
+        
+        
+    }
+    
+    /*
+        Test Red Enemy Random Movement No path found 2
+    */
+    @Test
+    public void testRedEnemyRandomMovementNoPathFound2(){
+        
+        char[][] sampleMap = createEmptyMap();
+        sampleMap[2][2] = 'R';
+        sampleMap[2][3] = 'L';
+        sampleMap[2][1] = 'L';
+        sampleMap[1][2] = 'L';
+        sampleMap[3][2] = 'W';
+        
+        redEnemy.redEnDirection = 0;
+        
+        redEnemy.movement(2, 2, 1, sampleMap);
+        
+//        System.out.println(getMapStr(sampleMap));
+        
+        
+    }
+    
+    /*
+        Test Red Enemy Random Movement No path found 2
+    */
+    
+    @Test
+    public void testRedEnemyRandomMovementNoPathFound3(){
+        
+        char[][] sampleMap = createEmptyMap();
+        sampleMap[2][2] = 'R';
+        sampleMap[2][3] = 'W';
+        sampleMap[2][1] = 'G';
+        sampleMap[1][2] = 'W';
+        sampleMap[3][2] = 'W';
+        
+        App.GOAL_INDEX[0] = 2;
+        App.GOAL_INDEX[1] = 1;
+        
+        redEnemy.redEnDirection = 0;
+        
+        redEnemy.movement(2, 2, 1, sampleMap);
+        
+//        System.out.println(getMapStr(sampleMap));
+        
+        
+    }
     
     private String getMapStr(char[][] map){
         
@@ -330,6 +724,9 @@ public class RedEnemyTest {
         return mapStr;
         
     }
+    
+    
+    
     
     
      private char[][] createEmptyMap(){

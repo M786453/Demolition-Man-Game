@@ -4,6 +4,7 @@
  */
 package demolition;
 
+import java.util.ArrayList;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ public class ConfigurationsTest {
     
     
     private Configurations configs;
-    
+    private ArrayList<Level> levels;
     
     public ConfigurationsTest() {
     }
@@ -28,6 +29,9 @@ public class ConfigurationsTest {
     public void beforeEach(){
         
         configs = new Configurations();
+        String data = Configurations.readConfig();
+        
+        levels = Configurations.configureLevels(data);
         
     }
     
@@ -56,10 +60,57 @@ public class ConfigurationsTest {
     public void testConfigureLevels() {
         
         
-//        Exception assertThrows = assertThrows(Exception.class,() -> Configurations.configureLevels(""));
-//        assertEquals("A JSONObject text must begin with '{'",assertThrows.getMessage());
+        String jsonData = null;
+        
+        Configurations.configureLevels(jsonData);
+        
+        jsonData = "";
+        
+        Configurations.configureLevels(jsonData);
+        
+        
+
+        
+    }
+    
+    
+    /**
+     * Test Read Map from file
+     * @return 
+     */
+    
+    @Test
+    public void testReadMap(){
+        
+        String path = null;
+        
+        Configurations.readMapFromFile(path);
+        
+        path = "";
+        
+        Configurations.readMapFromFile(path);
         
         
     }
+    
+    
+     private char[][] createEmptyMap(){
+         
+         char[][] emptyMap = new char[Map.ROWS][Map.COLUMNS];
+         
+         for(int i=0;i<Map.ROWS;i++){
+             
+             
+             for(int j=0;j<Map.COLUMNS;j++){
+              
+                 emptyMap[i][j] = ' ';
+                 
+                 
+             }
+             
+         }
+         
+         return emptyMap;                  
+     }
     
 }

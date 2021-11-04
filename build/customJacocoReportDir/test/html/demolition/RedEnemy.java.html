@@ -56,7 +56,7 @@ public class RedEnemy{
      public char[][] movement(int i,int j,int direc,char[][] map){       
         
         
-<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if(redEnDirection != -1){</span>
+<span class="fc bfc" id="L59" title="All 10 branches covered.">        if(redEnDirection != -1 &amp;&amp; (j &gt;= 0 &amp;&amp; j &lt; Map.COLUMNS) &amp;&amp; (i &gt;= 0 &amp;&amp; i &lt; Map.ROWS) ){</span>
         
         char nextChar; // Represents the item at the next movement position
         int xPos;
@@ -81,23 +81,23 @@ public class RedEnemy{
         
          
 
-<span class="pc bpc" id="L84" title="4 of 8 branches missed.">        if ((xPos &gt;= 0 &amp;&amp; xPos &lt; Map.COLUMNS) &amp;&amp; (yPos &gt;= 0 &amp;&amp; yPos &lt; Map.ROWS)) {</span>
+        
 
             
-<span class="pc bpc" id="L87" title="4 of 8 branches missed.">            if (nextChar == 'B' || nextChar == 'W' || (yPos == App.bomb.bombY &amp;&amp; xPos == App.bomb.bombX)) {                                             </span>
+<span class="fc bfc" id="L87" title="All 8 branches covered.">            if (nextChar == 'B' || nextChar == 'W' || (yPos == App.bomb.bombY &amp;&amp; xPos == App.bomb.bombX)) {                                             </span>
                 
 <span class="fc" id="L89">                map = moveRandom(i,j,map);</span>
                 
 
-<span class="pc bpc" id="L92" title="1 of 4 branches missed.">            }else if (nextChar == ' ' || nextChar == 'G') {</span>
+<span class="fc bfc" id="L92" title="All 4 branches covered.">            }else if (nextChar == ' ' || nextChar == 'G') {</span>
 
                 //replaace enemy index in map array   
                 
 <span class="fc" id="L96">                map[yPos][xPos] = 'R';</span>
                 
                 
-<span class="pc bpc" id="L99" title="3 of 4 branches missed.">                if(i == App.GOAL_INDEX[0] &amp;&amp; j == App.GOAL_INDEX[1])</span>
-<span class="nc" id="L100">                    map[i][j] = 'G';</span>
+<span class="fc bfc" id="L99" title="All 4 branches covered.">                if(i == App.GOAL_INDEX[0] &amp;&amp; j == App.GOAL_INDEX[1])</span>
+<span class="fc" id="L100">                    map[i][j] = 'G';</span>
                 else
 <span class="fc" id="L102">                    map[i][j] = ' ';</span>
 
@@ -114,7 +114,7 @@ public class RedEnemy{
 <span class="fc" id="L114">                map[yPos][xPos] = 'R';</span>
 <span class="fc" id="L115">                map[i][j] = ' ';</span>
             
-<span class="pc bpc" id="L117" title="5 of 6 branches missed.">            }else if(nextChar == 'H'</span>
+<span class="fc bfc" id="L117" title="All 6 branches covered.">            }else if(nextChar == 'H'</span>
                                 || nextChar == 'V' ||  nextChar == 'C'){
                 
                 //die if caught in explosion
@@ -124,7 +124,7 @@ public class RedEnemy{
                 
             }
 
-        }
+        
         
         
     }
@@ -151,7 +151,7 @@ public class RedEnemy{
 <span class="fc" id="L151">        ArrayList&lt;Integer[]&gt; openWays = new ArrayList&lt;&gt;(); //this list will contain positions of empty tiles around redEnemy</span>
         
         
-<span class="pc bpc" id="L154" title="3 of 4 branches missed.">        if (!(i + 1 == Bomb.bombY &amp;&amp; j == Bomb.bombX)) {</span>
+<span class="fc bfc" id="L154" title="All 4 branches covered.">        if (!(i + 1 == Bomb.bombY &amp;&amp; j == Bomb.bombX)) {</span>
 <span class="pc bpc" id="L155" title="1 of 4 branches missed.">            if ((map[i + 1][j] == ' ' || map[i + 1][j] == 'Y')) {</span>
 <span class="fc" id="L156">                Integer[] x_y = new Integer[2];</span>
 <span class="fc" id="L157">                x_y[0] = i + 1;</span>
@@ -164,8 +164,8 @@ public class RedEnemy{
             }
         }
 
-<span class="pc bpc" id="L167" title="3 of 4 branches missed.">        if (!(i - 1 == Bomb.bombY &amp;&amp; j == Bomb.bombX)) {</span>
-<span class="pc bpc" id="L168" title="1 of 4 branches missed.">            if (map[i - 1][j] == ' ' || map[i - 1][j] == 'Y') {</span>
+<span class="pc bpc" id="L167" title="1 of 4 branches missed.">        if (!(i - 1 == Bomb.bombY &amp;&amp; j == Bomb.bombX)) {</span>
+<span class="fc bfc" id="L168" title="All 4 branches covered.">            if (map[i - 1][j] == ' ' || map[i - 1][j] == 'Y') {</span>
 <span class="fc" id="L169">                Integer[] x_y = new Integer[2];</span>
 <span class="fc" id="L170">                x_y[0] = i - 1;</span>
 <span class="fc" id="L171">                x_y[1] = j;</span>
@@ -177,8 +177,8 @@ public class RedEnemy{
             }
         }
 
-<span class="pc bpc" id="L180" title="3 of 4 branches missed.">        if (!(i == Bomb.bombY &amp;&amp; j + 1 == Bomb.bombX)) {</span>
-<span class="pc bpc" id="L181" title="1 of 4 branches missed.">            if (map[i][j + 1] == ' ' || map[i][j + 1] == 'Y') {</span>
+<span class="fc bfc" id="L180" title="All 4 branches covered.">        if (!(i == Bomb.bombY &amp;&amp; j + 1 == Bomb.bombX)) {</span>
+<span class="fc bfc" id="L181" title="All 4 branches covered.">            if (map[i][j + 1] == ' ' || map[i][j + 1] == 'Y') {</span>
 <span class="fc" id="L182">                Integer[] x_y = new Integer[2];</span>
 <span class="fc" id="L183">                x_y[0] = i;</span>
 <span class="fc" id="L184">                x_y[1] = j + 1;</span>
@@ -190,8 +190,8 @@ public class RedEnemy{
             }
         }
 
-<span class="pc bpc" id="L193" title="3 of 4 branches missed.">        if (!(i == Bomb.bombY &amp;&amp; j - 1 == Bomb.bombX))</span>
-<span class="pc bpc" id="L194" title="1 of 4 branches missed.">            if (map[i][j - 1] == ' ' || map[i][j - 1] == 'Y') {</span>
+<span class="pc bpc" id="L193" title="1 of 4 branches missed.">        if (!(i == Bomb.bombY &amp;&amp; j - 1 == Bomb.bombX))</span>
+<span class="fc bfc" id="L194" title="All 4 branches covered.">            if (map[i][j - 1] == ' ' || map[i][j - 1] == 'Y') {</span>
 <span class="fc" id="L195">                Integer[] x_y = new Integer[2];</span>
 <span class="fc" id="L196">                x_y[0] = i;</span>
 <span class="fc" id="L197">                x_y[1] = j - 1;</span>
@@ -213,13 +213,13 @@ public class RedEnemy{
 <span class="fc" id="L213">            int newX = randOpenWay[0];</span>
 <span class="fc" id="L214">            int newY = randOpenWay[1];</span>
             
-<span class="pc bpc" id="L216" title="1 of 2 branches missed.">            if(map[newX][newY] == 'Y')</span>
-<span class="nc" id="L217">                map[newX][newY] = 'X';</span>
+<span class="fc bfc" id="L216" title="All 2 branches covered.">            if(map[newX][newY] == 'Y')</span>
+<span class="fc" id="L217">                map[newX][newY] = 'X';</span>
 <span class="pc bpc" id="L218" title="1 of 2 branches missed.">            else if(map[newX][newY] == ' ')</span>
 <span class="fc" id="L219">                map[newX][newY] = 'R';</span>
             
-<span class="pc bpc" id="L221" title="3 of 4 branches missed.">            if(i == App.GOAL_INDEX[0] &amp;&amp; j == App.GOAL_INDEX[1])</span>
-<span class="nc" id="L222">                    map[i][j] = 'G';</span>
+<span class="fc bfc" id="L221" title="All 4 branches covered.">            if(i == App.GOAL_INDEX[0] &amp;&amp; j == App.GOAL_INDEX[1])</span>
+<span class="fc" id="L222">                    map[i][j] = 'G';</span>
                 else
 <span class="fc" id="L224">                    map[i][j] = ' ';</span>
             
@@ -231,7 +231,7 @@ public class RedEnemy{
 <span class="fc" id="L231">        }else{</span>
             
             
-<span class="pc bpc" id="L234" title="2 of 4 branches missed.">            if(pX != -1 &amp;&amp; pY != -1){</span>
+<span class="pc bpc" id="L234" title="1 of 4 branches missed.">            if(pX != -1 &amp;&amp; pY != -1){</span>
   
 <span class="fc" id="L236">                map[pX][pY] = 'R';</span>
 <span class="fc" id="L237">                map[i][j] = ' ';</span>
@@ -240,7 +240,7 @@ public class RedEnemy{
                 
                 
             }else
-<span class="nc" id="L243">                System.out.println(&quot;No path found for redEnemy&quot;);</span>
+<span class="fc" id="L243">                System.out.println(&quot;No path found for redEnemy&quot;);</span>
                           
         }
         
@@ -255,8 +255,8 @@ public class RedEnemy{
         
 <span class="fc bfc" id="L256" title="All 2 branches covered.">         if(newX &gt; oldX)</span>
 <span class="fc" id="L257">                redEnDirection = redAnimDirection = 0;</span>
-<span class="pc bpc" id="L258" title="1 of 2 branches missed.">            else if(newX &lt; oldX)</span>
-<span class="nc" id="L259">                redEnDirection = redAnimDirection = 1;</span>
+<span class="fc bfc" id="L258" title="All 2 branches covered.">            else if(newX &lt; oldX)</span>
+<span class="fc" id="L259">                redEnDirection = redAnimDirection = 1;</span>
 <span class="fc bfc" id="L260" title="All 2 branches covered.">            else if(newY &gt; oldY)</span>
 <span class="fc" id="L261">                redEnDirection = redAnimDirection = 2;</span>
 <span class="pc bpc" id="L262" title="1 of 2 branches missed.">            else if(newY &lt; oldY)</span>
@@ -278,14 +278,14 @@ public class RedEnemy{
           //changing the direction of red enemy
 <span class="fc bfc" id="L279" title="All 2 branches covered.">            if (redFrameCounter == 60) {</span>
 
-<span class="pc bpc" id="L281" title="1 of 4 branches missed.">            if (redEnDirection == 0 || redEnDirection == 1) {</span>
+<span class="fc bfc" id="L281" title="All 4 branches covered.">            if (redEnDirection == 0 || redEnDirection == 1) {</span>
 
                 //down or up
 <span class="fc" id="L284">                int yDirec = App.Y_DIRECTION[redEnDirection];</span>
 
 <span class="fc" id="L286">                App.map = movement(i, j, yDirec, App.map);</span>
 
-<span class="pc bpc" id="L288" title="2 of 4 branches missed.">            } else if (redEnDirection == 2 || redEnDirection == 3) {</span>
+<span class="fc bfc" id="L288" title="All 4 branches covered.">            } else if (redEnDirection == 2 || redEnDirection == 3) {</span>
                 //right or left
 
 <span class="fc" id="L291">                int xDirec = App.X_DIRECTION[redEnDirection];</span>

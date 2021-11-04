@@ -297,6 +297,196 @@ public class YellowEnemyTest {
     }
     
     
+    /**
+     * Test Yellow Enemy movement by default
+     */
+    
+    @Test
+    public void testYellowEnemyMovment(){
+        
+        char[][] sampleMap = createEmptyMap();
+        
+        sampleMap[2][2] = 'Y';
+        yellowEnemy.yellowEnDirection = -1;
+        
+        sampleMap = yellowEnemy.movement(2, 2, 1, sampleMap);
+        
+//        System.out.print(getMapStr(sampleMap));
+        assertTrue(sampleMap[2][2] == 'Y',"Test Yellow Enemy movement by default"); 
+        
+    }
+    
+    
+    /*
+    Test yellow movement by giving different positions
+    */
+    
+    @Test
+    public void testYellowEnemyMovement1(){
+        
+        char[][] sampleMap = createEmptyMap();
+        
+        sampleMap[2][2] = 'Y';
+        
+        yellowEnemy.yellowEnDirection = 1;
+        yellowEnemy.movement(2, 2, -1, sampleMap);
+
+//        System.out.println(getMapStr(sampleMap));
+        yellowEnemy.movement(2, -1, 1, sampleMap);
+ 
+        yellowEnemy.movement(-1, 2, 1, sampleMap);
+        
+        yellowEnemy.movement(18, 2, 1, sampleMap);
+        
+        yellowEnemy.movement(2, 18, 1, sampleMap);
+        
+        yellowEnemy.movement(18,18, 1, sampleMap);
+        
+        yellowEnemy.movement(-1,-1, 1, sampleMap);
+        
+//        yellowEnemy.yellowEnDirection = -1;
+//        yellowEnemy.movement(-1, -1, 1, sampleMap);
+        
+        assertTrue(sampleMap[1][2] == 'Y',()-> "Test Yellow Enemy movement by giving valid and invalid positions");
+        
+    }
+    
+    
+    /*
+      Test yellow enemy movement against explosion
+    */
+    
+    @Test
+    public void testYellowEnemyMovementAgainstExplosion(){
+        
+        char[][] sampleMap = createEmptyMap();
+        sampleMap[2][2] = 'Y';
+        sampleMap[3][2] = 'H';
+        
+        yellowEnemy.movement(2, 2, 1, sampleMap);
+        
+        sampleMap[2][2] = 'Y';
+        sampleMap[3][2] = 'V';
+        
+        yellowEnemy.movement(2, 2, 1, sampleMap);
+        
+        sampleMap[2][2] = 'Y';
+        sampleMap[3][2] = 'C';
+        
+        yellowEnemy.movement(2, 2, 1, sampleMap);
+        
+        sampleMap[2][2] = 'Y';
+        sampleMap[3][2] = 'L';
+        
+        yellowEnemy.movement(2, 2, 1, sampleMap);
+        
+        assertTrue(sampleMap[2][2] == 'Y',"Test yellow enemy movement against explosion");
+//        System.out.println(getMapStr(sampleMap));
+        
+        
+    }
+    
+    /*
+    Test Yellow Enemy Movement against goal tile
+    */
+    @Test
+    public void testYellowEnemyMovementAgainstGoalTile(){
+        
+        char[][] sampleMap = createEmptyMap();
+        
+        sampleMap[2][2] = 'Y';
+        sampleMap[2][3] = 'G';
+        
+        App.GOAL_INDEX[0] = 2;
+        App.GOAL_INDEX[1] = 3;
+        
+        yellowEnemy.yellowEnDirection = 2;
+        
+        yellowEnemy.movement(2, 2, 1, sampleMap);
+        
+        yellowEnemy.movement(2, 3, 1, sampleMap);
+        
+//        System.out.println(getMapStr(sampleMap));
+
+        assertTrue(sampleMap[2][3] == 'G',()-> "Test Yellow Enemy Movement against goal tile");
+        
+        
+    }
+    
+    
+    /*
+    Test Yellow Enemy against soild, broken wall and bomb
+    */
+    
+    @Test
+    public void testYellowMovementAgainstSolidAndBrokenWall(){
+        
+        char[][] sampleMap = createEmptyMap();
+        sampleMap[2][2] = 'Y';
+        sampleMap[2][3] = 'B';
+        
+        yellowEnemy.yellowEnDirection = 2;
+        
+        yellowEnemy.movement(2, 2, 1, sampleMap);
+        
+        Bomb.bombX = 4;
+        Bomb.bombY = 2;
+        
+        yellowEnemy.movement(3, 2, 1, sampleMap);
+        
+        
+        
+//        yellowEnemy.movement(3, 1, 1, sampleMap);
+        
+//        System.out.println(getMapStr(sampleMap));
+
+//        assertTrue(sampleMap[3][2] == 'Y',"Test Yellow Enemy against soild, broken wall and bomb");
+        
+        
+    }
+    
+    
+    
+    /*
+      Test Yellow Enemy against all blocked paths
+    */
+    @Test
+    public void testYellowEnemyMovementWithAllBlockedPaths(){
+        
+        char[][] sampleMap = createEmptyMap();
+        
+        yellowEnemy.yellowEnDirection = 2;
+        
+//        sampleMap[1][2] = 'W';
+        sampleMap[3][2] = 'H';
+        sampleMap[2][2] = 'Y';
+//        sampleMap[2][1] = 'W';
+        sampleMap[2][3] = 'W';
+        
+        yellowEnemy.movement(2, 2, 1, sampleMap);
+        
+        sampleMap[2][2] = 'Y';
+        sampleMap[3][2] = 'V';
+        
+        yellowEnemy.movement(2, 2, 1, sampleMap);
+        
+        sampleMap[2][2] = 'Y';
+        sampleMap[3][2] = 'C';
+        
+        yellowEnemy.movement(2, 2, 1, sampleMap);
+        
+        sampleMap[2][2] = 'Y';
+        sampleMap[3][2] = 'L';
+        
+        yellowEnemy.movement(2, 2, 1, sampleMap);
+        
+//        System.out.println(getMapStr(sampleMap));
+        
+        assertTrue(sampleMap[2][1] == 'Y',"Test Yellow Enemy against all blocked paths");
+        
+    }
+    
+    
     
     
      private String getMapStr(char[][] map){

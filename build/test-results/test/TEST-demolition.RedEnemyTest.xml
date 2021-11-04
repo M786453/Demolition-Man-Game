@@ -1,16 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="demolition.RedEnemyTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2021-11-03T16:08:54" hostname="DESKTOP-A2UL7BQ" time="0.054">
+<testsuite name="demolition.RedEnemyTest" tests="26" skipped="0" failures="0" errors="0" timestamp="2021-11-04T17:36:36" hostname="DESKTOP-A2UL7BQ" time="0.149">
   <properties/>
-  <testcase name="testMovementAgainstPlayer()" classname="demolition.RedEnemyTest" time="0.006"/>
-  <testcase name="testRedEnemyMovementController()" classname="demolition.RedEnemyTest" time="0.004"/>
-  <testcase name="testMovmentAgainstExplosion()" classname="demolition.RedEnemyTest" time="0.004"/>
-  <testcase name="testMovementAlongXAxis()" classname="demolition.RedEnemyTest" time="0.003"/>
+  <testcase name="testRedEnemyMovementAgainstBlockers()" classname="demolition.RedEnemyTest" time="0.008"/>
+  <testcase name="testRedEnemyRandomMovementAgainstBomb1DOWN()" classname="demolition.RedEnemyTest" time="0.003"/>
+  <testcase name="testMovementAgainstPlayer()" classname="demolition.RedEnemyTest" time="0.003"/>
+  <testcase name="testRedEnemyMovementAgainstBomb2UP()" classname="demolition.RedEnemyTest" time="0.003"/>
+  <testcase name="testRedEnemyMovementAgainstBomb3UP()" classname="demolition.RedEnemyTest" time="0.005"/>
+  <testcase name="testRedEnemyMovementAgainstBomb4UP()" classname="demolition.RedEnemyTest" time="0.003"/>
+  <testcase name="testRedEnemyMovementAgainstBomb5UP()" classname="demolition.RedEnemyTest" time="0.004"/>
+  <testcase name="testRedMovementAgainstSolidAndBrokenWall()" classname="demolition.RedEnemyTest" time="0.004"/>
+  <testcase name="testRedEnemyRandomMovementNoPathFound()" classname="demolition.RedEnemyTest" time="0.004"/>
+  <testcase name="testRedEnemyMovementController()" classname="demolition.RedEnemyTest" time="0.002"/>
+  <testcase name="testMovmentAgainstExplosion()" classname="demolition.RedEnemyTest" time="0.002"/>
+  <testcase name="testMovementAlongXAxis()" classname="demolition.RedEnemyTest" time="0.004"/>
   <testcase name="testMovementAlongYAxis()" classname="demolition.RedEnemyTest" time="0.003"/>
-  <testcase name="testRandomMovementAlongXAxis2()" classname="demolition.RedEnemyTest" time="0.006"/>
+  <testcase name="testRedEnemyMovementAgainstBomb()" classname="demolition.RedEnemyTest" time="0.002"/>
+  <testcase name="testRandomMovementAlongXAxis2()" classname="demolition.RedEnemyTest" time="0.003"/>
+  <testcase name="testRedEnemyRandomMovementNoPathFound2()" classname="demolition.RedEnemyTest" time="0.014"/>
+  <testcase name="testRedEnemyRandomMovementNoPathFound3()" classname="demolition.RedEnemyTest" time="0.006"/>
+  <testcase name="testRedEnemyRandomMovementAgainstBomb1UP()" classname="demolition.RedEnemyTest" time="0.003"/>
   <testcase name="testMovmentAgainstYellowEnemy()" classname="demolition.RedEnemyTest" time="0.006"/>
-  <testcase name="testMovementAgainstWall()" classname="demolition.RedEnemyTest" time="0.005"/>
-  <testcase name="testRandomMovementAgainstPlayer1()" classname="demolition.RedEnemyTest" time="0.003"/>
-  <testcase name="testRandomMovementAgainstPlayer2()" classname="demolition.RedEnemyTest" time="0.004"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="testRedEnemyMovementAgainstBomb2DOWN()" classname="demolition.RedEnemyTest" time="0.003"/>
+  <testcase name="testRedEnemyMovement()" classname="demolition.RedEnemyTest" time="0.005"/>
+  <testcase name="testMovementAgainstWall()" classname="demolition.RedEnemyTest" time="0.002"/>
+  <testcase name="testRandomMovementAgainstPlayer1()" classname="demolition.RedEnemyTest" time="0.002"/>
+  <testcase name="testRandomMovementAgainstPlayer2()" classname="demolition.RedEnemyTest" time="0.003"/>
+  <testcase name="testRedEnemyMovementAgainstExplosion()" classname="demolition.RedEnemyTest" time="0.002"/>
+  <testcase name="testYellowEnemyMovementAgainstGoalTile()" classname="demolition.RedEnemyTest" time="0.006"/>
+  <system-out><![CDATA[No path found for redEnemy
+No path found for redEnemy
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

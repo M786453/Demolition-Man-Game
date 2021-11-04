@@ -276,6 +276,226 @@ public class BombTest extends PApplet {
         
     }
     
+    /*
+        Test remove explosion effect method when canExplode is false
+    */
+    @Test
+    public void testRemoveExplosionRange() throws InterruptedException{
+        
+        
+       
+        
+       char[][] sampleMap = createEmptyMap();
+//       sampleMap[2][2] = 'B';
+       sampleMap[1][2] = 'W';
+       sampleMap[3][2] = 'W';
+       sampleMap[2][3] = 'W';
+       sampleMap[2][1] = 'W';
+       
+       App.map = sampleMap;
+       
+       Bomb bomb = new Bomb();
+       
+//       bomb.placeBomb(2, 2);
+       
+       Bomb.bombX = 2;
+       
+       Bomb.bombY = 2;
+
+       bomb.canExplode = true;
+       
+       bomb.explode(2, 2, sampleMap);
+       
+       
+       
+       bomb.removeExplosionEffectAfterExplosion();
+       
+       sleep(1000);
+        
+       assertTrue(sampleMap[2][2] == ' ',"Test Explosion Range 1");
+//       System.out.println(getMapStr(sampleMap));
+       
+    }
+    
+    
+     /*
+        Test remove explosion effect method when canExplode is false
+    */
+    @Test
+    public void testRemoveExplosionRange2(){
+        
+        
+        Bomb bomb = new Bomb();
+        
+        char[][] sampleMap = createEmptyMap();
+        
+        bomb.canExplode = false;
+        
+//        bomb.explode(2,2,sampleMap);
+        
+        
+        bomb.removeExplosionEffectAfterExplosion();
+        
+        
+        assertTrue(sampleMap[2][2] == ' ');
+        
+        
+        
+    }
+    
+    /*
+    Test Bomb Explosion Range method with +ve invalid values
+    */
+    
+    @Test
+    public void testBombExplosionRange1(){
+        
+        char[][] sampleMap = createEmptyMap();
+        
+        Bomb bomb = new Bomb();
+        
+        bomb.explosionRange(15, 15, 15, 15, sampleMap, 'V');
+        
+        boolean isMapEmpty = true;
+        
+        for(int i=0;i<Map.ROWS;i++){
+         
+            for(int j=0;j<Map.COLUMNS;j++){
+             
+                if(sampleMap[i][j] != ' ')
+                    isMapEmpty = false;
+                
+            }
+            
+        }
+        
+        
+        assertTrue(isMapEmpty,"Test Bomb Explosion Range method with +ve invalid values");
+        
+        
+    }
+   
+    
+    
+    /*
+    Test Bomb Explosion Range method
+    */
+    
+    @Test
+    public void testBombExplosionRange2() throws InterruptedException{
+        
+       char[][] sampleMap = levels.get(0).mapArray;
+       
+       Bomb bomb = new Bomb();
+       Bomb.bombX = 12;
+       Bomb.bombY = 11;
+       
+       bomb.canExplode = true;
+       
+       App.GOAL_INDEX[0] = 11;
+       App.GOAL_INDEX[1] = 12;
+       
+//       bomb.explode(12, 11, sampleMap);
+
+        bomb.removeExplosionEffectAfterExplosion();
+       
+       sleep(2500);
+       
+//       System.out.println(sampleMap[11][13]);
+        assertTrue(sampleMap[11][12] == ' ');
+        
+        
+        
+    }
+    
+    
+    
+    
+    /*
+    Test Bomb Explosion Range method
+    */
+    
+    @Test
+    public void testBombExplosionRange3() throws InterruptedException{
+        
+       char[][] sampleMap = levels.get(0).mapArray;
+       
+       Bomb bomb = new Bomb();
+       Bomb.bombX = 12;
+       Bomb.bombY = 11;
+       
+       bomb.canExplode = true;
+       
+       App.GOAL_INDEX[0] = 11;
+       App.GOAL_INDEX[1] = 13;
+       
+//       bomb.explode(12, 11, sampleMap);
+
+        bomb.removeExplosionEffectAfterExplosion();
+       
+       sleep(2500);
+       
+//       System.out.println(getMapStr(sampleMap));
+        assertTrue(sampleMap[11][13] == 'G');
+        
+        
+        
+    }
+    
+    
+    
+        /*
+    Test Bomb Explosion Range method
+    */
+    
+    @Test
+    public void testBombExplosionRange4() throws InterruptedException{
+        
+       char[][] sampleMap = levels.get(0).mapArray;
+       
+       Bomb bomb = new Bomb();
+       Bomb.bombX = 11;
+       Bomb.bombY = 11;
+       
+       bomb.canExplode = true;
+       
+       App.GOAL_INDEX[0] = 11;
+       App.GOAL_INDEX[1] = 13;
+       
+//       bomb.explode(12, 11, sampleMap);
+
+        bomb.removeExplosionEffectAfterExplosion();
+       
+       sleep(2500);
+       
+//       System.out.println(getMapStr(sampleMap));
+        
+        assertTrue(sampleMap[11][13] == 'G');
+        
+        
+    }
+    
+    
+   
+    
+    private char[][] createEmptyMap(){
+         
+         char[][] emptyMap = new char[Map.ROWS][Map.COLUMNS];
+         
+         for(int i=0;i<Map.ROWS;i++){
+             
+             
+             for(int j=0;j<Map.COLUMNS;j++){
+              
+                 emptyMap[i][j] = ' ';
+                 
+                 
+             }
+             
+         }
+         
+         return emptyMap;                  
+     }
     
     
     private String getMapStr(char[][] mapAfterExplosion){
